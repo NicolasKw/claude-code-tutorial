@@ -75,15 +75,34 @@
 
 ## Traceability
 
-*(Completado por el roadmapper)*
+*(Completado por el roadmapper — 2026-04-02)*
 
-| REQ-ID | Fase |
-|--------|------|
-| AUTH-01, AUTH-02, AUTH-03 | — |
-| TUTO-01, TUTO-02, TUTO-03, TUTO-04, TUTO-05, TUTO-06 | — |
-| CONT-01, CONT-02, CONT-03, CONT-04, CONT-05 | — |
-| CERT-01, CERT-02, CERT-03, CERT-04, CERT-05 | — |
-| LAND-01, LAND-02, LAND-03 | — |
+| REQ-ID | Fase | Status |
+|--------|------|--------|
+| AUTH-01 | Phase 1 — Foundation + Auth | Pending |
+| AUTH-02 | Phase 1 — Foundation + Auth | Pending |
+| AUTH-03 | Phase 1 — Foundation + Auth | Pending |
+| TUTO-01 | Phase 2 — Tutorial Shell + Progress Engine | Pending |
+| TUTO-02 | Phase 2 — Tutorial Shell + Progress Engine | Pending |
+| TUTO-03 | Phase 2 — Tutorial Shell + Progress Engine | Pending |
+| TUTO-04 | Phase 2 — Tutorial Shell + Progress Engine | Pending |
+| TUTO-05 | Phase 2 — Tutorial Shell + Progress Engine | Pending |
+| TUTO-06 | Phase 2 — Tutorial Shell + Progress Engine | Pending |
+| CONT-01 | Phase 3 — Tutorial Content — 7 Levels | Pending |
+| CONT-02 | Phase 3 — Tutorial Content — 7 Levels | Pending |
+| CONT-03 | Phase 3 — Tutorial Content — 7 Levels | Pending |
+| CONT-04 | Phase 3 — Tutorial Content — 7 Levels | Pending |
+| CONT-05 | Phase 3 — Tutorial Content — 7 Levels | Pending |
+| CERT-01 | Phase 4 — Certificate + Sharing | Pending |
+| CERT-02 | Phase 4 — Certificate + Sharing | Pending |
+| CERT-03 | Phase 4 — Certificate + Sharing | Pending |
+| CERT-04 | Phase 4 — Certificate + Sharing | Pending |
+| CERT-05 | Phase 4 — Certificate + Sharing | Pending |
+| LAND-01 | Phase 5 — Landing Page + Polish | Pending |
+| LAND-02 | Phase 5 — Landing Page + Polish | Pending |
+| LAND-03 | Phase 5 — Landing Page + Polish | Pending |
+
+**Coverage:** 22/22 requirements mapped. Phase 6 (Pre-Launch Hardening) has no requirements — it is operational readiness work.
 
 ---
 
