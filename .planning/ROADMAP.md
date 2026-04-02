@@ -34,7 +34,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 Plans:
 - [x] 01-01-PLAN.md — Scaffold Next.js app, DB schema, validation, session helpers, Vitest setup
-- [ ] 01-02-PLAN.md — Registration form, server action, SessionGuard, tutorial route protection
+- [x] 01-02-PLAN.md — Registration form, server action, SessionGuard, tutorial route protection
 
 ### Phase 2: Tutorial Shell + Progress Engine
 **Goal**: A logged-in user can navigate a 7-level tutorial where progress persists across sessions

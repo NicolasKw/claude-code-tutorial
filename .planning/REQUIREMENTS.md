@@ -11,7 +11,7 @@
 
 - [x] **AUTH-01**: El usuario puede acceder al tutorial completando un formulario de registro simple: nombre, URL de perfil de LinkedIn (requeridos) y email (opcional). Sin OAuth, sin login.
 - [x] **AUTH-02**: Al registrarse, el progreso y los datos del usuario persisten en la DB vinculados a un ID de sesión guardado en localStorage. El usuario puede continuar desde el mismo browser.
-- [ ] **AUTH-03**: Las rutas `/tutorial/*` requieren haber completado el formulario de registro. Los usuarios sin registro son redirigidos al landing page.
+- [x] **AUTH-03**: Las rutas `/tutorial/*` requieren haber completado el formulario de registro. Los usuarios sin registro son redirigidos al landing page.
 
 ### TUTO — Motor de Tutorial
 
@@ -81,7 +81,7 @@
 |--------|------|--------|
 | AUTH-01 | Phase 1 — Foundation + Auth | Complete |
 | AUTH-02 | Phase 1 — Foundation + Auth | Complete |
-| AUTH-03 | Phase 1 — Foundation + Auth | Pending |
+| AUTH-03 | Phase 1 — Foundation + Auth | Complete |
 | TUTO-01 | Phase 2 — Tutorial Shell + Progress Engine | Pending |
 | TUTO-02 | Phase 2 — Tutorial Shell + Progress Engine | Pending |
 | TUTO-03 | Phase 2 — Tutorial Shell + Progress Engine | Pending |
