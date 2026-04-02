@@ -2,7 +2,7 @@
 
 ## Overview
 
-Six phases take the project from zero to a publicly shareable lead magnet. Auth ships first to absorb the LinkedIn OIDC approval wait (1-3 days external dependency). The tutorial engine comes next so content has a working shell to load into. Tutorial content is its own phase — it is the hardest creative work and the core product value. Certificate and sharing mechanics close the viral loop. The landing page and visual polish come last when the full product is known. A hardening phase gates the actual launch to real LinkedIn users.
+Six phases take the project from zero to a publicly shareable lead magnet. Registration is a simple form (name + LinkedIn URL + optional email) — no OAuth, no LinkedIn Developer App. The tutorial engine comes next so content has a working shell to load into. Tutorial content is its own phase — it is the hardest creative work and the core product value. Certificate and sharing mechanics close the viral loop. The landing page and visual polish come last when the full product is known. A hardening phase gates the actual launch.
 
 ## Phases
 
@@ -12,24 +12,24 @@ Six phases take the project from zero to a publicly shareable lead magnet. Auth 
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Foundation + Auth** - LinkedIn OIDC registration, sessions, and route protection
+- [ ] **Phase 1: Foundation + Registration** - Simple form registration (name + LinkedIn URL + optional email), session via localStorage, route protection
 - [ ] **Phase 2: Tutorial Shell + Progress Engine** - 7-level skeleton with unlock logic and persistent progress
 - [ ] **Phase 3: Tutorial Content — 7 Levels** - Author all levels: concepts, steps, code blocks, error callouts
 - [ ] **Phase 4: Certificate + Sharing** - Personalized PNG certificate, public page, download, LinkedIn share
 - [ ] **Phase 5: Landing Page + Polish** - Conversion landing, redirect logic, visual animations, mobile layout
-- [ ] **Phase 6: Pre-Launch Hardening** - LinkedIn Production Mode approval, smoke test, env documentation
+- [ ] **Phase 6: Pre-Launch Hardening** - End-to-end smoke test, env documentation, production deployment verification
 
 ## Phase Details
 
-### Phase 1: Foundation + Auth
-**Goal**: Users can sign in with LinkedIn and have a persistent, protected session
+### Phase 1: Foundation + Registration
+**Goal**: Users can register with a simple form and access the tutorial with their session persisted in the browser
 **Depends on**: Nothing (first phase)
 **Requirements**: AUTH-01, AUTH-02, AUTH-03
 **Success Criteria** (what must be TRUE):
-  1. A user clicks "Continuar con LinkedIn" and completes OAuth — a user record is created in Neon with name, email (nullable), and picture URL
-  2. The user returns 5 days later and is still logged in without re-authenticating (30-day session)
-  3. An unauthenticated visitor who navigates to `/tutorial/1` is redirected to the landing page, not shown an error
-  4. The LinkedIn Developer App is submitted for OIDC product approval (external dependency started)
+  1. A user fills the registration form (name + LinkedIn profile URL required, email optional) and is redirected to Level 1 — their record is saved in Neon
+  2. The user closes the browser and returns — they land on their current tutorial level without re-registering (session ID in localStorage)
+  3. An unregistered visitor who navigates to `/tutorial/1` is redirected to the landing page
+  4. The creator can query the DB and see all registered users with their LinkedIn URLs
 **Plans**: TBD
 
 ### Phase 2: Tutorial Shell + Progress Engine
@@ -87,9 +87,9 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Requirements**: (none — operational readiness)
 **Success Criteria** (what must be TRUE):
   1. A LinkedIn account NOT listed as a test user in the Developer Portal can complete the full sign-in flow without errors
-  2. All environment variables are documented in `.env.example` with descriptions, including the exact redirect URI format
-  3. The OAuth redirect URI registered in the LinkedIn Developer Portal matches the production Vercel URL exactly (trailing slash included if applicable)
-  4. A full end-to-end smoke test (landing → login → Level 1 → Level 7 → certificate → LinkedIn share) passes on the production deployment
+  2. All environment variables are documented in `.env.example` with descriptions
+  3. A full end-to-end smoke test (landing → registration form → Level 1 → Level 7 → certificate → LinkedIn share) passes on the production deployment
+  4. The Neon DB is accessible from the production deployment and lead data is queryable
 **Plans**: TBD
 
 ## Progress
@@ -99,7 +99,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation + Auth | 0/? | Not started | - |
+| 1. Foundation + Registration | 0/? | Not started | - |
 | 2. Tutorial Shell + Progress Engine | 0/? | Not started | - |
 | 3. Tutorial Content — 7 Levels | 0/? | Not started | - |
 | 4. Certificate + Sharing | 0/? | Not started | - |

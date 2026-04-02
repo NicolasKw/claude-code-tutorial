@@ -1,17 +1,17 @@
 # Requirements — Claude Code Mastery Tutorial Lead Magnet
 
 **Definido:** 2026-04-02
-**Stack base:** Next.js 15 + Auth.js v5 (LinkedIn OIDC) + Neon Postgres + next/og + Vercel
+**Stack base:** Next.js 15 + Neon Postgres + next/og + Vercel (sin Auth.js — registro por formulario simple)
 
 ---
 
 ## v1 Requirements
 
-### AUTH — Autenticación
+### AUTH — Registro
 
-- [ ] **AUTH-01**: El usuario puede registrarse e iniciar sesión con su perfil de LinkedIn (OIDC). Se captura nombre, email (nullable), foto de perfil.
-- [ ] **AUTH-02**: La sesión persiste por 30 días. El usuario no tiene que re-loguearse en cada visita.
-- [ ] **AUTH-03**: Las rutas `/tutorial/*` están protegidas. Los usuarios no autenticados son redirigidos al landing page.
+- [ ] **AUTH-01**: El usuario puede acceder al tutorial completando un formulario de registro simple: nombre, URL de perfil de LinkedIn (requeridos) y email (opcional). Sin OAuth, sin login.
+- [ ] **AUTH-02**: Al registrarse, el progreso y los datos del usuario persisten en la DB vinculados a un ID de sesión guardado en localStorage. El usuario puede continuar desde el mismo browser.
+- [ ] **AUTH-03**: Las rutas `/tutorial/*` requieren haber completado el formulario de registro. Los usuarios sin registro son redirigidos al landing page.
 
 ### TUTO — Motor de Tutorial
 
@@ -64,7 +64,7 @@
 - **LinkedIn post writer como proyecto del tutorial** — conflicto comercial (el creador vende un producto similar)
 - **Múltiples paths / branching** — el tutorial es estrictamente lineal
 - **Verificación automática de pasos** — requiere agente local; auto-atestación es suficiente
-- **Email/password registration** — solo LinkedIn OAuth en v1
+- **LinkedIn OAuth / OIDC** — solo formulario simple; no se necesita OAuth, Auth.js, ni aprobación de LinkedIn Developer App
 - **Gamificación avanzada** (rankings, puntos, leaderboards)
 - **Videos embebidos en el tutorial** — texto + screenshots es suficiente; video solo en landing si se decide
 - **Quiz/evaluaciones** — el bot funcionando es la evaluación
