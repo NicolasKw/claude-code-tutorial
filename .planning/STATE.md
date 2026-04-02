@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-02)
 
 **Core value:** The user finishes the tutorial with a working personal management bot on their machine — not theory, something they use the next day
-**Current focus:** Phase 1 — Foundation + Auth
+**Current focus:** Phase 2 — Tutorial Shell + Progress Engine
 
 ## Current Position
 
-Phase: 1 of 6 (Foundation + Auth)
+Phase: 2 of 6 (Tutorial Shell + Progress Engine)
 Plan: 0 of ? in current phase
-Status: Ready to plan
-Last activity: 2026-04-02 — Roadmap created, 22 requirements mapped across 6 phases
+Status: Phase 1 complete — ready to plan Phase 2
+Last activity: 2026-04-02 — Phase 1 complete: 24 tests green, build clean, all AUTH requirements satisfied
 
-Progress: [█████░░░░░] 50%
+Progress: [██░░░░░░░░] 17%
 
 ## Performance Metrics
 

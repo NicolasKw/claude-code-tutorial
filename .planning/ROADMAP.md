@@ -12,7 +12,7 @@ Six phases take the project from zero to a publicly shareable lead magnet. Regis
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Foundation + Registration** - Simple form registration (name + LinkedIn URL + optional email), session via localStorage, route protection
+- [x] **Phase 1: Foundation + Registration** - Simple form registration (name + LinkedIn URL + optional email), session via localStorage, route protection
 - [ ] **Phase 2: Tutorial Shell + Progress Engine** - 7-level skeleton with unlock logic and persistent progress
 - [ ] **Phase 3: Tutorial Content — 7 Levels** - Author all levels: concepts, steps, code blocks, error callouts
 - [ ] **Phase 4: Certificate + Sharing** - Personalized PNG certificate, public page, download, LinkedIn share
