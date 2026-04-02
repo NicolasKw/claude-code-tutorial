@@ -30,7 +30,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. The user closes the browser and returns — they land on their current tutorial level without re-registering (session ID in localStorage)
   3. An unregistered visitor who navigates to `/tutorial/1` is redirected to the landing page
   4. The creator can query the DB and see all registered users with their LinkedIn URLs
-**Plans**: TBD
+**Plans:** 2 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Scaffold Next.js app, DB schema, validation, session helpers, Vitest setup
+- [ ] 01-02-PLAN.md — Registration form, server action, SessionGuard, tutorial route protection
 
 ### Phase 2: Tutorial Shell + Progress Engine
 **Goal**: A logged-in user can navigate a 7-level tutorial where progress persists across sessions
@@ -52,9 +56,9 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Success Criteria** (what must be TRUE):
   1. Every level has at least one terminal command or code block the user copies and runs, plus an explanation of what it does and why
   2. Every step in every level has at least one collapsible error callout covering the most likely failure mode for that step
-  3. After completing each level, the user sees a "Qué lograste" card summarizing the concrete output of that level before the next unlocks
+  3. After completing each level, the user sees a "Que lograste" card summarizing the concrete output of that level before the next unlocks
   4. A user who already has Claude Code installed can complete all 7 levels in under 60 minutes (manually verified by the creator)
-  5. The 7 levels follow the specified progression: Nivel 0 (Chatbot) → Nivel 1 (Plan Mode) → Nivel 2 (CLAUDE.md) → Nivel 3 (Commands, Skills, Hooks) → Nivel 4 (MCP Servers) → Nivel 5 (GSD Framework) → Nivel 6 (Sub-agentes) → Nivel 7 (Flujos autónomos)
+  5. The 7 levels follow the specified progression: Nivel 0 (Chatbot) → Nivel 1 (Plan Mode) → Nivel 2 (CLAUDE.md) → Nivel 3 (Commands, Skills, Hooks) → Nivel 4 (MCP Servers) → Nivel 5 (GSD Framework) → Nivel 6 (Sub-agentes) → Nivel 7 (Flujos autonomos)
 **Plans**: TBD
 
 ### Phase 4: Certificate + Sharing
@@ -99,7 +103,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation + Registration | 0/? | Not started | - |
+| 1. Foundation + Registration | 0/2 | Planning complete | - |
 | 2. Tutorial Shell + Progress Engine | 0/? | Not started | - |
 | 3. Tutorial Content — 7 Levels | 0/? | Not started | - |
 | 4. Certificate + Sharing | 0/? | Not started | - |
