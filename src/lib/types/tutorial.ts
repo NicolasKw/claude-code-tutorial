@@ -11,3 +11,27 @@ export const DEFAULT_PROGRESS: TutorialProgress = {
   completedLevels: [],
   completedSteps: {},
 };
+
+export interface ErrorCalloutContent {
+  trigger: string;    // e.g. "Si ves este error"
+  error: string;      // the error message / condition
+  solution: string;   // what to do to fix it
+}
+
+export interface StepContent {
+  title: string;
+  explanation: string;
+  codeBlock?: {
+    code: string;
+    language: string;
+  };
+  errorCallouts: ErrorCalloutContent[];
+}
+
+export interface LevelContent {
+  level: number;        // 0-6
+  title: string;        // e.g. "Chatbot"
+  subtitle: string;     // e.g. "Tu primera conversacion con Claude Code"
+  summary: string;      // shown in AchievementOverlay "Que lograste" card
+  steps: StepContent[];
+}
