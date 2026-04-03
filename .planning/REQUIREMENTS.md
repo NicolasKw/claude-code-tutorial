@@ -15,12 +15,12 @@
 
 ### TUTO — Motor de Tutorial
 
-- [ ] **TUTO-01**: El tutorial tiene exactamente 7 niveles desbloqueables en orden estrictamente lineal. No se puede saltar niveles.
-- [ ] **TUTO-02**: Al completar un nivel, el siguiente se desbloquea con feedback visual (animación o cambio de estado claro).
-- [ ] **TUTO-03**: Cada nivel contiene múltiples pasos. El usuario avanza paso a paso confirmando con un botón "Listo, ya lo hice" (auto-atestación; sin verificación automática).
-- [ ] **TUTO-04**: El progreso del usuario (niveles y pasos completados) se guarda en la base de datos, vinculado a su LinkedIn user ID. Al volver, el tutorial reanuda desde donde lo dejó.
-- [ ] **TUTO-05**: Los comandos y bloques de código se muestran en fuente monospace con botón de copia en 1 click. Distinción visual clara del texto prose.
-- [ ] **TUTO-06**: Un indicador de progreso macro visible en todas las páginas del tutorial muestra el nivel actual ("Nivel X de 7").
+- [x] **TUTO-01**: El tutorial tiene exactamente 7 niveles desbloqueables en orden estrictamente lineal. No se puede saltar niveles.
+- [x] **TUTO-02**: Al completar un nivel, el siguiente se desbloquea con feedback visual (animación o cambio de estado claro).
+- [x] **TUTO-03**: Cada nivel contiene múltiples pasos. El usuario avanza paso a paso confirmando con un botón "Listo, ya lo hice" (auto-atestación; sin verificación automática).
+- [x] **TUTO-04**: El progreso del usuario (niveles y pasos completados) se guarda en la base de datos, vinculado a su LinkedIn user ID. Al volver, el tutorial reanuda desde donde lo dejó.
+- [x] **TUTO-05**: Los comandos y bloques de código se muestran en fuente monospace con botón de copia en 1 click. Distinción visual clara del texto prose.
+- [x] **TUTO-06**: Un indicador de progreso macro visible en todas las páginas del tutorial muestra el nivel actual ("Nivel X de 7").
 
 ### CONT — Contenido del Tutorial
 
@@ -82,12 +82,12 @@
 | AUTH-01 | Phase 1 — Foundation + Auth | Complete |
 | AUTH-02 | Phase 1 — Foundation + Auth | Complete |
 | AUTH-03 | Phase 1 — Foundation + Auth | Complete |
-| TUTO-01 | Phase 2 — Tutorial Shell + Progress Engine | Pending |
-| TUTO-02 | Phase 2 — Tutorial Shell + Progress Engine | Pending |
-| TUTO-03 | Phase 2 — Tutorial Shell + Progress Engine | Pending |
-| TUTO-04 | Phase 2 — Tutorial Shell + Progress Engine | Pending |
-| TUTO-05 | Phase 2 — Tutorial Shell + Progress Engine | Pending |
-| TUTO-06 | Phase 2 — Tutorial Shell + Progress Engine | Pending |
+| TUTO-01 | Phase 2 — Tutorial Shell + Progress Engine | Complete |
+| TUTO-02 | Phase 2 — Tutorial Shell + Progress Engine | Complete |
+| TUTO-03 | Phase 2 — Tutorial Shell + Progress Engine | Complete |
+| TUTO-04 | Phase 2 — Tutorial Shell + Progress Engine | Complete |
+| TUTO-05 | Phase 2 — Tutorial Shell + Progress Engine | Complete |
+| TUTO-06 | Phase 2 — Tutorial Shell + Progress Engine | Complete |
 | CONT-01 | Phase 3 — Tutorial Content — 7 Levels | Pending |
 | CONT-02 | Phase 3 — Tutorial Content — 7 Levels | Pending |
 | CONT-03 | Phase 3 — Tutorial Content — 7 Levels | Pending |

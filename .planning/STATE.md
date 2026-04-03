@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: planning
-stopped_at: Completed 01-foundation-registration-02-PLAN.md
-last_updated: "2026-04-02T20:07:43.558Z"
-last_activity: 2026-04-02 — Roadmap created, 22 requirements mapped across 6 phases
+status: executing
+stopped_at: Completed 02-tutorial-shell-progress-engine plan 02-00
+last_updated: "2026-04-03T21:38:23.613Z"
+last_activity: 2026-04-03
 progress:
   total_phases: 6
   completed_phases: 1
-  total_plans: 2
-  completed_plans: 2
-  percent: 50
+  total_plans: 6
+  completed_plans: 3
+  percent: 17
 ---
 
 # Project State
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-02)
 
 **Core value:** The user finishes the tutorial with a working personal management bot on their machine — not theory, something they use the next day
-**Current focus:** Phase 2 — Tutorial Shell + Progress Engine
+**Current focus:** Phase 02 — tutorial-shell-progress-engine
 
 ## Current Position
 
-Phase: 2 of 6 (Tutorial Shell + Progress Engine)
-Plan: 0 of ? in current phase
-Status: Phase 1 complete — ready to plan Phase 2
-Last activity: 2026-04-03 - Completed quick task 260402-o51: Migrate database from Neon to Supabase
+Phase: 02 (tutorial-shell-progress-engine) — EXECUTING
+Plan: 2 of 4
+Status: Ready to execute
+Last activity: 2026-04-03
 
 Progress: [██░░░░░░░░] 17%
 
@@ -54,6 +54,7 @@ Progress: [██░░░░░░░░] 17%
 *Updated after each plan completion*
 | Phase 01-foundation-registration P01 | 6min | 2 tasks | 16 files |
 | Phase 01-foundation-registration P02 | 3min | 2 tasks | 11 files |
+| Phase 02-tutorial-shell-progress-engine P00 | 1 | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -68,6 +69,8 @@ Recent decisions affecting current work:
 - [Phase 01-foundation-registration]: Used --disable-git with create-next-app and temporarily moved .planning/.claude to /tmp to scaffold into non-empty directory
 - [Phase 01-foundation-registration]: Added custom localStorage mock in src/test-setup.ts because vitest jsdom disables native localStorage.clear()
 - [Phase 01-foundation-registration]: Created src/app/actions/ as directory with index.ts re-export (not flat actions.ts) to allow co-located __tests__ subdirectory
+- [Phase 02-tutorial-shell-progress-engine]: Used it.todo() not it.skip() for Wave 0 TDD stubs — pending tests define behavioral contract without failing the suite
+- [Phase 02-tutorial-shell-progress-engine]: Component stub files use .tsx extension to support future JSX assertions without renaming
 
 ### Quick Tasks Completed
 
@@ -87,6 +90,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-02T20:07:26.527Z
-Stopped at: Completed 01-foundation-registration-02-PLAN.md
+Last session: 2026-04-03T21:38:23.610Z
+Stopped at: Completed 02-tutorial-shell-progress-engine plan 02-00
 Resume file: None
