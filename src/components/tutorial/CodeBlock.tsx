@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Copy, Check } from 'lucide-react';
 
 interface CodeBlockProps {
@@ -11,27 +11,29 @@ interface CodeBlockProps {
 export function CodeBlock({ code, language }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
 
-  async function handleCopy() {
+  const handleCopy = async () => {
     await navigator.clipboard.writeText(code);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
-  }
+  };
 
   return (
     <div
-      className="relative rounded-lg bg-[#171717] p-4"
+      className="relative bg-[#171717] rounded-lg p-4 font-mono text-sm leading-relaxed"
       data-language={language}
     >
+      <pre>
+        <code className="font-[family-name:var(--font-geist-mono)] text-white">
+          {code}
+        </code>
+      </pre>
       <button
-        className="absolute top-2 right-2 text-[#D9ADFF] hover:opacity-80"
         onClick={handleCopy}
         aria-label={copied ? 'Código copiado' : 'Copiar código'}
+        className="absolute top-2 right-2 text-brand-primary"
       >
         {copied ? <Check size={16} /> : <Copy size={16} />}
       </button>
-      <pre className="font-mono text-sm leading-relaxed text-white overflow-x-auto">
-        <code>{code}</code>
-      </pre>
     </div>
   );
 }

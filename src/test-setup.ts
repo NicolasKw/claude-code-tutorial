@@ -1,5 +1,6 @@
 // Test setup file for Vitest
 // Provides a proper localStorage mock for jsdom environment
+import '@testing-library/jest-dom';
 
 const localStorageMock = (() => {
   let store: Record<string, string> = {};
