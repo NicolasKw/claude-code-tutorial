@@ -12,7 +12,11 @@ El usuario termina el tutorial con un bot de gestión personal funcionando en su
 
 ### Validated
 
-(None yet — ship to validate)
+- [x] Tutorial lineal de 7 niveles, desbloqueables en orden — Validated in Phase 02: tutorial-shell-progress-engine
+- [x] Progreso del usuario persiste entre sesiones — Validated in Phase 02: tutorial-shell-progress-engine (useProgress hook + DB via server actions)
+- [x] Cada nivel enseña un concepto de Claude Code con pasos, comandos y error callouts — Validated in Phase 03: tutorial-content-7-levels
+- [x] El "hilo conductor" es construir un bot de gestión personal — Validated in Phase 03: tutorial-content-7-levels (content in Spanish, 7 levels, ~56 min estimated)
+- [x] El tutorial es completable en ~1 hora — Validated in Phase 03: tutorial-content-7-levels (3-5 steps/level × 7 = ~56 min, enforced by tests)
 
 ### Active
 
@@ -80,4 +84,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-02 after initialization*
+*Last updated: 2026-04-03 — Phase 03 complete (3/4 phases done)*
