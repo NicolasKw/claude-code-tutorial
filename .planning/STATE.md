@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-tutorial-shell-progress-engine plan 02-00
-last_updated: "2026-04-03T21:38:23.613Z"
+stopped_at: Completed 02-tutorial-shell-progress-engine/02-01-PLAN.md
+last_updated: "2026-04-03T21:42:46.678Z"
 last_activity: 2026-04-03
 progress:
   total_phases: 6
   completed_phases: 1
   total_plans: 6
-  completed_plans: 3
+  completed_plans: 4
   percent: 17
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-02)
 ## Current Position
 
 Phase: 02 (tutorial-shell-progress-engine) — EXECUTING
-Plan: 2 of 4
+Plan: 3 of 4
 Status: Ready to execute
 Last activity: 2026-04-03
 
@@ -55,6 +55,7 @@ Progress: [██░░░░░░░░] 17%
 | Phase 01-foundation-registration P01 | 6min | 2 tasks | 16 files |
 | Phase 01-foundation-registration P02 | 3min | 2 tasks | 11 files |
 | Phase 02-tutorial-shell-progress-engine P00 | 1 | 2 tasks | 8 files |
+| Phase 02-tutorial-shell-progress-engine P01 | 5 | 3 tasks | 9 files |
 
 ## Accumulated Context
 
@@ -71,6 +72,7 @@ Recent decisions affecting current work:
 - [Phase 01-foundation-registration]: Created src/app/actions/ as directory with index.ts re-export (not flat actions.ts) to allow co-located __tests__ subdirectory
 - [Phase 02-tutorial-shell-progress-engine]: Used it.todo() not it.skip() for Wave 0 TDD stubs — pending tests define behavioral contract without failing the suite
 - [Phase 02-tutorial-shell-progress-engine]: Component stub files use .tsx extension to support future JSX assertions without renaming
+- [Phase 02-tutorial-shell-progress-engine]: shadcn 4.1.2 uses base-nova style (not new-york) for Tailwind v4 compatibility — functionally equivalent
 
 ### Quick Tasks Completed
 
@@ -90,6 +92,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-03T21:38:23.610Z
-Stopped at: Completed 02-tutorial-shell-progress-engine plan 02-00
+Last session: 2026-04-03T21:42:46.675Z
+Stopped at: Completed 02-tutorial-shell-progress-engine/02-01-PLAN.md
 Resume file: None

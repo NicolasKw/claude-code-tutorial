@@ -50,7 +50,7 @@ Plans:
 
 Plans:
 - [x] 02-00-PLAN.md — Wave 0 test stubs: 8 failing test files covering all TUTO requirements
-- [ ] 02-01-PLAN.md — Foundation: shadcn init, brand tokens, progress types/logic, DB table, server action
+- [x] 02-01-PLAN.md — Foundation: shadcn init, brand tokens, progress types/logic, DB table, server action
 - [ ] 02-02-PLAN.md — Hook + leaf components: useProgress hook, TutorialHeader, CodeBlock, LockedLevel
 - [ ] 02-03-PLAN.md — Orchestration: StepCard, AchievementOverlay, LevelPage, page route wiring
 **UI hint**: yes
