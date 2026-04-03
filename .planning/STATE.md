@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-tutorial-shell-progress-engine/02-03-PLAN.md
-last_updated: "2026-04-03T21:49:57.046Z"
+stopped_at: Completed 03-tutorial-content-7-levels/03-01-PLAN.md
+last_updated: "2026-04-03T22:41:32.143Z"
 last_activity: 2026-04-03
 progress:
   total_phases: 6
   completed_phases: 2
-  total_plans: 6
-  completed_plans: 6
+  total_plans: 10
+  completed_plans: 7
   percent: 17
 ---
 
@@ -21,12 +21,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-02)
 
 **Core value:** The user finishes the tutorial with a working personal management bot on their machine — not theory, something they use the next day
-**Current focus:** Phase 02 — tutorial-shell-progress-engine
+**Current focus:** Phase 03 — tutorial-content-7-levels
 
 ## Current Position
 
-Phase: 02 (tutorial-shell-progress-engine) — EXECUTING
-Plan: 4 of 4
+Phase: 03 (tutorial-content-7-levels) — EXECUTING
+Plan: 2 of 4
 Status: Ready to execute
 Last activity: 2026-04-03
 
@@ -57,6 +57,7 @@ Progress: [██░░░░░░░░] 17%
 | Phase 02-tutorial-shell-progress-engine P00 | 1 | 2 tasks | 8 files |
 | Phase 02-tutorial-shell-progress-engine P01 | 5 | 3 tasks | 9 files |
 | Phase 02-tutorial-shell-progress-engine P03 | 7 | 2 tasks | 11 files |
+| Phase 03-tutorial-content-7-levels P01 | 2 | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -76,6 +77,9 @@ Recent decisions affecting current work:
 - [Phase 02-tutorial-shell-progress-engine]: shadcn 4.1.2 uses base-nova style (not new-york) for Tailwind v4 compatibility — functionally equivalent
 - [Phase 02-tutorial-shell-progress-engine]: Created compatible versions of useProgress, TutorialHeader, LockedLevel, CodeBlock since 02-02 runs in parallel and was not yet in this worktree
 - [Phase 02-tutorial-shell-progress-engine]: LevelPage renders TutorialHeader directly (not in tutorial layout) to share useProgress state and avoid dual hook instances
+- [Phase 03-tutorial-content-7-levels]: ErrorCallout uses native HTML details/summary with no use client — browser collapsible needs no React state
+- [Phase 03-tutorial-content-7-levels]: Wave 0 stubs use it.todo() not it.skip() — consistent with Phase 02 decision, pending tests define contract without failing suite
+- [Phase 03-tutorial-content-7-levels]: Content types (ErrorCalloutContent/StepContent/LevelContent) appended to existing tutorial.ts — single source of truth for all tutorial domain types
 
 ### Quick Tasks Completed
 
@@ -95,6 +99,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-03T21:49:57.044Z
-Stopped at: Completed 02-tutorial-shell-progress-engine/02-03-PLAN.md
+Last session: 2026-04-03T22:41:32.140Z
+Stopped at: Completed 03-tutorial-content-7-levels/03-01-PLAN.md
 Resume file: None

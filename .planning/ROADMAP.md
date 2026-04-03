@@ -68,7 +68,7 @@ Plans:
 **Plans:** 4 plans
 
 Plans:
-- [ ] 03-01-PLAN.md — Types, ErrorCallout component, Wave 0 test stubs
+- [x] 03-01-PLAN.md — Types, ErrorCallout component, Wave 0 test stubs
 - [ ] 03-02-PLAN.md — Content authoring: Levels 0-3 (Chatbot, Plan Mode, CLAUDE.md, Commands/Skills/Hooks)
 - [ ] 03-03-PLAN.md — Content authoring: Levels 4-6 (MCP Servers, GSD Framework, Sub-agentes + Flujos autonomos)
 - [ ] 03-04-PLAN.md — Wire LevelPage to consume content, convert test stubs to assertions

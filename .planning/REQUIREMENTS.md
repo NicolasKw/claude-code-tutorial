@@ -25,7 +25,7 @@
 ### CONT — Contenido del Tutorial
 
 - [ ] **CONT-01**: Cada nivel incluye: explicación del concepto Claude Code + instrucciones concretas de qué ejecutar en la terminal del usuario.
-- [ ] **CONT-02**: Cada paso incluye callouts colapsables con los errores más comunes y su solución ("Si ves este error, hacé esto").
+- [x] **CONT-02**: Cada paso incluye callouts colapsables con los errores más comunes y su solución ("Si ves este error, hacé esto").
 - [ ] **CONT-03**: Al completar cada nivel, el usuario ve una card "Qué lograste" que resume el output concreto del nivel antes de que el siguiente se desbloquee.
 - [ ] **CONT-04**: El contenido del tutorial cubre los 7 niveles de Claude Code construyendo un bot de gestión personal (no un LinkedIn post writer). Los niveles son: Nivel 0 (Chatbot) → Nivel 1 (Plan Mode) → Nivel 2 (CLAUDE.md) → Nivel 3 (Commands, Skills y Hooks) → Nivel 4 (MCP Servers) → Nivel 5 (GSD Framework) → Nivel 6 (Sub-agentes) → Nivel 7 (Flujos autónomos).
 - [ ] **CONT-05**: El tiempo total de completado del tutorial (incluyendo setup) no excede 60 minutos para un usuario que ya tiene Claude Code instalado.
@@ -89,7 +89,7 @@
 | TUTO-05 | Phase 2 — Tutorial Shell + Progress Engine | Complete |
 | TUTO-06 | Phase 2 — Tutorial Shell + Progress Engine | Complete |
 | CONT-01 | Phase 3 — Tutorial Content — 7 Levels | Pending |
-| CONT-02 | Phase 3 — Tutorial Content — 7 Levels | Pending |
+| CONT-02 | Phase 3 — Tutorial Content — 7 Levels | Complete |
 | CONT-03 | Phase 3 — Tutorial Content — 7 Levels | Pending |
 | CONT-04 | Phase 3 — Tutorial Content — 7 Levels | Pending |
 | CONT-05 | Phase 3 — Tutorial Content — 7 Levels | Pending |
