@@ -1,16 +1,17 @@
+import { notFound } from 'next/navigation';
+import { LevelPage } from '@/components/tutorial/LevelPage';
+
 interface TutorialLevelPageProps {
   params: Promise<{ level: string }>;
 }
 
 export default async function TutorialLevelPage({ params }: TutorialLevelPageProps) {
   const { level } = await params;
+  const levelNum = parseInt(level, 10);
 
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-8">
-      <h1 className="text-2xl font-bold">Nivel {level}</h1>
-      <p className="mt-4 text-gray-600">
-        Contenido del tutorial - Nivel {level} (disponible en la siguiente fase)
-      </p>
-    </main>
-  );
+  if (isNaN(levelNum) || levelNum < 0 || levelNum > 6) {
+    notFound();
+  }
+
+  return <LevelPage level={levelNum} />;
 }
