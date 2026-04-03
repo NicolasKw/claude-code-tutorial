@@ -7,16 +7,13 @@ import { TutorialHeader } from '@/components/tutorial/TutorialHeader';
 import { StepCard } from '@/components/tutorial/StepCard';
 import { AchievementOverlay } from '@/components/tutorial/AchievementOverlay';
 import { LockedLevel } from '@/components/tutorial/LockedLevel';
+import { getLevelContent } from '@/lib/content/levels';
+import { ErrorCallout } from '@/components/tutorial/ErrorCallout';
+import { CodeBlock } from '@/components/tutorial/CodeBlock';
 
 interface LevelPageProps {
   level: number;
 }
-
-const PLACEHOLDER_STEPS = [
-  { title: 'Paso 1', content: 'Contenido del paso 1 (se agrega en Fase 3)' },
-  { title: 'Paso 2', content: 'Contenido del paso 2 (se agrega en Fase 3)' },
-  { title: 'Paso 3', content: 'Contenido del paso 3 (se agrega en Fase 3)' },
-];
 
 export function LevelPage({ level }: LevelPageProps) {
   const router = useRouter();
@@ -24,7 +21,8 @@ export function LevelPage({ level }: LevelPageProps) {
     useProgress();
   const [showOverlay, setShowOverlay] = useState(false);
 
-  const steps = PLACEHOLDER_STEPS;
+  const levelData = getLevelContent(level);
+  const steps = levelData?.steps ?? [];
 
   // Determine which steps are visible: up to and including the first uncompleted step
   function isStepVisible(stepIndex: number): boolean {
@@ -50,6 +48,12 @@ export function LevelPage({ level }: LevelPageProps) {
     <div>
       <TutorialHeader currentLevel={progress.currentLevel} />
       <div className="max-w-2xl mx-auto px-4 py-8">
+        {levelData && (
+          <div className="mb-6">
+            <h1 className="text-2xl font-semibold text-[#171717]">{levelData.title}</h1>
+            <p className="text-base text-[#171717]/70 mt-1">{levelData.subtitle}</p>
+          </div>
+        )}
         <div className="space-y-6">
           {steps.map((step, stepIndex) => {
             if (!isStepVisible(stepIndex)) return null;
@@ -66,7 +70,13 @@ export function LevelPage({ level }: LevelPageProps) {
                 }}
               >
                 <p className="font-semibold text-base">{step.title}</p>
-                <p className="text-base text-[#171717]">{step.content}</p>
+                <p className="text-base text-[#171717] leading-relaxed">{step.explanation}</p>
+                {step.codeBlock && (
+                  <CodeBlock code={step.codeBlock.code} language={step.codeBlock.language} />
+                )}
+                {step.errorCallouts.map((callout, i) => (
+                  <ErrorCallout key={i} {...callout} />
+                ))}
               </StepCard>
             );
           })}
@@ -75,6 +85,7 @@ export function LevelPage({ level }: LevelPageProps) {
       <AchievementOverlay
         show={showOverlay}
         level={level}
+        summary={levelData?.summary}
         onNavigate={() => router.push(`/tutorial/${level + 1}`)}
       />
     </div>
