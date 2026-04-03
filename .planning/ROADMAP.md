@@ -65,7 +65,13 @@ Plans:
   3. After completing each level, the user sees a "Que lograste" card summarizing the concrete output of that level before the next unlocks
   4. A user who already has Claude Code installed can complete all 7 levels in under 60 minutes (manually verified by the creator)
   5. The 7 levels follow the specified progression: Nivel 0 (Chatbot) → Nivel 1 (Plan Mode) → Nivel 2 (CLAUDE.md) → Nivel 3 (Commands, Skills, Hooks) → Nivel 4 (MCP Servers) → Nivel 5 (GSD Framework) → Nivel 6 (Sub-agentes) → Nivel 7 (Flujos autonomos)
-**Plans**: TBD
+**Plans:** 4 plans
+
+Plans:
+- [ ] 03-01-PLAN.md — Types, ErrorCallout component, Wave 0 test stubs
+- [ ] 03-02-PLAN.md — Content authoring: Levels 0-3 (Chatbot, Plan Mode, CLAUDE.md, Commands/Skills/Hooks)
+- [ ] 03-03-PLAN.md — Content authoring: Levels 4-6 (MCP Servers, GSD Framework, Sub-agentes + Flujos autonomos)
+- [ ] 03-04-PLAN.md — Wire LevelPage to consume content, convert test stubs to assertions
 
 ### Phase 4: Certificate + Sharing
 **Goal**: A user who completes all 7 levels receives a personalized, downloadable certificate they can share on LinkedIn in two clicks
@@ -111,7 +117,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 |-------|----------------|--------|-----------|
 | 1. Foundation + Registration | 2/2 | Complete |  |
 | 2. Tutorial Shell + Progress Engine | 2/4 | In Progress|  |
-| 3. Tutorial Content — 7 Levels | 0/? | Not started | - |
+| 3. Tutorial Content — 7 Levels | 0/4 | Not started | - |
 | 4. Certificate + Sharing | 0/? | Not started | - |
 | 5. Landing Page + Polish | 0/? | Not started | - |
 | 6. Pre-Launch Hardening | 0/? | Not started | - |
