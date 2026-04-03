@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-04-02)
 Phase: 2 of 6 (Tutorial Shell + Progress Engine)
 Plan: 0 of ? in current phase
 Status: Phase 1 complete — ready to plan Phase 2
-Last activity: 2026-04-02 — Phase 1 complete: 24 tests green, build clean, all AUTH requirements satisfied
+Last activity: 2026-04-03 - Completed quick task 260402-o51: Migrate database from Neon to Supabase
 
 Progress: [██░░░░░░░░] 17%
 
@@ -68,6 +68,12 @@ Recent decisions affecting current work:
 - [Phase 01-foundation-registration]: Used --disable-git with create-next-app and temporarily moved .planning/.claude to /tmp to scaffold into non-empty directory
 - [Phase 01-foundation-registration]: Added custom localStorage mock in src/test-setup.ts because vitest jsdom disables native localStorage.clear()
 - [Phase 01-foundation-registration]: Created src/app/actions/ as directory with index.ts re-export (not flat actions.ts) to allow co-located __tests__ subdirectory
+
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 260402-o51 | Migrate database from Neon to Supabase | 2026-04-03 | ccb14e5 | [260402-o51-migrate-database-from-neon-to-supabase](./quick/260402-o51-migrate-database-from-neon-to-supabase/) |
 
 ### Pending Todos
 
