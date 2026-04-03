@@ -69,9 +69,9 @@ Plans:
 
 Plans:
 - [x] 03-01-PLAN.md — Types, ErrorCallout component, Wave 0 test stubs
-- [ ] 03-02-PLAN.md — Content authoring: Levels 0-3 (Chatbot, Plan Mode, CLAUDE.md, Commands/Skills/Hooks)
-- [ ] 03-03-PLAN.md — Content authoring: Levels 4-6 (MCP Servers, GSD Framework, Sub-agentes + Flujos autonomos)
-- [ ] 03-04-PLAN.md — Wire LevelPage to consume content, convert test stubs to assertions
+- [x] 03-02-PLAN.md — Content authoring: Levels 0-3 (Chatbot, Plan Mode, CLAUDE.md, Commands/Skills/Hooks)
+- [x] 03-03-PLAN.md — Content authoring: Levels 4-6 (MCP Servers, GSD Framework, Sub-agentes + Flujos autonomos)
+- [x] 03-04-PLAN.md — Wire LevelPage to consume content, convert test stubs to assertions
 
 ### Phase 4: Certificate + Sharing
 **Goal**: A user who completes all 7 levels receives a personalized, downloadable certificate they can share on LinkedIn in two clicks
