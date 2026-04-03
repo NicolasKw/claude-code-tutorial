@@ -46,12 +46,13 @@ Plans:
   3. A user who completes Level 3, closes the browser, and returns finds themselves at Level 4 (their saved position), not Level 1
   4. Every tutorial page shows a "Nivel X de 7" macro progress indicator without the user needing to scroll or navigate
   5. Code blocks are visually distinct from prose and have a working 1-click copy button
-**Plans:** 3 plans
+**Plans:** 4 plans
 
 Plans:
 - [ ] 02-00-PLAN.md — Wave 0 test stubs: 8 failing test files covering all TUTO requirements
 - [ ] 02-01-PLAN.md — Foundation: shadcn init, brand tokens, progress types/logic, DB table, server action
-- [ ] 02-02-PLAN.md — Components: useProgress hook, TutorialHeader, CodeBlock, StepCard, AchievementOverlay, LevelPage, wiring
+- [ ] 02-02-PLAN.md — Hook + leaf components: useProgress hook, TutorialHeader, CodeBlock, LockedLevel
+- [ ] 02-03-PLAN.md — Orchestration: StepCard, AchievementOverlay, LevelPage, page route wiring
 **UI hint**: yes
 
 ### Phase 3: Tutorial Content — 7 Levels
@@ -109,7 +110,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation + Registration | 2/2 | Complete |  |
-| 2. Tutorial Shell + Progress Engine | 0/3 | Planning | - |
+| 2. Tutorial Shell + Progress Engine | 0/4 | Planning | - |
 | 3. Tutorial Content — 7 Levels | 0/? | Not started | - |
 | 4. Certificate + Sharing | 0/? | Not started | - |
 | 5. Landing Page + Polish | 0/? | Not started | - |
