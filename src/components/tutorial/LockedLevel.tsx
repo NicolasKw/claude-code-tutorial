@@ -9,15 +9,16 @@ interface LockedLevelProps {
   currentLevel: number;
 }
 
-export function LockedLevel({ level: _level, currentLevel }: LockedLevelProps) {
+export function LockedLevel({ level, currentLevel }: LockedLevelProps) {
   const router = useRouter();
+  const prevLevel = level - 1;
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[400px] text-center px-4">
       <Lock size={24} className="mx-auto mb-4 text-gray-400" aria-hidden="true" />
       <h2 className="text-xl font-semibold mb-2">Este nivel está bloqueado</h2>
       <p className="text-gray-400 mb-6">
-        Completá el Nivel {currentLevel} para desbloquearlo.
+        Completá el Nivel {prevLevel} para desbloquearlo.
       </p>
       <Button
         variant="outline"
