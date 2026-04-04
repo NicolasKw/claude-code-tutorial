@@ -10,6 +10,8 @@ import { LockedLevel } from '@/components/tutorial/LockedLevel';
 import { getLevelContent } from '@/lib/content/levels';
 import { ErrorCallout } from '@/components/tutorial/ErrorCallout';
 import { CodeBlock } from '@/components/tutorial/CodeBlock';
+import { getUserId } from '@/lib/session';
+import { TOTAL_LEVELS } from '@/lib/types/tutorial';
 
 interface LevelPageProps {
   level: number;
@@ -86,7 +88,14 @@ export function LevelPage({ level }: LevelPageProps) {
         show={showOverlay}
         level={level}
         summary={levelData?.summary}
-        onNavigate={() => router.push(`/tutorial/${level + 1}`)}
+        onNavigate={() => {
+          if (level >= TOTAL_LEVELS - 1) {
+            const userId = getUserId();
+            router.push(userId ? `/certificate/${userId}` : '/');
+          } else {
+            router.push(`/tutorial/${level + 1}`);
+          }
+        }}
       />
     </div>
   );

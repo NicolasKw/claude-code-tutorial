@@ -4,6 +4,7 @@ import { db } from '@/db';
 import { progress, users } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 import type { TutorialProgress } from '@/lib/types/tutorial';
+import { TOTAL_LEVELS } from '@/lib/types/tutorial';
 
 export async function saveProgress(
   sessionId: string,
@@ -18,6 +19,14 @@ export async function saveProgress(
 
   if (!user) {
     return { success: false };
+  }
+
+  // Set completedAt exactly once when all levels are complete
+  if (
+    data.completedLevels.length >= TOTAL_LEVELS &&
+    !data.completedAt
+  ) {
+    data = { ...data, completedAt: new Date().toISOString() };
   }
 
   // Upsert progress
