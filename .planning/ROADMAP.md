@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Foundation + Registration** - Simple form registration (name + LinkedIn URL + optional email), session via localStorage, route protection
 - [ ] **Phase 2: Tutorial Shell + Progress Engine** - 7-level skeleton with unlock logic and persistent progress
 - [ ] **Phase 3: Tutorial Content — 7 Levels** - Author all levels: concepts, steps, code blocks, error callouts
-- [ ] **Phase 4: Certificate + Sharing** - Personalized PNG certificate, public page, download, LinkedIn share
+- [x] **Phase 4: Certificate + Sharing** - Personalized PNG certificate, public page, download, LinkedIn share (completed 2026-04-04)
 - [ ] **Phase 5: Landing Page + Polish** - Conversion landing, redirect logic, visual animations, mobile layout
 - [ ] **Phase 6: Pre-Launch Hardening** - End-to-end smoke test, env documentation, production deployment verification
 
@@ -83,12 +83,12 @@ Plans:
   3. Clicking "Descargar certificado" downloads the PNG file to the user's device without opening a new tab
   4. Clicking "Compartir en LinkedIn" opens LinkedIn's share dialog with the certificate URL pre-populated
   5. The completion screen includes a pre-written post text block with the user's name and tutorial URL that copies to clipboard in one click
-**Plans:** 2/3 plans executed
+**Plans:** 3/3 plans complete
 
 Plans:
 - [x] 04-01-PLAN.md — Foundation: types, userId plumbing, query helper, fonts, Wave 0 test stubs, route handler
 - [x] 04-02-PLAN.md — Public certificate page with OG meta + CertificatePage client component
-- [ ] 04-03-PLAN.md — Wiring: completedAt in saveProgress, LevelPage certificate navigation, visual checkpoint
+- [x] 04-03-PLAN.md — Wiring: completedAt in saveProgress, LevelPage certificate navigation, visual checkpoint
 **UI hint**: yes
 
 ### Phase 5: Landing Page + Polish
@@ -123,6 +123,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 1. Foundation + Registration | 2/2 | Complete |  |
 | 2. Tutorial Shell + Progress Engine | 2/4 | In Progress|  |
 | 3. Tutorial Content — 7 Levels | 0/4 | Not started | - |
-| 4. Certificate + Sharing | 2/3 | In Progress|  |
+| 4. Certificate + Sharing | 3/3 | Complete   | 2026-04-04 |
 | 5. Landing Page + Polish | 0/? | Not started | - |
 | 6. Pre-Launch Hardening | 0/? | Not started | - |

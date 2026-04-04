@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 04-02-PLAN.md
-last_updated: "2026-04-04T01:18:01.411Z"
+stopped_at: Completed 04-03-PLAN.md (awaiting Task 2 human-verify checkpoint)
+last_updated: "2026-04-04T01:20:53.417Z"
 last_activity: 2026-04-04
 progress:
   total_phases: 6
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 13
-  completed_plans: 12
+  completed_plans: 13
   percent: 17
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-02)
 ## Current Position
 
 Phase: 04 (certificate-sharing) — EXECUTING
-Plan: 2 of 3
+Plan: 3 of 3
 Status: Ready to execute
 Last activity: 2026-04-04
 
@@ -59,6 +59,7 @@ Progress: [██░░░░░░░░] 17%
 | Phase 02-tutorial-shell-progress-engine P03 | 7 | 2 tasks | 11 files |
 | Phase 03-tutorial-content-7-levels P01 | 2 | 2 tasks | 4 files |
 | Phase 04-certificate-sharing P02 | 3 | 2 tasks | 4 files |
+| Phase 04-certificate-sharing P03 | 8 | 1 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -83,6 +84,7 @@ Recent decisions affecting current work:
 - [Phase 03-tutorial-content-7-levels]: Content types (ErrorCalloutContent/StepContent/LevelContent) appended to existing tutorial.ts — single source of truth for all tutorial domain types
 - [Phase 04-certificate-sharing]: Used ExternalLink icon instead of Linkedin — lucide-react version installed has no LinkedIn icon export
 - [Phase 04-certificate-sharing]: Download test uses document.createElement spy to capture programmatic anchor — jsdom removes element after programmatic click
+- [Phase 04-certificate-sharing]: Vitest vi.mock factories cannot reference outer const variables (hoisted). Solved with per-test vi.mocked(db.select).mockReturnValue() inline chain mocking
 
 ### Quick Tasks Completed
 
@@ -102,6 +104,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-04T01:18:01.408Z
-Stopped at: Completed 04-02-PLAN.md
+Last session: 2026-04-04T01:20:53.415Z
+Stopped at: Completed 04-03-PLAN.md (awaiting Task 2 human-verify checkpoint)
 Resume file: None
