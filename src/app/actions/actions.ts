@@ -5,7 +5,7 @@ import { users } from '@/db/schema';
 import { registrationSchema } from '@/lib/validations';
 
 export type RegistrationResult =
-  | { success: true; sessionId: string }
+  | { success: true; sessionId: string; userId: string }
   | { success: false; errors: Record<string, string[]> };
 
 export async function registerUser(
@@ -28,12 +28,12 @@ export async function registerUser(
 
   const sessionId = crypto.randomUUID();
 
-  await db.insert(users).values({
+  const [inserted] = await db.insert(users).values({
     name: parsed.data.name,
     linkedinUrl: parsed.data.linkedinUrl,
     email: parsed.data.email ?? null,
     sessionId,
-  });
+  }).returning({ id: users.id });
 
-  return { success: true, sessionId };
+  return { success: true, sessionId, userId: inserted.id };
 }
