@@ -33,10 +33,10 @@
 ### CERT — Certificado y Sharing
 
 - [ ] **CERT-01**: Al completar los 7 niveles, el usuario accede a su certificado: imagen PNG personalizada con su nombre (de LinkedIn), los niveles completados, branding de ZalesMachine, y fecha.
-- [ ] **CERT-02**: Existe una página pública de certificado en `/certificate/[userId]` con meta tags Open Graph correctos (`og:image` apuntando al endpoint de generación del PNG).
-- [ ] **CERT-03**: El usuario puede descargar el PNG del certificado con un botón "Descargar certificado".
-- [ ] **CERT-04**: La pantalla de completado incluye un botón "Compartir en LinkedIn" que abre el share dialog de LinkedIn con la URL del certificado pre-cargada.
-- [ ] **CERT-05**: La pantalla de completado incluye un bloque de texto de post pre-escrito (copiable en 1 click) con el nombre del usuario ya incluido y un link al tutorial.
+- [x] **CERT-02**: Existe una página pública de certificado en `/certificate/[userId]` con meta tags Open Graph correctos (`og:image` apuntando al endpoint de generación del PNG).
+- [x] **CERT-03**: El usuario puede descargar el PNG del certificado con un botón "Descargar certificado".
+- [x] **CERT-04**: La pantalla de completado incluye un botón "Compartir en LinkedIn" que abre el share dialog de LinkedIn con la URL del certificado pre-cargada.
+- [x] **CERT-05**: La pantalla de completado incluye un bloque de texto de post pre-escrito (copiable en 1 click) con el nombre del usuario ya incluido y un link al tutorial.
 
 ### LAND — Landing Page
 
@@ -94,10 +94,10 @@
 | CONT-04 | Phase 3 — Tutorial Content — 7 Levels | Pending |
 | CONT-05 | Phase 3 — Tutorial Content — 7 Levels | Pending |
 | CERT-01 | Phase 4 — Certificate + Sharing | Pending |
-| CERT-02 | Phase 4 — Certificate + Sharing | Pending |
-| CERT-03 | Phase 4 — Certificate + Sharing | Pending |
-| CERT-04 | Phase 4 — Certificate + Sharing | Pending |
-| CERT-05 | Phase 4 — Certificate + Sharing | Pending |
+| CERT-02 | Phase 4 — Certificate + Sharing | Complete |
+| CERT-03 | Phase 4 — Certificate + Sharing | Complete |
+| CERT-04 | Phase 4 — Certificate + Sharing | Complete |
+| CERT-05 | Phase 4 — Certificate + Sharing | Complete |
 | LAND-01 | Phase 5 — Landing Page + Polish | Pending |
 | LAND-02 | Phase 5 — Landing Page + Polish | Pending |
 | LAND-03 | Phase 5 — Landing Page + Polish | Pending |

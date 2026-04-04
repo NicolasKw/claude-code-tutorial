@@ -83,11 +83,11 @@ Plans:
   3. Clicking "Descargar certificado" downloads the PNG file to the user's device without opening a new tab
   4. Clicking "Compartir en LinkedIn" opens LinkedIn's share dialog with the certificate URL pre-populated
   5. The completion screen includes a pre-written post text block with the user's name and tutorial URL that copies to clipboard in one click
-**Plans:** 3 plans
+**Plans:** 2/3 plans executed
 
 Plans:
-- [ ] 04-01-PLAN.md — Foundation: types, userId plumbing, query helper, fonts, Wave 0 test stubs, route handler
-- [ ] 04-02-PLAN.md — Public certificate page with OG meta + CertificatePage client component
+- [x] 04-01-PLAN.md — Foundation: types, userId plumbing, query helper, fonts, Wave 0 test stubs, route handler
+- [x] 04-02-PLAN.md — Public certificate page with OG meta + CertificatePage client component
 - [ ] 04-03-PLAN.md — Wiring: completedAt in saveProgress, LevelPage certificate navigation, visual checkpoint
 **UI hint**: yes
 
@@ -123,6 +123,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 1. Foundation + Registration | 2/2 | Complete |  |
 | 2. Tutorial Shell + Progress Engine | 2/4 | In Progress|  |
 | 3. Tutorial Content — 7 Levels | 0/4 | Not started | - |
-| 4. Certificate + Sharing | 0/3 | Not started | - |
+| 4. Certificate + Sharing | 2/3 | In Progress|  |
 | 5. Landing Page + Polish | 0/? | Not started | - |
 | 6. Pre-Launch Hardening | 0/? | Not started | - |
