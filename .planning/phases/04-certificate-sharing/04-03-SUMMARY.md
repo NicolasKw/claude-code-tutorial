@@ -92,11 +92,25 @@ None — plan executed exactly as written. The test restructuring (using per-tes
 
 None — no external service configuration required.
 
+## Human Verification (Task 2)
+
+**Status: Approved by human on 2026-04-03**
+
+The human verified the complete certificate generation and sharing flow:
+
+1. Registration stores userId in localStorage — both `sessionId` and `userId` keys confirmed in DevTools Application tab
+2. `/api/certificate/[userId]` generates a branded PNG: dark background, ZalesMachine wordmark in purple, user name in white, "Claude Code Mastery" in green, level count in blue, completion date at bottom
+3. `/certificate/[userId]` shows "Lo lograste!" heading, certificate preview, working download button, LinkedIn share dialog opens, copy button shows "Copiado" confirmation
+4. OG meta tags (`og:image`, `og:title`, `og:description`) confirmed present in page source
+5. Certificate page loads without auth in incognito window
+
 ## Next Phase Readiness
 
-- Task 2 (human-verify) is pending: human must visually confirm the full certificate flow (registration stores userId, /api/certificate/[userId] generates PNG, /certificate/[userId] page works, buttons functional, OG tags present, page is public)
+- Certificate sharing flow complete end-to-end: registration → tutorial → all 7 levels → completedAt set → navigate to /certificate/[userId] → download/share/copy
 - All automated tests green (111/111 passing)
-- TypeScript compiles cleanly (pre-existing errors in progress.test.ts mock typing are unrelated to this plan)
+- TypeScript compiles cleanly
+- Phase 05 (email delivery) can begin — completedAt is available in JSONB for email trigger logic
+- Phase 06 (LinkedIn auth) can proceed — userId is stored in localStorage and flows through the entire certificate chain
 
 ---
 *Phase: 04-certificate-sharing*
