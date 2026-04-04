@@ -2,6 +2,7 @@ export interface TutorialProgress {
   currentLevel: number;
   completedLevels: number[];
   completedSteps: Record<number, number[]>;
+  completedAt?: string;
 }
 
 export const PROGRESS_KEY = 'tutorial_progress';

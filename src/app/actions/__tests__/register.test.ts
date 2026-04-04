@@ -6,7 +6,9 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 vi.mock('@/db', () => ({
   db: {
     insert: vi.fn().mockReturnValue({
-      values: vi.fn().mockResolvedValue(undefined),
+      values: vi.fn().mockReturnValue({
+        returning: vi.fn().mockResolvedValue([{ id: '00000000-0000-0000-0000-000000000001' }]),
+      }),
     }),
   },
 }));
@@ -30,7 +32,9 @@ describe('registerUser', () => {
     // Reset mock to default behavior
     const mockInsert = db.insert as ReturnType<typeof vi.fn>;
     mockInsert.mockReturnValue({
-      values: vi.fn().mockResolvedValue(undefined),
+      values: vi.fn().mockReturnValue({
+        returning: vi.fn().mockResolvedValue([{ id: '00000000-0000-0000-0000-000000000001' }]),
+      }),
     });
   });
 

@@ -3,7 +3,7 @@
 import { useActionState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { registerUser, type RegistrationResult } from '@/app/actions';
-import { setSessionId } from '@/lib/session';
+import { setSessionId, setUserId } from '@/lib/session';
 
 export function RegistrationForm() {
   const [state, formAction, pending] = useActionState<RegistrationResult | null, FormData>(registerUser, null);
@@ -12,6 +12,7 @@ export function RegistrationForm() {
   useEffect(() => {
     if (state?.success) {
       setSessionId(state.sessionId);
+      setUserId(state.userId);
       router.push('/tutorial/1');
     }
   }, [state, router]);
