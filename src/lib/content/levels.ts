@@ -698,11 +698,28 @@ export const LEVEL_CONTENT: LevelContent[] = [
         errorCallouts: [],
       },
       {
-        title: 'Ejecutá y verificá',
+        title: 'Ejecutá la fase',
         explanation:
-          'GSD ejecuta cada fase y luego verifica que los criterios de aceptación se cumplieron antes de pasar a la siguiente. El archivo STATE en .planning/ se actualiza con el progreso — si interrumpís el trabajo, podés retomarlo en otra sesión y GSD sabe exactamente dónde quedó. Primero ejecutá la fase, luego verificá:',
+          'GSD ejecuta todas las tareas del plan en orden. El archivo STATE en .planning/ se actualiza con el progreso — si interrumpís el trabajo, podés retomarlo en otra sesión y GSD sabe exactamente dónde quedó.',
         codeBlock: {
-          code: '"/gsd:execute-phase"\n\n"/gsd:verify-work"',
+          code: '/gsd:execute-phase',
+          language: 'bash',
+        },
+        errorCallouts: [
+          {
+            trigger: 'Si interrumpís y retomás después',
+            error: 'Claude no recuerda dónde estaba el proyecto',
+            solution:
+              'Ejecutá /gsd:progress — GSD lee el archivo STATE y te dice exactamente en qué fase estás y qué falta. No necesitás re-explicar todo el contexto.',
+          },
+        ],
+      },
+      {
+        title: 'Verificá el trabajo',
+        explanation:
+          'GSD verifica que los criterios de aceptación del plan se cumplieron antes de dar la fase por terminada.',
+        codeBlock: {
+          code: '/gsd:verify-work',
           language: 'bash',
         },
         errorCallouts: [
@@ -711,12 +728,6 @@ export const LEVEL_CONTENT: LevelContent[] = [
             error: 'Verification fails con lista de items pendientes',
             solution:
               'Leé el output — te dice exactamente qué está faltando. Corregí los issues y corré verify de nuevo. La verificación es iterativa: fix → verify → fix → verify hasta pasar. Esto es lo que diferencia GSD de ejecutar todo sin control.',
-          },
-          {
-            trigger: 'Si interrumpís y retomás después',
-            error: 'Claude no recuerda dónde estaba el proyecto',
-            solution:
-              'Ejecutá /gsd:progress — GSD lee el archivo STATE y te dice exactamente en qué fase estás y qué falta. No necesitás re-explicar todo el contexto.',
           },
         ],
       },

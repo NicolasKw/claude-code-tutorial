@@ -693,11 +693,28 @@ export const LEVEL_CONTENT_EN: LevelContent[] = [
         errorCallouts: [],
       },
       {
-        title: 'Execute and verify',
+        title: 'Execute the phase',
         explanation:
-          "GSD executes each phase and then verifies that the acceptance criteria were met before moving to the next. The STATE file in .planning/ is updated with progress — if you interrupt the work, you can resume it in another session and GSD will know exactly where it left off. First execute the phase, then verify:",
+          "GSD executes all the tasks in the plan in order. The STATE file in .planning/ is updated with progress — if you interrupt the work, you can resume it in another session and GSD will know exactly where it left off.",
         codeBlock: {
-          code: '"/gsd:execute-phase"\n\n"/gsd:verify-work"',
+          code: '/gsd:execute-phase',
+          language: 'bash',
+        },
+        errorCallouts: [
+          {
+            trigger: 'If you interrupt and resume later',
+            error: "Claude doesn't remember where the project was",
+            solution:
+              "Run /gsd:progress — GSD reads the STATE file and tells you exactly which phase you're on and what's left. You don't need to re-explain all the context.",
+          },
+        ],
+      },
+      {
+        title: 'Verify the work',
+        explanation:
+          'GSD verifies that the acceptance criteria from the plan were met before marking the phase as complete.',
+        codeBlock: {
+          code: '/gsd:verify-work',
           language: 'bash',
         },
         errorCallouts: [
@@ -706,12 +723,6 @@ export const LEVEL_CONTENT_EN: LevelContent[] = [
             error: 'Verification fails with a list of pending items',
             solution:
               "Read the output — it tells you exactly what's missing. Fix the issues and run verify again. Verification is iterative: fix → verify → fix → verify until it passes. This is what differentiates GSD from running everything without control.",
-          },
-          {
-            trigger: 'If you interrupt and resume later',
-            error: "Claude doesn't remember where the project was",
-            solution:
-              "Run /gsd:progress — GSD reads the STATE file and tells you exactly which phase you're on and what's left. You don't need to re-explain all the context.",
           },
         ],
       },
