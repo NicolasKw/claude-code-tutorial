@@ -1,16 +1,17 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Download, ExternalLink, Copy, Check } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 import { TutorialHeader } from '@/components/tutorial/TutorialHeader';
+import { useLanguage } from '@/lib/i18n/context';
+import { UI } from '@/lib/i18n/ui';
 
 interface CertificatePageProps {
   userId: string;
   userName: string;
   certificateUrl: string;
   postText: string;
+  tutorialUrl: string;
 }
 
 export function CertificatePage({
@@ -18,11 +19,26 @@ export function CertificatePage({
   userName,
   certificateUrl,
   postText,
+  tutorialUrl,
 }: CertificatePageProps) {
+  const { lang } = useLanguage();
+  const t = UI[lang];
   const [downloading, setDownloading] = useState(false);
   const [copied, setCopied] = useState(false);
+
+  const activePostText = lang === 'en'
+    ? `I just completed the Claude Code Mastery tutorial by ZalesMachine and built a startup research agent from scratch. Learn how to use Claude Code for real projects: ${tutorialUrl} — ${userName}`
+    : postText;
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const [lightbox, setLightbox] = useState(false);
+
+  useEffect(() => {
+    if (!lightbox) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setLightbox(false); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [lightbox]);
 
   async function handleDownload() {
     setDownloading(true);
@@ -32,7 +48,7 @@ export function CertificatePage({
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'certificado-claude-code.png';
+      a.download = lang === 'en' ? 'claude-code-certificate.png' : 'certificado-claude-code.png';
       a.click();
       URL.revokeObjectURL(url);
     } catch {
@@ -53,7 +69,7 @@ export function CertificatePage({
 
   async function handleCopy() {
     try {
-      await navigator.clipboard.writeText(postText);
+      await navigator.clipboard.writeText(activePostText);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
@@ -62,99 +78,139 @@ export function CertificatePage({
   }
 
   return (
-    <div className="bg-[#171717] min-h-screen">
-      <TutorialHeader currentLevel={7} />
-      <div className="max-w-2xl mx-auto px-4 py-8">
-        <h1 className="text-[28px] font-semibold text-[#E9FFB9]">¡Lo lograste!</h1>
-        <p className="text-base text-white mt-2">
-          Completaste los 7 niveles de Claude Code Mastery.
-        </p>
+    <div style={{ minHeight: '100vh' }}>
+      <TutorialHeader level={7} currentLevel={7} />
+      <div className="max-w-2xl mx-auto px-4 py-10">
+
+        {/* Hero */}
+        <div className="text-center mb-8">
+          <div className="text-5xl mb-4">🏆</div>
+          <h1
+            className="text-3xl font-bold mb-2"
+            style={{
+              background: 'linear-gradient(135deg, #9333EA 0%, #6366F1 50%, #3B82F6 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
+          >
+            {t.congratsPrefix} {userName}{t.congratsSuffix}
+          </h1>
+          <p className="text-sm" style={{ color: 'rgba(26,15,46,0.45)' }}>
+            {t.completedAll}
+          </p>
+        </div>
 
         {/* Certificate preview */}
-        <div className="mt-6">
-          <Card className="bg-[#1F1F1F] p-4">
-            <CardContent className="p-0">
-              {imageError ? (
-                <p className="text-base text-white py-8 text-center">
-                  Este certificado no existe o el usuario no completó el tutorial.
-                </p>
-              ) : (
-                <>
-                  {!imageLoaded && (
-                    <div
-                      role="img"
-                      aria-label="Cargando certificado..."
-                      className="w-full rounded-lg bg-[#2A2A2A]"
-                      style={{ aspectRatio: '1200 / 630' }}
-                    />
-                  )}
-                  <img
-                    src={`/api/certificate/${userId}`}
-                    alt={`Certificado de Claude Code Mastery de ${userName}`}
-                    className="w-full rounded-lg"
-                    style={{
-                      aspectRatio: '1200 / 630',
-                      display: imageLoaded ? 'block' : 'none',
-                    }}
-                    onLoad={() => setImageLoaded(true)}
-                    onError={() => setImageError(true)}
-                  />
-                </>
+        <div
+          className="rounded-2xl overflow-hidden mb-6"
+          style={{ border: '1px solid rgba(217,173,255,0.15)', background: 'rgba(255,255,255,0.03)' }}
+        >
+          {imageError ? (
+            <p className="text-sm py-12 text-center" style={{ color: 'rgba(26,15,46,0.4)' }}>
+              {t.certNotFound}
+            </p>
+          ) : (
+            <>
+              {!imageLoaded && (
+                <div
+                  role="img"
+                  aria-label={t.loadingCert}
+                  className="w-full animate-pulse aspect-[1200/630]"
+                  style={{ background: 'rgba(147,51,234,0.05)' }}
+                />
               )}
-            </CardContent>
-          </Card>
+              <img
+                src={`/api/certificate/${userId}`}
+                alt={`${t.certAltPrefix} ${userName}`}
+                className={`w-full aspect-[1200/630] cursor-zoom-in${imageLoaded ? '' : ' hidden'}`}
+                onLoad={() => setImageLoaded(true)}
+                onError={() => { setImageError(true); setImageLoaded(false); }}
+                onClick={() => setLightbox(true)}
+              />
+            </>
+          )}
         </div>
 
         {/* Action buttons */}
-        <div className="max-w-sm mx-auto flex flex-col gap-3 mt-6">
-          <Button
-            className="h-11 w-full font-semibold bg-[#D9ADFF] text-[#171717] hover:opacity-80"
-            aria-label="Descargar certificado como PNG"
+        <div className="flex flex-col gap-3 mb-8">
+          <button
+            aria-label={t.downloadAlt}
             onClick={handleDownload}
             disabled={downloading}
+            className="w-full py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-opacity hover:opacity-85 disabled:opacity-50"
+            style={{
+              background: 'linear-gradient(135deg, #D9ADFF 0%, #70B5FF 100%)',
+              color: '#0C0A14',
+            }}
           >
-            <Download size={16} className="mr-2" />
-            {downloading ? 'Descargando...' : 'Descargar certificado'}
-          </Button>
+            <Download size={15} />
+            {downloading ? t.downloading : t.downloadBtn}
+          </button>
 
-          <Button
-            className="h-11 w-full font-semibold bg-[#70B5FF] text-[#171717] hover:opacity-80"
-            aria-label="Compartir en LinkedIn"
+          <button
+            aria-label={t.shareAlt}
             onClick={handleLinkedInShare}
+            className="w-full py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-opacity hover:opacity-85"
+            style={{
+              background: 'rgba(112,181,255,0.15)',
+              border: '1px solid rgba(112,181,255,0.3)',
+              color: '#70B5FF',
+            }}
           >
-            <ExternalLink size={16} className="mr-2" />
-            Compartir en LinkedIn
-          </Button>
+            <ExternalLink size={15} />
+            {t.linkedinShare}
+          </button>
         </div>
 
         {/* Post copy block */}
-        <div className="max-w-sm mx-auto mt-8">
-          <Card className="bg-[#1F1F1F]">
-            <CardContent className="p-4">
-              <p className="text-sm font-normal text-[#A3A3A3] mb-3">Texto para tu post</p>
-              <p className="text-base text-white leading-relaxed">{postText}</p>
-              <Button
-                variant="outline"
-                className="h-11 w-full mt-3 border-[#D9ADFF] text-[#D9ADFF]"
-                aria-label={copied ? 'Texto copiado' : 'Copiar texto del post'}
-                onClick={handleCopy}
-              >
-                {copied ? (
-                  <>
-                    <Check size={16} className="mr-2" />
-                    <span aria-live="polite">Copiado</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy size={16} className="mr-2" />
-                    Copiar texto
-                  </>
-                )}
-              </Button>
-            </CardContent>
-          </Card>
+        <div
+          className="rounded-2xl p-5"
+          style={{
+            background: 'rgba(255,255,255,0.03)',
+            border: '1px solid rgba(147,51,234,0.1)',
+          }}
+        >
+          <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: 'rgba(26,15,46,0.35)' }}>
+            {t.postTextLabel}
+          </p>
+          <p className="text-sm leading-relaxed mb-4" style={{ color: 'rgba(26,15,46,0.65)' }}>
+            {activePostText}
+          </p>
+          <button
+            aria-label={copied ? t.copyAltDone : t.copyAlt}
+            onClick={handleCopy}
+            className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all"
+            style={
+              copied
+                ? { background: 'rgba(163,230,53,0.12)', border: '1px solid rgba(163,230,53,0.25)', color: '#A3E635' }
+                : { background: 'rgba(217,173,255,0.1)', border: '1px solid rgba(217,173,255,0.2)', color: '#D9ADFF' }
+            }
+          >
+            {copied ? (
+              <><Check size={14} /><span aria-live="polite">{t.copied}</span></>
+            ) : (
+              <><Copy size={14} />{t.copyBtn}</>
+            )}
+          </button>
         </div>
       </div>
+      {/* Lightbox */}
+      {lightbox && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          style={{ backgroundColor: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(6px)' }}
+          onClick={() => setLightbox(false)}
+        >
+          <img
+            src={`/api/certificate/${userId}`}
+            alt={`${t.certAltPrefix} ${userName}`}
+            className="rounded-2xl shadow-2xl"
+            style={{ maxWidth: '90vw', maxHeight: '90vh', width: '100%', objectFit: 'contain', cursor: 'zoom-out' }}
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
     </div>
   );
 }

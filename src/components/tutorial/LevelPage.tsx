@@ -123,7 +123,7 @@ export function LevelPage({ level }: LevelPageProps) {
             const userId = getUserId();
             router.push(userId ? `/certificate/${userId}` : '/');
           } else {
-            router.push(`/tutorial/${level + 2}`);
+            router.push(`/tutorial/${level + 1}`);
           }
         }}
       />

@@ -4,11 +4,13 @@ import { useActionState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { registerUser, type RegistrationResult } from '@/app/actions';
 import { setSessionId, setUserId } from '@/lib/session';
+import { useLanguage } from '@/lib/i18n/context';
+import { UI } from '@/lib/i18n/ui';
 
 const inputStyle = {
-  background: 'rgba(255,255,255,0.06)',
-  border: '1px solid rgba(217,173,255,0.2)',
-  color: 'white',
+  background: '#F8F6FF',
+  border: '1.5px solid rgba(147,51,234,0.15)',
+  color: '#1A0F2E',
   borderRadius: '12px',
   padding: '12px 16px',
   width: '100%',
@@ -20,6 +22,8 @@ const inputStyle = {
 export function RegistrationForm() {
   const [state, formAction, pending] = useActionState<RegistrationResult | null, FormData>(registerUser, null);
   const router = useRouter();
+  const { lang } = useLanguage();
+  const t = UI[lang];
 
   useEffect(() => {
     if (state?.success) {
@@ -30,10 +34,10 @@ export function RegistrationForm() {
   }, [state, router]);
 
   return (
-    <form action={formAction} className="space-y-4">
+    <form action={formAction} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <div>
-        <label htmlFor="name" className="block text-sm font-medium mb-1.5" style={{ color: 'rgba(255,255,255,0.75)' }}>
-          Nombre *
+        <label htmlFor="name" style={{ display: 'block', fontSize: '13px', fontWeight: 600, marginBottom: '6px', color: 'rgba(26,15,46,0.7)' }}>
+          {t.nameLabel}
         </label>
         <input
           type="text"
@@ -41,24 +45,24 @@ export function RegistrationForm() {
           name="name"
           required
           style={inputStyle}
-          placeholder="Tu nombre completo"
+          placeholder={t.namePlaceholder}
           onFocus={(e) => {
-            e.currentTarget.style.borderColor = 'rgba(217,173,255,0.55)';
-            e.currentTarget.style.boxShadow = '0 0 0 3px rgba(217,173,255,0.1)';
+            e.currentTarget.style.borderColor = 'rgba(147,51,234,0.5)';
+            e.currentTarget.style.boxShadow = '0 0 0 3px rgba(147,51,234,0.08)';
           }}
           onBlur={(e) => {
-            e.currentTarget.style.borderColor = 'rgba(217,173,255,0.2)';
+            e.currentTarget.style.borderColor = 'rgba(147,51,234,0.15)';
             e.currentTarget.style.boxShadow = 'none';
           }}
         />
         {state && !state.success && state.errors?.name && (
-          <p className="mt-1 text-sm" style={{ color: '#f87171' }}>{state.errors.name[0]}</p>
+          <p style={{ marginTop: '4px', fontSize: '13px', color: '#DC2626' }}>{state.errors.name[0]}</p>
         )}
       </div>
 
       <div>
-        <label htmlFor="linkedinUrl" className="block text-sm font-medium mb-1.5" style={{ color: 'rgba(255,255,255,0.75)' }}>
-          Perfil de LinkedIn *
+        <label htmlFor="linkedinUrl" style={{ display: 'block', fontSize: '13px', fontWeight: 600, marginBottom: '6px', color: 'rgba(26,15,46,0.7)' }}>
+          {t.linkedinLabel}
         </label>
         <input
           type="text"
@@ -66,60 +70,54 @@ export function RegistrationForm() {
           name="linkedinUrl"
           required
           style={inputStyle}
-          placeholder="linkedin.com/in/tu-perfil"
+          placeholder={t.linkedinPlaceholder}
           onFocus={(e) => {
-            e.currentTarget.style.borderColor = 'rgba(217,173,255,0.55)';
-            e.currentTarget.style.boxShadow = '0 0 0 3px rgba(217,173,255,0.1)';
+            e.currentTarget.style.borderColor = 'rgba(147,51,234,0.5)';
+            e.currentTarget.style.boxShadow = '0 0 0 3px rgba(147,51,234,0.08)';
           }}
           onBlur={(e) => {
-            e.currentTarget.style.borderColor = 'rgba(217,173,255,0.2)';
+            e.currentTarget.style.borderColor = 'rgba(147,51,234,0.15)';
             e.currentTarget.style.boxShadow = 'none';
           }}
         />
         {state && !state.success && state.errors?.linkedinUrl && (
-          <p className="mt-1 text-sm" style={{ color: '#f87171' }}>{state.errors.linkedinUrl[0]}</p>
+          <p style={{ marginTop: '4px', fontSize: '13px', color: '#DC2626' }}>{state.errors.linkedinUrl[0]}</p>
         )}
       </div>
 
       <div>
-        <label htmlFor="email" className="block text-sm font-medium mb-1.5" style={{ color: 'rgba(255,255,255,0.75)' }}>
-          Email <span style={{ color: 'rgba(255,255,255,0.35)' }}>(opcional)</span>
+        <label htmlFor="email" style={{ display: 'block', fontSize: '13px', fontWeight: 600, marginBottom: '6px', color: 'rgba(26,15,46,0.7)' }}>
+          {t.emailLabel}
         </label>
         <input
           type="email"
           id="email"
           name="email"
+          required
           style={inputStyle}
-          placeholder="tu@email.com"
+          placeholder={t.emailPlaceholder}
           onFocus={(e) => {
-            e.currentTarget.style.borderColor = 'rgba(217,173,255,0.55)';
-            e.currentTarget.style.boxShadow = '0 0 0 3px rgba(217,173,255,0.1)';
+            e.currentTarget.style.borderColor = 'rgba(147,51,234,0.5)';
+            e.currentTarget.style.boxShadow = '0 0 0 3px rgba(147,51,234,0.08)';
           }}
           onBlur={(e) => {
-            e.currentTarget.style.borderColor = 'rgba(217,173,255,0.2)';
+            e.currentTarget.style.borderColor = 'rgba(147,51,234,0.15)';
             e.currentTarget.style.boxShadow = 'none';
           }}
         />
         {state && !state.success && state.errors?.email && (
-          <p className="mt-1 text-sm" style={{ color: '#f87171' }}>{state.errors.email[0]}</p>
+          <p style={{ marginTop: '4px', fontSize: '13px', color: '#DC2626' }}>{state.errors.email[0]}</p>
         )}
       </div>
 
       <button
         type="submit"
         disabled={pending}
-        className="w-full font-semibold py-3 rounded-xl mt-2 disabled:cursor-not-allowed"
-        style={{
-          background: 'linear-gradient(135deg, #D9ADFF 0%, #70B5FF 100%)',
-          color: '#0C0A14',
-          fontSize: '15px',
-          opacity: pending ? 0.6 : 1,
-          transition: 'opacity 0.2s',
-        }}
-        onMouseEnter={(e) => { if (!pending) e.currentTarget.style.opacity = '0.85'; }}
-        onMouseLeave={(e) => { if (!pending) e.currentTarget.style.opacity = '1'; }}
+        style={{ width: '100%', padding: '13px', borderRadius: '12px', fontWeight: 700, fontSize: '15px', cursor: pending ? 'not-allowed' : 'pointer', opacity: pending ? 0.6 : 1, background: 'linear-gradient(135deg, #9333EA 0%, #6366F1 50%, #3B82F6 100%)', color: 'white', boxShadow: '0 4px 16px rgba(147,51,234,0.3)', transition: 'opacity 0.15s, box-shadow 0.15s', marginTop: '4px' }}
+        onMouseEnter={(e) => { if (!pending) { e.currentTarget.style.opacity = '0.88'; e.currentTarget.style.boxShadow = '0 6px 24px rgba(147,51,234,0.4)'; } }}
+        onMouseLeave={(e) => { if (!pending) { e.currentTarget.style.opacity = '1'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(147,51,234,0.3)'; } }}
       >
-        {pending ? 'Registrando...' : 'Comenzar Tutorial →'}
+        {pending ? t.submitting : t.submitBtn}
       </button>
     </form>
   );

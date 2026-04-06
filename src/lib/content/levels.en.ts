@@ -95,6 +95,23 @@ export const LEVEL_CONTENT_EN: LevelContent[] = [
         },
         errorCallouts: [],
       },
+      {
+        title: 'Learn the essential navigation commands',
+        explanation:
+          'Before moving on, learn the 4 commands you\'ll use most throughout the rest of the tutorial. Commands starting with `/` are typed directly into the Claude Code prompt:',
+        codeBlock: {
+          code: '! mkdir my-folder    # run a terminal command without leaving Claude Code\n/clear               # clear the context — before starting a new task\n/exit                # exit Claude Code (also Ctrl+C)\n/resume              # resume the previous session with all its context',
+          language: 'bash',
+        },
+        errorCallouts: [
+          {
+            trigger: 'When do I use /clear vs /exit?',
+            error: "aren't they the same?",
+            solution:
+              "/clear clears the conversation history but Claude keeps running — ideal for starting a new task without prior context interfering. /exit (or Ctrl+C) closes Claude Code completely — you need this when you have to change directories (cd doesn't work with !) or when you've created new config files like CLAUDE.md, commands, agents, or MCPs that Claude needs to load fresh on restart.",
+          },
+        ],
+      },
     ],
   },
 
@@ -116,6 +133,12 @@ export const LEVEL_CONTENT_EN: LevelContent[] = [
           manualInstructions: 'Create a new folder called "my-startup-agent" from Finder (Mac) or File Explorer (Windows). Then open it in VS Code: File → Open Folder.',
         },
         errorCallouts: [
+          {
+            trigger: 'If you come from Level 0 with Claude Code open',
+            error: 'do I need to exit first?',
+            solution:
+              "Yes, in this case you need to exit. The cd command changes directory and doesn't work with the ! prefix from inside Claude Code. Exit with /exit or Ctrl+C, run the command in your system terminal, then restart Claude Code from the new folder.",
+          },
           {
             trigger: 'If you see this error',
             error: 'mkdir: my-startup-agent: File exists',
@@ -222,7 +245,7 @@ export const LEVEL_CONTENT_EN: LevelContent[] = [
       {
         title: 'Create the CLAUDE.md file',
         explanation:
-          "Create CLAUDE.md at the root of your project. In the next step you'll fill in its content.",
+          "Create CLAUDE.md at the root of your project. In the next step you'll fill in its content. If Claude Code is active in your session, you can run it directly with the `!` prefix: `! touch CLAUDE.md`.",
         setupBlock: {
           terminalCode: 'touch CLAUDE.md',
           manualInstructions: 'In VS Code, right-click in the file explorer (left panel) → New File → name it "CLAUDE.md". On Windows you can also open your project folder in File Explorer, right-click → New → Text Document → rename it to "CLAUDE.md".',
@@ -248,7 +271,7 @@ export const LEVEL_CONTENT_EN: LevelContent[] = [
       },
       {
         title: 'Open Claude Code',
-        explanation: 'Open a new Claude Code session in the terminal.',
+        explanation: 'Claude reads CLAUDE.md at the start of each session — you need to restart for it to load the file you just created. If you have Claude Code active, exit first with `/exit` or Ctrl+C, then run:',
         codeBlock: {
           code: 'claude',
           language: 'bash',
@@ -294,7 +317,7 @@ export const LEVEL_CONTENT_EN: LevelContent[] = [
       {
         title: 'Create a command with dynamic arguments',
         explanation:
-          'Commands are saved prompts you can invoke with /name. What makes them powerful is `$ARGUMENTS` — a placeholder you replace when invoking the command. This way, one command works for any startup or market vertical.',
+          'Commands are saved prompts you can invoke with /name. What makes them powerful is `$ARGUMENTS` — a placeholder you replace when invoking the command. This way, one command works for any startup or market vertical. If Claude Code is active, you can create the files from the prompt: `! mkdir -p .claude/commands && touch .claude/commands/research.md`.',
         setupBlock: {
           terminalCode: 'mkdir -p .claude/commands\ntouch .claude/commands/research.md',
           manualInstructions: 'In VS Code, create the ".claude/commands" folder inside your project (right-click in the file explorer → New Folder). Then create the file "research.md" inside that folder and paste the content shown below.',
@@ -317,7 +340,7 @@ export const LEVEL_CONTENT_EN: LevelContent[] = [
       },
       {
         title: 'Open Claude Code',
-        explanation: 'Open a new Claude Code session in the terminal.',
+        explanation: 'Commands are loaded at session start — you need to restart for Claude to recognize the new `/research`. If you have Claude Code active, exit with `/exit` or Ctrl+C then run:',
         codeBlock: {
           code: 'claude',
           language: 'bash',
@@ -327,7 +350,7 @@ export const LEVEL_CONTENT_EN: LevelContent[] = [
       {
         title: 'Test the command with arguments',
         explanation:
-          'Invoke the command passing a startup idea as an argument. Claude will replace $ARGUMENTS with what you typed.',
+          "Invoke the command passing a startup idea as an argument. If you're carrying context from previous steps, run `/clear` first so the research starts with a clean context. Claude will replace $ARGUMENTS with what you typed.",
         codeBlock: {
           code: '/research "pet delivery app in LATAM"',
           language: 'bash',
@@ -344,7 +367,7 @@ export const LEVEL_CONTENT_EN: LevelContent[] = [
       {
         title: 'Create an analysis Skill',
         explanation:
-          "Skills are different from commands: Claude loads them automatically based on context, without you invoking them. They are specialized knowledge — an analysis framework, a methodology, reference examples. Create a skill that defines how your agent should structure market analysis.",
+          "Skills are different from commands: Claude loads them automatically based on context, without you invoking them. They are specialized knowledge — an analysis framework, a methodology, reference examples. Create a skill that defines how your agent should structure market analysis. If Claude Code is active, use: `! mkdir -p .claude/skills/startup-analyst && touch .claude/skills/startup-analyst/skill.md`.",
         setupBlock: {
           terminalCode: 'mkdir -p .claude/skills/startup-analyst\ntouch .claude/skills/startup-analyst/skill.md',
           manualInstructions: 'In VS Code, create the folders ".claude/skills/startup-analyst" (nested). Then create "skill.md" inside "startup-analyst" and paste the content shown below.',
@@ -374,7 +397,7 @@ export const LEVEL_CONTENT_EN: LevelContent[] = [
       {
         title: 'Configure a validation Hook',
         explanation:
-          "Hooks are automatic triggers that run when Claude does something. They don't use LLM tokens — they are pure, mechanical scripts. Perfect for validations that must always be met. Create a hook that verifies each research report has the required sections.",
+          "Hooks are automatic triggers that run when Claude does something. They don't use LLM tokens — they are pure, mechanical scripts. Perfect for validations that must always be met. Create a hook that verifies each research report has the required sections. If Claude Code is active, create the file with: `! touch .claude/settings.json`.",
         setupBlock: {
           terminalCode: 'touch .claude/settings.json',
           manualInstructions: 'In VS Code, create the file "settings.json" inside the ".claude/" folder of your project and paste the content shown below.',
@@ -436,7 +459,7 @@ export const LEVEL_CONTENT_EN: LevelContent[] = [
       },
       {
         title: 'Open Claude Code',
-        explanation: 'Open a new Claude Code session in the terminal.',
+        explanation: 'If you already have Claude Code active from the previous level, you can clear the context with `/clear` instead of exiting and re-entering. If you prefer to start completely fresh, exit with `/exit` and run:',
         codeBlock: {
           code: 'claude',
           language: 'bash',
@@ -462,7 +485,7 @@ export const LEVEL_CONTENT_EN: LevelContent[] = [
       },
       {
         title: 'Open Claude Code',
-        explanation: 'Open a new Claude Code session in the terminal.',
+        explanation: 'MCP servers are loaded at session start — you need to restart for Claude to have filesystem access. If you have Claude Code active, exit with `/exit` or Ctrl+C then run:',
         codeBlock: {
           code: 'claude',
           language: 'bash',
@@ -489,7 +512,7 @@ export const LEVEL_CONTENT_EN: LevelContent[] = [
       {
         title: 'Add a Notion MCP to save research',
         explanation:
-          "Here's where MCP gets really powerful: the connection is bidirectional. Claude can read your ideas database in Notion, do the analysis, and write the report directly to a new page — without you copying or pasting anything. Create a `.mcp.json` file at the root of the project with your Personal Access Token, then restart Claude Code.",
+          "Here's where MCP gets really powerful: the connection is bidirectional. Claude can read your ideas database in Notion, do the analysis, and write the report directly to a new page — without you copying or pasting anything. Create a `.mcp.json` file at the root of the project with your Personal Access Token, then restart Claude Code. If Claude Code is active, create the file with: `! touch .mcp.json`.",
         setupBlock: {
           terminalCode: 'touch .mcp.json',
           manualInstructions: 'In VS Code, create the file ".mcp.json" in the main project folder (right-click in the file explorer → New File). Paste the content below and replace "your-notion-integration-token" with your actual token.',
@@ -518,12 +541,29 @@ export const LEVEL_CONTENT_EN: LevelContent[] = [
       },
       {
         title: 'Open Claude Code',
-        explanation: 'Open a new Claude Code session in the terminal.',
+        explanation: 'The Notion MCP is loaded at session start — you need to restart for Claude to recognize it. If you have Claude Code active, exit with `/exit` or Ctrl+C then run:',
         codeBlock: {
           code: 'claude',
           language: 'bash',
         },
         errorCallouts: [],
+      },
+      {
+        title: 'Create the Ideas database in Notion',
+        explanation:
+          "You already have the Notion MCP connected — ask Claude to create the database for you. Claude will use the MCP to create the page, define the columns, and add an example idea:",
+        codeBlock: {
+          code: "\"Use the Notion MCP to create a database called\n'Ideas' with these columns: Idea (title), Status (select\nwith options: Pending, In progress, Completed).\nAdd an example row with a startup idea\nand status Pending.\"",
+          language: 'bash',
+        },
+        errorCallouts: [
+          {
+            trigger: "If Claude says it doesn't have access to Notion",
+            error: 'Permission error even though the token is configured',
+            solution:
+              'The integration needs to be enabled on the specific Notion page. In Notion, open the page where you want the database → "..." (top right) → Connections → select your integration. Without this step, the token exists but Claude has no access to that page.',
+          },
+        ],
       },
       {
         title: 'Run a complete research flow',
@@ -553,7 +593,7 @@ export const LEVEL_CONTENT_EN: LevelContent[] = [
       'The solution to "context rot". A framework that splits complex projects into independent phases, each with its own plan, execution, and verification.',
     sourceUrl: 'https://code.claude.com/docs/en/best-practices#explore-first-then-plan-then-code',
     summary:
-      'You used GSD to organize a complex market research into phases with verification. You understood the context rot problem and how GSD solves it with state files.',
+      'You used GSD to add a search history feature to your web app, phase by phase, with planning, execution, and verification. You understood the context rot problem and how GSD solves it by saving state to files.',
     steps: [
       {
         title: 'The problem: context rot',
@@ -570,7 +610,7 @@ export const LEVEL_CONTENT_EN: LevelContent[] = [
       },
       {
         title: 'Open Claude Code',
-        explanation: 'Open a new Claude Code session in the terminal.',
+        explanation: 'If you already have Claude Code active from the previous level, you can clear the context with `/clear` instead of exiting and re-entering. If you prefer to start from scratch, exit with `/exit` and run:',
         codeBlock: {
           code: 'claude',
           language: 'bash',
@@ -578,51 +618,74 @@ export const LEVEL_CONTENT_EN: LevelContent[] = [
         errorCallouts: [],
       },
       {
-        title: 'Install the GSD framework',
+        title: 'Install GSD',
         explanation:
-          "GSD is not an npm dependency — it's a file structure and prompts that Claude reads. The /gsd:new-project command creates the entire structure including the .planning/ folder with the roadmap, requirements, and the STATE file that tracks progress between sessions.",
+          'GSD installs via npx from your terminal (not inside Claude Code). Run this command in your project folder:',
         codeBlock: {
-          code: '"/gsd:new-project"',
+          code: 'npx get-shit-done-cc@latest',
           language: 'bash',
         },
         errorCallouts: [
+          {
+            trigger: 'If npx get-shit-done-cc@latest fails',
+            error: 'Outdated version on npm',
+            solution:
+              'Install directly from GitHub: npx github:gsd-build/get-shit-done — this installs the latest version from source and works on Mac, Windows, and Linux.',
+          },
+        ],
+      },
+      {
+        title: 'Restart Claude Code',
+        explanation: 'GSD loads its skills at session start — you need to restart for the `/gsd:*` commands to be available. If you have Claude Code active, exit with `/exit` or Ctrl+C then run:',
+        codeBlock: {
+          code: 'claude',
+          language: 'bash',
+        },
+        errorCallouts: [],
+      },
+      {
+        title: 'Initialize the GSD framework',
+        explanation:
+          'Run /gsd:new-project. GSD will ask if you want to map the codebase first — say yes. After mapping, it will ask you to run /clear and execute /gsd:new-project again. In that second run it will ask "What do you want to build?" — describe a concrete extension of your app, for example: "I want to add search history — save each generated report to a database and display them in a dashboard". GSD will create the phase structure for that.',
+        codeBlock: {
+          code: '/gsd:new-project',
+          language: 'bash',
+        },
+        errorCallouts: [
+          {
+            trigger: 'After mapping, GSD asks you to /clear and re-run',
+            error: 'This is part of the normal flow',
+            solution:
+              'Run /clear in Claude Code and execute /gsd:new-project again. This second run already has the codebase context and will ask directly what you want to build.',
+          },
           {
             trigger: "If Claude doesn't recognize /gsd:new-project",
             error: 'The command does not exist',
             solution:
-              'GSD installs as a Claude Code skill. Type: "/plugin install gsd" or install it from skillsmp.com. Once installed, restart Claude Code.',
+              'Make sure you restarted Claude Code after installing GSD. If the issue persists, reinstall with: npx get-shit-done-cc@latest',
           },
         ],
       },
       {
-        title: 'Open Claude Code',
-        explanation: 'Open a new Claude Code session in the terminal.',
-        codeBlock: {
-          code: 'claude',
-          language: 'bash',
-        },
-        errorCallouts: [],
-      },
-      {
-        title: 'Create a plan with phases',
+        title: 'Plan the first phase',
         explanation:
-          'Give GSD a large research objective. It will ask questions, divide the work into phases, and create the roadmap file. Example: research the automation tools market for SMBs in LATAM.',
+          'Once GSD has created the project structure, use /gsd:plan-phase to plan the first development phase. GSD will ask questions, define concrete tasks, and create a PLAN.md file with acceptance criteria.',
         codeBlock: {
-          code: '"/gsd:plan-phase Research the automation tools market for\nSMBs in LATAM — I want to understand competitors,\nTAM, trends, and entry opportunities"',
+          code: '/gsd:plan-phase',
           language: 'bash',
         },
         errorCallouts: [
           {
-            trigger: 'If the plan seems too detailed',
-            error: 'GSD generated too many phases for what I need',
+            trigger: 'If GSD asks you to describe the phase',
+            error: "I don't know what to write",
             solution:
-              "Ask it to simplify: \"Reduce to maximum 3 phases, prioritizing the most important.\" GSD is designed for large projects — if your project is simpler, you can adjust the scope.",
+              'Describe the first logical stage. For the history example: "Phase 1: database schema and auto-save — a reports table with startup name, date, and result, automatically saving each new report that gets generated."',
           },
         ],
       },
       {
         title: 'Open Claude Code',
-        explanation: 'Open a new Claude Code session in the terminal.',
+        explanation: "If you still have the previous step's session active, you can clear context with `/clear` and execute directly from there. If you exited, restart:",
         codeBlock: {
           code: 'claude',
           language: 'bash',
@@ -681,7 +744,7 @@ export const LEVEL_CONTENT_EN: LevelContent[] = [
       {
         title: 'Create the agents folder',
         explanation:
-          "Sub-agents are defined in .md files inside .claude/agents/. Each file has a description (when Claude uses this agent), allowed tools, and the specialized prompt.",
+          "Sub-agents are defined in .md files inside .claude/agents/. Each file has a description (when Claude uses this agent), allowed tools, and the specialized prompt. If Claude Code is active, use: `! mkdir -p .claude/agents && touch .claude/agents/competitor-researcher.md && touch .claude/agents/market-sizer.md`.",
         setupBlock: {
           terminalCode: 'mkdir -p .claude/agents\ntouch .claude/agents/competitor-researcher.md\ntouch .claude/agents/market-sizer.md',
           manualInstructions: 'In VS Code, create the ".claude/agents" folder inside your project. Then create the two files inside that folder and paste the content for each from below.',
@@ -709,7 +772,7 @@ export const LEVEL_CONTENT_EN: LevelContent[] = [
       },
       {
         title: 'Open Claude Code',
-        explanation: 'Open a new Claude Code session in the terminal.',
+        explanation: 'Sub-agents are loaded at session start — you need to restart for Claude to recognize them. If you have Claude Code active, exit with `/exit` or Ctrl+C then run:',
         codeBlock: {
           code: 'claude',
           language: 'bash',
@@ -788,7 +851,7 @@ export const LEVEL_CONTENT_EN: LevelContent[] = [
       },
       {
         title: 'Open Claude Code',
-        explanation: 'Open a new Claude Code session in the terminal.',
+        explanation: 'If you already have Claude Code active from the previous level, you can clear the context with `/clear` instead of exiting and re-entering. If you prefer to start from scratch, exit with `/exit` and run:',
         codeBlock: {
           code: 'claude',
           language: 'bash',
@@ -815,7 +878,7 @@ export const LEVEL_CONTENT_EN: LevelContent[] = [
       {
         title: 'Create your prd.json',
         explanation:
-          "prd.json is the task list that RALPH will execute. Each task has: a description (what to do), acceptance criteria (how Claude verifies it's done), and a status (pending → done). Criteria must be objective and verifiable — avoid things like \"the report is good\". Use things like \"the file exists in /output/\" or \"includes the TAM section\".",
+          "prd.json is the task list that RALPH will execute. Each task has: a description (what to do), acceptance criteria (how Claude verifies it's done), and a status (pending → done). Criteria must be objective and verifiable — avoid things like \"the report is good\". Use things like \"the file exists in /output/\" or \"includes the TAM section\". If Claude Code is active, create the file with: `! touch prd.json`.",
         setupBlock: {
           terminalCode: 'touch prd.json',
           manualInstructions: 'In VS Code, create the file "prd.json" in the main project folder. Paste the content below and modify the tasks to match your research goals.',
@@ -838,7 +901,7 @@ export const LEVEL_CONTENT_EN: LevelContent[] = [
       },
       {
         title: 'Open Claude Code',
-        explanation: 'Open a new Claude Code session in the terminal.',
+        explanation: 'Before running RALPH, run `/clear` to start with a clean context — RALPH will handle everything on its own, without needing the history from previous steps. If you exited Claude Code, restart:',
         codeBlock: {
           code: 'claude',
           language: 'bash',

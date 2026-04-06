@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/claude-code-mastery",
+      "permanent": false
+    }
+  ]
+}

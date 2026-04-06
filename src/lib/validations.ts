@@ -12,12 +12,7 @@ export const registrationSchema = z.object({
       if (!url.startsWith('http')) return `https://${url}`;
       return url;
     }),
-  email: z
-    .string()
-    .email('Invalid email address')
-    .optional()
-    .or(z.literal(''))
-    .transform((v) => v || undefined),
+  email: z.string().min(1, 'Email is required').email('Invalid email address'),
 });
 
 export type RegistrationInput = z.infer<typeof registrationSchema>;

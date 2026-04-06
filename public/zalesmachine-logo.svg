@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 72" fill="none">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&amp;display=swap');
+    text { font-family: 'Fredoka One', 'Arial Rounded MT Bold', 'Arial Black', sans-serif; font-size: 58px; }
+  </style>
+  <!-- Shadow layer (offset bottom-right) -->
+  <text x="4" y="57" fill="#1a0a2e" letter-spacing="-1">ZalesMachine</text>
+  <!-- Main lavender layer -->
+  <text x="1" y="54" fill="#C084FC" letter-spacing="-1">ZalesMachine</text>
+</svg>

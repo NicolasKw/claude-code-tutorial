@@ -1,8 +1,9 @@
 'use client';
 
 import { Lock } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
+import { useLanguage } from '@/lib/i18n/context';
+import { UI } from '@/lib/i18n/ui';
 
 interface LockedLevelProps {
   level: number;
@@ -11,21 +12,24 @@ interface LockedLevelProps {
 
 export function LockedLevel({ level, currentLevel }: LockedLevelProps) {
   const router = useRouter();
-  const prevLevel = level - 1;
+  const { lang } = useLanguage();
+  const t = UI[lang];
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[400px] text-center px-4">
-      <Lock size={24} className="mx-auto mb-4 text-gray-400" aria-hidden="true" />
-      <h2 className="text-xl font-semibold mb-2">Este nivel está bloqueado</h2>
-      <p className="text-gray-400 mb-6">
-        Completá el Nivel {prevLevel} para desbloquearlo.
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', textAlign: 'center', padding: '24px' }}>
+      <div style={{ width: '56px', height: '56px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px', background: 'rgba(147,51,234,0.08)', border: '1.5px solid rgba(147,51,234,0.18)' }}>
+        <Lock size={22} style={{ color: '#7C3AED' }} />
+      </div>
+      <h2 style={{ fontSize: '20px', fontWeight: 800, color: '#1A0F2E', marginBottom: '8px' }}>{t.lockedTitle}</h2>
+      <p style={{ fontSize: '14px', color: 'rgba(26,15,46,0.45)', marginBottom: '28px' }}>
+        {t.completeFirstPrefix} {level} {t.completeFirstSuffix}
       </p>
-      <Button
-        variant="outline"
-        onClick={() => router.push(`/tutorial/${currentLevel}`)}
+      <button onClick={() => router.push(`/tutorial/${currentLevel}`)} style={{ padding: '10px 22px', borderRadius: '12px', fontSize: '14px', fontWeight: 600, cursor: 'pointer', background: 'rgba(147,51,234,0.08)', border: '1.5px solid rgba(147,51,234,0.2)', color: '#7C3AED', transition: 'opacity 0.15s' }}
+        onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.75'; }}
+        onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; }}
       >
-        Volver al Nivel {currentLevel}
-      </Button>
+        {t.goBackPrefix} {currentLevel + 1}
+      </button>
     </div>
   );
 }

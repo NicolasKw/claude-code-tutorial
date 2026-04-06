@@ -7,6 +7,7 @@ const defaultProps = {
   userName: 'Test User',
   certificateUrl: 'https://example.com/certificate/test-uuid',
   postText: 'Test post text with Test User name',
+  tutorialUrl: 'https://example.com/',
 };
 
 beforeEach(() => {

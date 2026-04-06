@@ -11,10 +11,10 @@ export async function generateMetadata(
 
   return {
     title: 'Completé el tutorial de Claude Code — ZalesMachine',
-    description: 'Aprendí a construir un bot de gestión personal con Claude Code. 7 niveles, ~1 hora.',
+    description: 'Aprendí a construir un agente de investigación de startups con Claude Code. 7 niveles, ~1 hora.',
     openGraph: {
       title: 'Completé el tutorial de Claude Code — ZalesMachine',
-      description: 'Aprendí a construir un bot de gestión personal con Claude Code. 7 niveles, ~1 hora.',
+      description: 'Aprendí a construir un agente de investigación de startups con Claude Code. 7 niveles, ~1 hora.',
       url: `${baseUrl}/certificate/${userId}`,
       images: [
         {
@@ -42,7 +42,7 @@ export default async function CertificateRoute(
   const certificateUrl = `${baseUrl}/certificate/${userId}`;
   const tutorialUrl = `${baseUrl}/`;
 
-  const postText = `Completé el tutorial Claude Code Mastery de ZalesMachine y construí un bot de gestión personal desde cero. Si querés aprender cómo usar Claude Code para proyectos reales, te dejo el link: ${tutorialUrl} — ${userData.name}`;
+  const postText = `Completé el tutorial Claude Code Mastery de ZalesMachine y construí un agente de investigación de startups desde cero. Si querés aprender cómo usar Claude Code para proyectos reales, te dejo el link: ${tutorialUrl} — ${userData.name}`;
 
   return (
     <CertificatePage
@@ -50,6 +50,7 @@ export default async function CertificateRoute(
       userName={userData.name}
       certificateUrl={certificateUrl}
       postText={postText}
+      tutorialUrl={tutorialUrl}
     />
   );
 }

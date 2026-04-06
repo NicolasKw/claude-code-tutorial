@@ -1,0 +1,1 @@
+ALTER TABLE "users" ADD CONSTRAINT "users_linkedin_url_unique" UNIQUE("linkedin_url");

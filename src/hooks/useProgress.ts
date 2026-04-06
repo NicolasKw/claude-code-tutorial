@@ -17,6 +17,7 @@ import { getSessionId } from '@/lib/session';
 
 export function useProgress() {
   const [progress, setProgress] = useState<TutorialProgress>(DEFAULT_PROGRESS);
+  const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -28,37 +29,32 @@ export function useProgress() {
         // Invalid JSON — fall back to default
       }
     }
+    setHydrated(true);
   }, []);
 
-  const persist = useCallback((next: TutorialProgress) => {
+  // Persist whenever progress changes, but only after initial hydration
+  useEffect(() => {
+    if (!hydrated) return;
     if (typeof window === 'undefined') return;
-    localStorage.setItem(PROGRESS_KEY, JSON.stringify(next));
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
     const sessionId = getSessionId();
     if (sessionId) {
-      saveProgress(sessionId, next).catch(() => {});
+      saveProgress(sessionId, progress).catch(() => {});
     }
-  }, []);
+  }, [progress, hydrated]);
 
   const completeStep = useCallback(
     (level: number, step: number) => {
-      setProgress((prev) => {
-        const next = pureCompleteStep(prev, level, step);
-        persist(next);
-        return next;
-      });
+      setProgress((prev) => pureCompleteStep(prev, level, step));
     },
-    [persist]
+    []
   );
 
   const completeLevel = useCallback(
     (level: number) => {
-      setProgress((prev) => {
-        const next = pureCompleteLevel(prev, level);
-        persist(next);
-        return next;
-      });
+      setProgress((prev) => pureCompleteLevel(prev, level));
     },
-    [persist]
+    []
   );
 
   const isLevelLocked = useCallback(
