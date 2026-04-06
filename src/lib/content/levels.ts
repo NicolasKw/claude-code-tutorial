@@ -1,33 +1,60 @@
 import type { LevelContent } from '@/lib/types/tutorial';
+import { LEVEL_CONTENT_EN } from './levels.en';
 
 export const LEVEL_CONTENT: LevelContent[] = [
   // ─── Level 0: Chatbot ────────────────────────────────────────────────────
   {
     level: 0,
     title: 'Chatbot',
-    subtitle: 'Tu primera conversacion con Claude Code',
+    subtitle: 'El punto de entrada. Claude Code como chat interactivo, sin estructura ni contexto previo.',
     summary:
-      'Instalaste Claude Code, lo ejecutaste en modo chat, y verificaste que responde. Tenes una herramienta de IA corriendo en tu propia maquina.',
+      'Instalaste Claude Code, lo ejecutaste en modo chat, y verificaste que responde. Tenés un investigador de startups IA corriendo en tu propia máquina.',
+    sourceUrl: 'https://code.claude.com/docs/en/overview',
     steps: [
       {
         title: 'Instala Claude Code',
         explanation:
-          'Claude Code es una herramienta de linea de comandos que se instala globalmente con npm. Solo tenes que hacerlo una vez en tu maquina.',
+          'Claude Code se instala con un comando nativo — no necesitás instalar npm ni ningún otro prerrequisito. Abrí la terminal de tu sistema y ejecutá:',
         codeBlock: {
-          code: 'npm install -g @anthropic-ai/claude-code',
+          code: 'curl -fsSL https://claude.ai/install.sh | bash',
           language: 'bash',
         },
         errorCallouts: [
           {
-            trigger: 'Si ves este error',
-            error: 'EACCES: permission denied',
+            trigger: '¿Cómo abro la terminal?',
+            error: 'No sé qué es ni cómo abrirla',
             solution:
-              'Tu npm global prefix no tiene permisos de escritura. Opciones: (1) usa sudo: sudo npm install -g @anthropic-ai/claude-code  (2) configura un npm prefix en tu home directory para no necesitar sudo.',
+              'Mac: presioná Cmd+Espacio, escribí "Terminal" y presioná Enter. Windows: presioná la tecla Windows, escribí "PowerShell" y abrilo. Linux: buscá "Terminal" en tus aplicaciones.',
+          },
+          {
+            trigger: 'Si estás en Windows',
+            error: 'curl no funciona o el script .sh no es compatible',
+            solution:
+              'En Windows PowerShell ejecutá: irm https://claude.ai/install.ps1 | iex\n\nEn Windows CMD ejecutá: curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd',
+          },
+          {
+            trigger: 'Si ves "curl: command not found"',
+            error: 'curl no está instalado en tu sistema',
+            solution:
+              'En Ubuntu/Debian: sudo apt install curl\nEn macOS curl viene preinstalado — si falta, instalá Xcode Command Line Tools: xcode-select --install',
           },
         ],
       },
       {
-        title: 'Autentica con tu cuenta Anthropic',
+        title: 'Instala Visual Studio Code',
+        explanation:
+          'La terminal funciona, pero Visual Studio Code es mucho más cómodo para trabajar con Claude Code. Te da un editor de código, explorador de archivos y terminal integrada en un solo lugar. Descargalo desde code.visualstudio.com, instalalo, y luego buscá la extensión "Claude Code" en el marketplace de VSC para tener Claude Code integrado directamente en el editor.',
+        errorCallouts: [
+          {
+            trigger: '¿Ya tenés un editor instalado?',
+            error: 'Uso otro editor como Cursor, Zed o WebStorm',
+            solution:
+              'Claude Code funciona desde cualquier terminal. Si ya tenés un editor con terminal integrada, podés saltar este paso. La extensión oficial de Claude Code existe para VS Code y JetBrains (WebStorm, IntelliJ, etc.).',
+          },
+        ],
+      },
+      {
+        title: 'Autenticá con tu cuenta Anthropic',
         explanation:
           'Claude Code necesita una clave de API de Anthropic para funcionar. El comando login abre el browser para que te autentiques con tu cuenta.',
         codeBlock: {
@@ -37,18 +64,17 @@ export const LEVEL_CONTENT: LevelContent[] = [
         errorCallouts: [
           {
             trigger: 'Si el browser no se abre',
-            error: 'La autenticacion no inicia automaticamente',
+            error: 'La autenticación no inicia automáticamente',
             solution:
-              'Copia la URL que aparece en la terminal y pegala manualmente en el browser. La URL empieza con https://claude.ai/...',
+              'Copiá la URL que aparece en la terminal y pegala manualmente en el browser. La URL empieza con https://claude.ai/...',
           },
         ],
       },
       {
-        title: 'Inicia una conversacion en modo chat',
-        explanation:
-          'Ejecuta claude sin argumentos para abrir el modo chat interactivo. Escribi cualquier pregunta para verificar que la conexion funciona.',
+        title: 'Iniciá Claude Code',
+        explanation: 'Abrí una nueva sesión de Claude Code en la terminal.',
         codeBlock: {
-          code: 'claude\n# Luego escribi: "Hola, podrias ayudarme a organizar mis tareas?"',
+          code: 'claude',
           language: 'bash',
         },
         errorCallouts: [
@@ -56,9 +82,19 @@ export const LEVEL_CONTENT: LevelContent[] = [
             trigger: 'Si ves este error',
             error: 'command not found: claude',
             solution:
-              'npm no agrego el binario al PATH de tu terminal. Reinicia la terminal, o agrega el directorio bin de npm global al PATH: export PATH="$(npm config get prefix)/bin:$PATH"',
+              'El instalador nativo agrega claude al PATH automáticamente, pero a veces la terminal actual no lo refleja todavía. Cerrá y volvé a abrir la terminal, o ejecutá: source ~/.zshrc (Mac) / source ~/.bashrc (Linux).',
           },
         ],
+      },
+      {
+        title: 'Iniciá una conversación en modo chat',
+        explanation:
+          'Escribí cualquier pregunta para verificar que la conexión funciona.',
+        codeBlock: {
+          code: '"¿Hay mercado para una app de gestión de inventario para restaurantes?"',
+          language: 'bash',
+        },
+        errorCallouts: [],
       },
     ],
   },
@@ -67,67 +103,94 @@ export const LEVEL_CONTENT: LevelContent[] = [
   {
     level: 1,
     title: 'Plan Mode',
-    subtitle: 'Planifica antes de construir',
+    subtitle: 'Claude diseña la arquitectura antes de escribir código. Vos revisás, pedís cambios, y recién ahí se ejecuta.',
+    sourceUrl: 'https://code.claude.com/docs/en/common-workflows#use-plan-mode-for-safe-code-analysis',
     summary:
-      'Usaste el modo plan de Claude Code para disenar la estructura de tu bot antes de escribir codigo. Tenes un plan concreto que Claude va a ejecutar.',
+      'Usaste Plan Mode para diseñar la estructura de tu agente antes de escribir código. Aprendiste el workflow de Boris: planificar → aprobar → ejecutar de un solo shot.',
     steps: [
       {
-        title: 'Crea la carpeta de tu proyecto',
+        title: 'Creá la carpeta de tu proyecto',
         explanation:
-          'Antes de usar Claude Code para construir, necesitas un directorio de trabajo. Este sera el hogar de tu bot de gestion personal.',
-        codeBlock: {
-          code: 'mkdir mi-bot-personal && cd mi-bot-personal',
-          language: 'bash',
+          'Antes de usar Claude Code para construir, necesitás un directorio de trabajo. Este será el hogar de tu agente de investigación de startups.',
+        setupBlock: {
+          terminalCode: 'mkdir mi-agente-startup && cd mi-agente-startup',
+          manualInstructions: 'Creá una nueva carpeta llamada "mi-agente-startup" desde el Finder (Mac) o el Explorador de Archivos (Windows). Luego abrila en VS Code: Archivo → Abrir Carpeta.',
         },
         errorCallouts: [
           {
             trigger: 'Si ves este error',
-            error: 'mkdir: mi-bot-personal: File exists',
+            error: 'mkdir: mi-agente-startup: File exists',
             solution:
-              'Ya existe una carpeta con ese nombre. Usa un nombre diferente (ej: mi-bot-v2) o elimina la carpeta existente si no la necesitas: rm -rf mi-bot-personal',
+              'Ya existe una carpeta con ese nombre. Usá un nombre diferente (ej: mi-agente-v2) o eliminá la carpeta existente si no la necesitás: rm -rf mi-agente-startup',
           },
         ],
       },
       {
-        title: 'Inicia Claude Code en modo plan',
-        explanation:
-          'El modo plan le dice a Claude que piense la arquitectura ANTES de escribir codigo. Usas /plan al inicio de tu mensaje para activarlo.',
+        title: 'Iniciá Claude Code',
+        explanation: 'Abrí una nueva sesión de Claude Code en la terminal.',
         codeBlock: {
-          code: 'claude\n# Luego escribi: /plan Quiero un bot de gestion personal en Node.js que me ayude a organizar tareas, notas y recordatorios',
+          code: 'claude',
+          language: 'bash',
+        },
+        errorCallouts: [],
+      },
+      {
+        title: 'Activá Plan Mode con Shift+Tab',
+        explanation:
+          'Plan Mode no es un comando — es un modo de sesión. Presioná Shift+Tab para ciclarlo. En la parte inferior del terminal vas a ver el indicador cambiar de "accept edits" a "plan mode". En Plan Mode, Claude es de solo lectura: propone y pregunta, pero no escribe ni ejecuta nada hasta que vos lo aprobés.',
+        errorCallouts: [
+          {
+            trigger: 'Si Shift+Tab no funciona',
+            error: 'El modo no cambia al presionar Shift+Tab',
+            solution:
+              'Algunos terminales interceptan Shift+Tab. Probá en la terminal integrada de VS Code. También podés escribir /plan al inicio de tu mensaje para activarlo desde el chat.',
+          },
+        ],
+      },
+      {
+        title: 'Describí tu objetivo',
+        explanation:
+          'Con Plan Mode activo, escribí tu objetivo en lenguaje natural. Sé claro sobre qué querés construir, pero no te preocupes por los detalles técnicos — Claude va a hacer las preguntas necesarias. Por ejemplo, escribí:',
+        codeBlock: {
+          code: '"Quiero una web app donde el usuario ingresa una idea de startup\ny recibe un reporte de mercado con competidores, TAM y oportunidades"',
           language: 'bash',
         },
         errorCallouts: [
           {
-            trigger: 'Si Claude empieza a escribir codigo inmediatamente',
-            error: 'Claude ignoro el modo plan',
+            trigger: 'Si Claude empieza a escribir código inmediatamente',
+            error: 'Claude ignoró Plan Mode y empezó a ejecutar',
             solution:
-              'Asegurate de escribir /plan al inicio del mensaje (no en el medio). Si Claude ya empieza a codear, interrumpilo con Ctrl+C y empieza de nuevo con /plan al frente.',
+              'Verificá que el indicador en la parte inferior diga "plan mode" antes de enviar. Si ya ejecutó algo, interrumpilo con Ctrl+C, reiniciá con /clear y activá Plan Mode antes de describir el objetivo.',
           },
         ],
       },
       {
-        title: 'Revisa y aprueba el plan',
+        title: 'Respondé las preguntas de Claude',
         explanation:
-          'Claude te muestra un plan detallado con la estructura del proyecto, los archivos que va a crear y las dependencias que va a instalar. Leelo con atencion, sugeri cambios si es necesario, y aprobalo cuando estes satisfecho.',
+          'Claude tiene una herramienta interna llamada "ask user questions" que usa en Plan Mode para aclarar supuestos antes de planificar. Va a preguntarte cosas como: ¿qué lenguaje de programación preferís? ¿querés persistencia en base de datos? ¿cómo se van a entregar los reportes? Respondé con detalle — estas respuestas son lo que hace que la ejecución posterior sea precisa. Así es exactamente como trabaja Boris Churnney, el creador de Claude Code: no toma ninguna acción de ejecución hasta tener un plan claro.',
         errorCallouts: [
           {
-            trigger: 'Si el plan parece demasiado complejo',
-            error: 'El plan tiene demasiados pasos o dependencias',
+            trigger: 'Si Claude no hace preguntas',
+            error: 'Claude genera el plan directamente sin preguntar',
             solution:
-              'Pedile a Claude que simplifique: "Simplifica el plan, quiero empezar con lo minimo viable — solo guardar tareas en un archivo JSON y listarlas." Claude ajustara el alcance.',
+              'Claude puede hacer esto si el objetivo era muy específico. Revisá el plan que generó — si parece completo y refleja tu intención, podés continuar. Si falta contexto, agregalo: "Antes de continuar, ¿podés preguntarme sobre X?"',
           },
         ],
       },
       {
-        title: 'Ejecuta el plan aprobado',
+        title: 'Aprobá el plan y ejecutá',
         explanation:
-          'Una vez que apruebes el plan, Claude escribe el codigo automaticamente. Mira como crea archivos y carpetas segun el plan que acordaron. No tenes que escribir ni una linea de codigo.',
+          'Una vez que el plan refleje lo que querés, salí de Plan Mode presionando Shift+Tab de nuevo (volvé a "accept edits"). Ahora dale a Claude un único prompt de ejecución. Este es el "one-shot pattern": con el plan claro, Claude puede ejecutar todo en un solo paso sin idas y vueltas. Escribí:',
+        codeBlock: {
+          code: '"Ejecutá el plan aprobado"',
+          language: 'bash',
+        },
         errorCallouts: [
           {
-            trigger: 'Si Claude pide confirmacion para cada archivo',
+            trigger: 'Si Claude pide confirmación para cada archivo',
             error: 'Claude pregunta "Do you want to create this file?" repetidamente',
             solution:
-              'Escribe "y" o "yes" para aprobar cada archivo. Si queres aprobar todos de una sola vez, escribe "yes to all" o "si a todo". Esto es un comportamiento normal de seguridad.',
+              'Escribí "y" o "yes" para aprobar cada archivo, o "yes to all" para aprobar todos de una vez. Este es un comportamiento normal de seguridad en la primera sesión.',
           },
         ],
       },
@@ -138,33 +201,40 @@ export const LEVEL_CONTENT: LevelContent[] = [
   {
     level: 2,
     title: 'CLAUDE.md',
-    subtitle: 'Dale memoria a tu proyecto',
+    subtitle: 'Un archivo de instrucciones que Claude lee al inicio de cada sesión. Tu agente recuerda tu startup sin que se lo repitas cada vez.',
+    sourceUrl: 'https://code.claude.com/docs/en/memory#claude-md-files',
     summary:
-      'Creaste un archivo CLAUDE.md que le dice a Claude Code como trabajar en tu proyecto. Ahora cada sesion arranca con contexto, sin repetir instrucciones.',
+      'Creaste un CLAUDE.md con el framework de 5 preguntas. Claude ahora conoce tu startup, las reglas de investigación y las convenciones del proyecto desde el primer mensaje de cada sesión.',
     steps: [
       {
-        title: 'Crea el archivo CLAUDE.md',
+        title: 'Entendé el framework de 5 preguntas',
         explanation:
-          'CLAUDE.md es el archivo de memoria de tu proyecto. Claude lo lee automaticamente al inicio de cada sesion. Crealo en la raiz de tu proyecto.',
-        codeBlock: {
-          code: 'touch CLAUDE.md',
-          language: 'bash',
-        },
+          'CLAUDE.md es el onboarding de tu agente — como el manual que le darías a un empleado nuevo. El contenido más efectivo responde estas 5 preguntas: (1) ¿Qué es esto? Una línea sobre qué hace el proyecto. (2) ¿Cómo funciona? Los pasos exactos del proceso. (3) ¿Cuáles son las reglas? Non-negotiables y formato de outputs. (4) ¿Qué errores no repetir? Edge cases y gotchas. (5) ¿Cómo trabajamos? Convenciones de archivos y carpetas. La regla de oro: mantenerlo corto. Si no se puede leer en 60 segundos, hay demasiado.',
         errorCallouts: [
           {
-            trigger: 'Si ves este error en Windows',
-            error: 'touch: command not found',
+            trigger: '¿Cuánto es demasiado?',
+            error: 'No sé cuánto contenido poner',
             solution:
-              'En Windows PowerShell usa: New-Item CLAUDE.md -ItemType File  O simplemente crea el archivo manualmente desde el explorador de archivos o tu editor de codigo.',
+              'Menos de 30 instrucciones totales. Si necesitás más detalle en algún punto, creá un archivo separado y referencialó: "Para el framework de análisis completo, ver /docs/research-framework.md". Esto se llama el "don\'t dump trick" — CLAUDE.md apunta a los detalles, no los contiene.',
           },
         ],
       },
       {
-        title: 'Escribe las instrucciones del proyecto',
+        title: 'Creá el archivo CLAUDE.md',
         explanation:
-          'Abre CLAUDE.md y agrega el contexto que Claude necesita saber sobre tu bot. Este contenido evita que tengas que repetir el contexto en cada sesion.',
+          'Creá CLAUDE.md en la raíz de tu proyecto. En el siguiente paso vas a completar su contenido.',
+        setupBlock: {
+          terminalCode: 'touch CLAUDE.md',
+          manualInstructions: 'En VS Code, clic derecho en el explorador de archivos (panel izquierdo) → New File → nombralo "CLAUDE.md". En Windows también podés ir a la carpeta del proyecto en el Explorador de Archivos, clic derecho → Nuevo → Documento de Texto → renombrarlo a "CLAUDE.md".',
+        },
+        errorCallouts: [],
+      },
+      {
+        title: 'Escribí las instrucciones del proyecto',
+        explanation:
+          'Abrí CLAUDE.md y completá las 5 secciones con el contexto de tu agente de investigación de startups.',
         codeBlock: {
-          code: '# Mi Bot Personal\n\nEste proyecto es un bot de gestion personal en Node.js.\n\n## Convenciones\n- Usar ES modules (import/export)\n- Archivos en espanol\n- Tests con vitest\n\n## Estructura\n- src/ — codigo fuente\n- tests/ — tests\n- data/ — archivos JSON de datos (tareas, notas)',
+          code: '# Agente de Investigación de Startups\n\nEste proyecto analiza oportunidades de mercado para fundadores: competidores, TAM, tendencias y gaps.\n\n## Proceso\n1. Recibir idea o vertical de mercado del usuario\n2. Buscar competidores directos e indirectos\n3. Estimar tamaño de mercado (TAM/SAM/SOM)\n4. Identificar gaps y oportunidades\n5. Generar reporte en /output/[fecha]-[idea].md\n\n## Reglas\n- Siempre citar fuentes\n- Nunca inventar datos — si no encontrás info, decilo explícitamente\n- Para el framework de análisis completo, ver /docs/research-framework.md\n\n## Errores a evitar\n- No confundir TAM con SAM\n- Incluir siempre competidores indirectos, no solo directos\n\n## Convenciones\n- Reportes en /output/ con prefijo de fecha: YYYY-MM-DD-nombre.md\n- Datos crudos en /data/',
           language: 'markdown',
         },
         errorCallouts: [
@@ -172,24 +242,39 @@ export const LEVEL_CONTENT: LevelContent[] = [
             trigger: 'Si Claude no parece leer CLAUDE.md',
             error: 'Claude responde sin mencionar el contexto del proyecto',
             solution:
-              'Verifica que CLAUDE.md este en el directorio raiz del proyecto (el mismo directorio donde ejecutas el comando claude). No en una subcarpeta.',
+              'Verificá que CLAUDE.md esté en el directorio raíz del proyecto (el mismo directorio donde ejecutás claude). Reiniciá la sesión con /clear para que Claude vuelva a cargar el archivo.',
           },
         ],
       },
       {
-        title: 'Verifica que Claude lee el archivo',
-        explanation:
-          'Inicia una nueva sesion de Claude Code y preguntale sobre el proyecto. Deberia mencionar el contenido de CLAUDE.md sin que vos se lo digas.',
+        title: 'Iniciá Claude Code',
+        explanation: 'Abrí una nueva sesión de Claude Code en la terminal.',
         codeBlock: {
-          code: 'claude\n# Luego pregunta: "Que sabes sobre este proyecto?"',
+          code: 'claude',
+          language: 'bash',
+        },
+        errorCallouts: [],
+      },
+      {
+        title: 'Verificá que Claude lee el archivo',
+        explanation:
+          'Preguntale sobre el proyecto. Debería mencionar el contenido de CLAUDE.md sin que vos se lo digas.',
+        codeBlock: {
+          code: '"¿Qué sabés sobre este proyecto y cómo trabajamos?"',
           language: 'bash',
         },
         errorCallouts: [
           {
-            trigger: 'Si Claude dice "No tengo contexto sobre este proyecto"',
-            error: 'Claude no encuentra el archivo CLAUDE.md',
+            trigger: '¿Qué hago cuando Claude comete un error?',
+            error: 'Claude no siguió una regla del CLAUDE.md',
             solution:
-              'Verifica la ubicacion del archivo con: ls -la CLAUDE.md  Si no aparece, crealo de nuevo. Asegurate de estar en el directorio correcto al ejecutar claude.',
+              'Corregilo en el momento y luego actualizá CLAUDE.md para que no se repita. Podés pedirle directamente: "Agregá esta regla a CLAUDE.md: nunca usar X." Claude lo hará por vos. Este es el mismo proceso que usa Boris — arreglar errores en tiempo real y versionar el archivo en Git.',
+          },
+          {
+            trigger: '¿Tengo un proyecto existente?',
+            error: 'Quiero generar CLAUDE.md automáticamente desde mi código',
+            solution:
+              'Ejecutá /init dentro de Claude Code y va a leer tu repo para generar un CLAUDE.md automáticamente. Después solo tenés que revisar y eliminar lo que no corresponde.',
           },
         ],
       },
@@ -200,75 +285,125 @@ export const LEVEL_CONTENT: LevelContent[] = [
   {
     level: 3,
     title: 'Commands, Skills y Hooks',
-    subtitle: 'Automatiza tareas repetitivas',
+    subtitle: 'Commands para atajos reutilizables, Skills para conocimiento especializado, y Hooks para automatización sin tokens.',
+    sourceUrl: 'https://code.claude.com/docs/en/skills#create-your-first-skill',
     summary:
-      'Configuraste un comando personalizado, un skill file y un hook. Tu proyecto ahora tiene atajos y automatizaciones que aceleran el desarrollo.',
+      'Configuraste un comando con argumentos dinámicos, un skill de análisis y un hook de validación. La distinción clave: Skills = cómo piensa Claude. Hooks = qué pasa automáticamente. Commands = lo que vos disparás.',
     steps: [
       {
-        title: 'Crea un comando personalizado',
+        title: 'Creá un comando con argumentos dinámicos',
         explanation:
-          'Los comandos personalizados son atajos que podes invocar con /commands/nombre. Se guardan como archivos Markdown en .claude/commands/ y pueden ser cualquier instruccion que le des a Claude.',
-        codeBlock: {
-          code: 'mkdir -p .claude/commands && echo "Revisa el codigo del proyecto y sugeri mejoras de calidad, performance y legibilidad. Genera un reporte con las sugerencias ordenadas por prioridad." > .claude/commands/revisar.md',
-          language: 'bash',
+          'Los commands son prompts guardados que podés invocar con /nombre. Lo que los hace poderosos es `$ARGUMENTS` — un placeholder que reemplazás al invocar el comando. Así un mismo command sirve para cualquier startup o vertical de mercado.',
+        setupBlock: {
+          terminalCode: 'mkdir -p .claude/commands\ntouch .claude/commands/research.md',
+          manualInstructions: 'En VS Code, creá la carpeta ".claude/commands" dentro de tu proyecto (clic derecho en el explorador → New Folder). Luego creá el archivo "research.md" dentro de esa carpeta y pegá el contenido que se muestra abajo.',
+          fileContents: [
+            {
+              filename: '.claude/commands/research.md',
+              language: 'markdown',
+              code: 'Investigá el mercado para: $ARGUMENTS\n\nAnalizá:\n1. Competidores directos e indirectos (mínimo 5)\n2. Tamaño de mercado (TAM/SAM/SOM con fuentes)\n3. Tendencias recientes del sector\n4. Gaps y oportunidades no cubiertas\n\nGuardá el reporte en /output/ con el formato de fecha del CLAUDE.md.',
+            },
+          ],
         },
         errorCallouts: [
           {
-            trigger: 'Si Claude no reconoce el directorio .claude/commands',
-            error: 'El comando /commands/revisar no aparece como opcion',
+            trigger: 'Si Claude no reconoce el comando',
+            error: '/research no aparece como opción al tipear /',
             solution:
-              'Asegurate de estar en el directorio raiz del proyecto (donde esta CLAUDE.md) cuando ejecutas claude. Los comandos se buscan relativos al directorio actual.',
+              'Cerrá la sesión de Claude Code con Ctrl+C y reabrila con claude. Los commands se cargan al inicio de la sesión, no en tiempo real.',
           },
         ],
       },
       {
-        title: 'Prueba tu comando personalizado',
-        explanation:
-          'Abre Claude Code e invoca el comando que acabas de crear. Claude va a ejecutar las instrucciones del archivo Markdown como si las hubieras escrito manualmente.',
+        title: 'Iniciá Claude Code',
+        explanation: 'Abrí una nueva sesión de Claude Code en la terminal.',
         codeBlock: {
-          code: 'claude\n# Luego escribi: /commands/revisar',
+          code: 'claude',
+          language: 'bash',
+        },
+        errorCallouts: [],
+      },
+      {
+        title: 'Probá el comando con argumentos',
+        explanation:
+          'Invocá el comando pasando una idea de startup como argumento. Claude va a reemplazar $ARGUMENTS con lo que escribiste.',
+        codeBlock: {
+          code: '/research "app de delivery para mascotas en LATAM"',
           language: 'bash',
         },
         errorCallouts: [
           {
-            trigger: 'Si el comando no se encuentra',
-            error: 'Unknown command: /commands/revisar',
+            trigger: 'Si el reporte no se guarda en /output/',
+            error: 'Claude generó el análisis en el chat pero no creó el archivo',
             solution:
-              'Verifica que el archivo este en la ruta exacta: .claude/commands/revisar.md (con extension .md). Comprueba con: ls .claude/commands/',
+              'Agregá más especificidad al command: "Guardá el reporte en /output/[FECHA]-[nombre-idea].md usando la herramienta de escritura de archivos." Los commands mejoran con instrucciones más explícitas.',
           },
         ],
       },
       {
-        title: 'Crea un skill file',
+        title: 'Creá un Skill de análisis',
         explanation:
-          'Los skills son bloques de conocimiento reutilizable que Claude usa cuando son relevantes. Se guardan en .claude/skills/ y pueden describir patrones, formatos o reglas especificas del proyecto.',
-        codeBlock: {
-          code: 'mkdir -p .claude/skills && echo "# Skill: Gestionar Tareas\\n\\nCuando el usuario pide crear, listar o completar tareas, usa el archivo src/tasks.json como almacenamiento. Formato: [{id, titulo, completada, fecha}]" > .claude/skills/tareas.md',
-          language: 'bash',
+          'Los Skills son diferentes a los commands: Claude los carga automáticamente según el contexto, sin que vos los invoques. Son conocimiento especializado — un framework de análisis, una metodología, ejemplos de referencia. Creá un skill que define cómo tu agente debe estructurar el análisis de mercado.',
+        setupBlock: {
+          terminalCode: 'mkdir -p .claude/skills/startup-analyst\ntouch .claude/skills/startup-analyst/skill.md',
+          manualInstructions: 'En VS Code, creá las carpetas ".claude/skills/startup-analyst" (anidadas). Luego creá el archivo "skill.md" dentro de "startup-analyst" y pegá el contenido que se muestra abajo.',
+          fileContents: [
+            {
+              filename: '.claude/skills/startup-analyst/skill.md',
+              language: 'markdown',
+              code: '---\ndescription: Framework de análisis para investigación de mercados de startups. Usar cuando el usuario pide analizar un mercado, validar una idea o investigar competidores.\n---\n\n# Startup Analyst\n\nSiempre estructurá el análisis en este orden:\n1. **Mapa de competidores**: directos (mismo problema, misma solución), indirectos (mismo problema, distinta solución), sustitutos (comportamiento alternativo)\n2. **Jobs to be done**: ¿qué trabajo está tratando de hacer el usuario final?\n3. **TAM/SAM/SOM**: de arriba hacia abajo con fuentes, no inventar cifras\n4. **Gaps**: qué no cubre ningún competidor actual\n5. **Señales de mercado**: financiamiento reciente, tendencias de búsqueda, cambios regulatorios',
+            },
+          ],
         },
         errorCallouts: [
           {
-            trigger: 'Si Claude no aplica el skill automaticamente',
-            error: 'Claude no usa el formato de tasks.json',
+            trigger: 'Si Claude no aplica el skill automáticamente',
+            error: 'Claude analiza sin seguir el framework del skill',
             solution:
-              'Menciona el skill explicitamente en tu prompt: "usando el skill de tareas, crea una nueva tarea". Los skills son sugerencias contextuales, no reglas absolutas.',
+              'La clave es la descripción en el frontmatter — "usar cuando..." tiene que ser preciso para que Claude entienda cuándo activarlo. También podés invocarlo manualmente: "usá el skill startup-analyst para esto."',
+          },
+          {
+            trigger: '¿Querés más skills?',
+            error: 'Quiero skills que ya existen para no crearlos desde cero',
+            solution:
+              'Explorá skillsmp.com — una comunidad de skills para Claude Code. Podés clonar cualquier skill directamente: git clone [url] .claude/skills/[nombre]. Hay skills para humanizar texto, revisar código, hacer SEO y mucho más.',
           },
         ],
       },
       {
-        title: 'Configura un hook de pre-commit',
+        title: 'Configurá un Hook de validación',
         explanation:
-          'Los hooks son acciones que Claude ejecuta automaticamente en ciertos momentos del flujo de trabajo. Un hook de pre-commit corre los tests antes de cada commit, evitando que rompas el codigo.',
-        codeBlock: {
-          code: 'echo \'{\n  "hooks": {\n    "pre-commit": "npx vitest run --reporter=verbose"\n  }\n}\' > .claude/settings.json',
-          language: 'bash',
+          'Los Hooks son triggers automáticos que se ejecutan cuando Claude hace algo. No usan tokens LLM — son scripts puros, mecánicos. Perfectos para validaciones que siempre deben cumplirse. Creá un hook que verifica que cada reporte de investigación tenga las secciones obligatorias.',
+        setupBlock: {
+          terminalCode: 'touch .claude/settings.json',
+          manualInstructions: 'En VS Code, creá el archivo "settings.json" dentro de la carpeta ".claude/" de tu proyecto y pegá el contenido que se muestra abajo.',
+          fileContents: [
+            {
+              filename: '.claude/settings.json',
+              language: 'json',
+              code: '{\n  "hooks": {\n    "PostToolUse": [\n      {\n        "matcher": "Write",\n        "hooks": [\n          {\n            "type": "command",\n            "command": "if echo \\"$CLAUDE_TOOL_OUTPUT\\" | grep -q \'/output/\'; then python3 -c \\"import sys; content=open(sys.argv[1]).read(); missing=[s for s in [\'Competidores\',\'TAM\',\'Gaps\'] if s not in content]; print(\'Secciones faltantes:\', missing) if missing else print(\'Reporte completo\')\\" \\"$CLAUDE_TOOL_INPUT_path\\" 2>/dev/null || true; fi"\n          }\n        ]\n      }\n    ]\n  }\n}',
+            },
+          ],
         },
         errorCallouts: [
           {
-            trigger: 'Si el hook no se ejecuta',
-            error: 'Claude no corre los tests antes del commit',
+            trigger: 'Si el hook parece muy complejo',
+            error: 'No entiendo la sintaxis del settings.json',
             solution:
-              'Verifica que .claude/settings.json sea JSON valido (sin comas al final, sin comillas simples). Podes validarlo con: node -e "JSON.parse(require(\'fs\').readFileSync(\'.claude/settings.json\', \'utf8\'))" && echo "JSON valido"',
+              'No necesitás escribir los hooks manualmente. Pedile a Claude: "Creá un hook en .claude/settings.json que después de escribir cualquier archivo en /output/ verifique que el archivo contenga las palabras Competidores, TAM y Gaps." Claude lo escribe por vos.',
+          },
+        ],
+      },
+      {
+        title: 'Entendé la distinción clave',
+        explanation:
+          'La diferencia entre los tres es fundamental. Skills = cómo piensa Claude: conocimiento cargado automáticamente según relevancia, sin que vos lo invoques. Hooks = qué pasa automáticamente después de que Claude actúa: sin tokens LLM, pura mecánica, siempre consistente. Commands = lo que vos disparás manualmente: atajos para tareas repetitivas con $ARGUMENTS para inputs dinámicos.',
+        errorCallouts: [
+          {
+            trigger: '¿Cuándo uso cada uno?',
+            error: 'No sé si algo debería ser un skill, un hook o un command',
+            solution:
+              '¿Necesitás que Claude lo sepa siempre sin pedírselo? → Skill. ¿Es una validación mecánica que no requiere razonamiento? → Hook. ¿Es una tarea que vos iniciás manualmente cuando la necesitás? → Command.',
           },
         ],
       },
@@ -279,29 +414,39 @@ export const LEVEL_CONTENT: LevelContent[] = [
   {
     level: 4,
     title: 'MCP Servers',
-    subtitle: 'Conecta herramientas externas',
+    subtitle: 'Claude conectado a tus herramientas externas. Lee datos de Notion, busca en la web, y escribe los resultados de vuelta — sin que vos escribas el código de integración.',
+    sourceUrl: 'https://code.claude.com/docs/en/mcp#installing-mcp-servers',
     summary:
-      'Conectaste un servidor MCP a Claude Code. Tu bot ahora puede acceder a herramientas externas — leer archivos, hacer requests HTTP, y mas — sin que vos escribas el codigo de integracion.',
+      'Conectaste MCP servers a Claude Code. Tu agente ahora puede buscar en internet para enriquecer el análisis y guardar reportes directamente en Notion — bidireccional, sin código de integración.',
     steps: [
       {
-        title: 'Entiende que es un MCP Server',
+        title: 'Entendé qué es un MCP Server',
         explanation:
-          'MCP (Model Context Protocol) permite que Claude Code use herramientas externas como si fueran nativas. Un MCP server expone herramientas que Claude puede invocar directamente desde la conversacion. No necesitas escribir codigo de integracion — solo conectar el servidor y Claude sabe como usarlo.',
+          'MCP (Model Context Protocol) es el protocolo que convierte a Claude en un agente que actúa en tus apps. Un MCP server es un bridge entre Claude Code y una herramienta externa. Hay miles de MCP servers disponibles — Notion, Slack, Google, HubSpot, bases de datos, y más. La clave: MCP no es solo lectura. Claude puede leer datos y escribir de vuelta a tus apps.',
         errorCallouts: [
           {
             trigger: 'Parece complicado',
-            error: 'No entiendo para que sirve MCP',
+            error: 'No entiendo para qué sirve MCP',
             solution:
-              'MCP es solo un protocolo de comunicacion. Pensa en los MCP servers como plugins que le dan superpoderes a Claude. El servidor de filesystem, por ejemplo, le da a Claude la capacidad de leer y escribir archivos en tu maquina.',
+              'Pensá en MCP servers como plugins que le dan superpoderes a Claude. El servidor de filesystem le da capacidad de leer/escribir archivos. Un servidor de Notion le permite leer páginas y crear nuevas. Claude sabe cómo usarlos automáticamente — vos solo los conectás.',
           },
         ],
       },
       {
-        title: 'Configura el MCP server de filesystem',
-        explanation:
-          'Este MCP server le da a Claude Code la capacidad de leer y escribir archivos a traves de herramientas MCP. El flag --dir . limita el acceso al directorio actual de tu proyecto.',
+        title: 'Iniciá Claude Code',
+        explanation: 'Abrí una nueva sesión de Claude Code en la terminal.',
         codeBlock: {
-          code: 'claude mcp add filesystem -- npx -y @anthropic-ai/mcp-filesystem --dir .',
+          code: 'claude',
+          language: 'bash',
+        },
+        errorCallouts: [],
+      },
+      {
+        title: 'Agregá el MCP de filesystem con /mcp',
+        explanation:
+          'Claude Code tiene un comando integrado para agregar MCP servers sin tocar JSON. Escribí /mcp y seguí las instrucciones. Empezamos con el servidor de filesystem — da acceso a archivos del proyecto y es el punto de entrada más simple.',
+        codeBlock: {
+          code: '/mcp\n# Luego elegí "add" y seguí las instrucciones para agregar filesystem\n\n# O directamente desde la terminal:\nclaude mcp add filesystem -- npx -y @anthropic-ai/mcp-filesystem --dir .',
           language: 'bash',
         },
         errorCallouts: [
@@ -309,24 +454,89 @@ export const LEVEL_CONTENT: LevelContent[] = [
             trigger: 'Si ves este error',
             error: 'Error: MCP server failed to start',
             solution:
-              'Verifica que tu version de Node.js sea 18 o superior: node --version  Los MCP servers requieren Node 18+. Si tenes una version anterior, actualiza con: nvm install 18 && nvm use 18',
+              'Verificá que tu versión de Node.js sea 18 o superior: node --version  Los MCP servers requieren Node 18+. Si tenés una versión anterior, actualizá con: nvm install 18 && nvm use 18',
           },
         ],
       },
       {
-        title: 'Usa el MCP server en tu bot',
-        explanation:
-          'Ahora que el servidor esta configurado, Claude puede usar las herramientas MCP en cualquier conversacion. Proba pedirle que use el servidor explicitamente para ver la diferencia.',
+        title: 'Iniciá Claude Code',
+        explanation: 'Abrí una nueva sesión de Claude Code en la terminal.',
         codeBlock: {
-          code: 'claude\n# Luego escribi: "Usa el MCP de filesystem para listar todos los archivos del proyecto y decime cuales son de configuracion"',
+          code: 'claude',
+          language: 'bash',
+        },
+        errorCallouts: [],
+      },
+      {
+        title: 'Probá la lectura de datos',
+        explanation:
+          'Verificá que el MCP de filesystem funciona pidiéndole a Claude que use las herramientas MCP explícitamente.',
+        codeBlock: {
+          code: '"Usá el MCP de filesystem para listar todos los reportes\nen /output/ y decime cuáles análisis ya hice"',
           language: 'bash',
         },
         errorCallouts: [
           {
             trigger: 'Si Claude no usa las herramientas MCP',
-            error: 'Claude ignora el MCP server y responde sin usarlo',
+            error: 'Claude responde sin invocar el MCP server',
             solution:
-              'Verifica que el servidor este configurado correctamente con: claude mcp list  Deberia aparecer "filesystem" en la lista. Si no aparece, repite el paso anterior de configuracion.',
+              'Verificá que el servidor esté configurado correctamente con: claude mcp list  Debería aparecer "filesystem" en la lista. Si no aparece, repetí el paso anterior de configuración.',
+          },
+        ],
+      },
+      {
+        title: 'Agregá un MCP de Notion para guardar research',
+        explanation:
+          'Acá es donde MCP se vuelve realmente poderoso: la conexión es bidireccional. Claude puede leer tu base de datos de ideas en Notion, hacer el análisis, y escribir el reporte directamente en una nueva página — sin que vos copies ni pegues nada. Creá un archivo `.mcp.json` en la raíz del proyecto con tu Personal Access Token, y después reiniciá Claude Code.',
+        setupBlock: {
+          terminalCode: 'touch .mcp.json',
+          manualInstructions: 'En VS Code, creá el archivo ".mcp.json" en la carpeta principal del proyecto (clic derecho en el explorador → New File). Pegá el contenido de abajo y reemplazá "tu-notion-integration-token" con tu token real.',
+          fileContents: [
+            {
+              filename: '.mcp.json',
+              language: 'json',
+              code: '{\n  "mcpServers": {\n    "notion": {\n      "command": "npx",\n      "args": ["-y", "@anthropic-ai/mcp-notion"],\n      "env": {\n        "NOTION_TOKEN": "tu-notion-integration-token"\n      }\n    }\n  }\n}',
+            },
+          ],
+        },
+        errorCallouts: [
+          {
+            trigger: '¿Dónde consigo el token de Notion?',
+            error: 'No sé cómo obtener un NOTION_TOKEN',
+            solution:
+              'En Notion: Settings → Integrations → Create new integration. Dale acceso a las páginas que quieras. Copiá el "Internal Integration Secret" y usalo como NOTION_TOKEN. Luego conectá la integración a las páginas específicas desde Notion.',
+          },
+          {
+            trigger: '¿Hay otros MCP servers?',
+            error: 'Quiero conectar otras apps además de Notion',
+            solution:
+              'Hay miles de MCP servers disponibles. Buscá en github.com/modelcontextprotocol/servers para el repositorio oficial con servidores para Slack, Google Drive, HubSpot, bases de datos y más. También podés pedirle a Claude: "/mcp add [nombre-del-servicio]" y lo configura por vos.',
+          },
+        ],
+      },
+      {
+        title: 'Iniciá Claude Code',
+        explanation: 'Abrí una nueva sesión de Claude Code en la terminal.',
+        codeBlock: {
+          code: 'claude',
+          language: 'bash',
+        },
+        errorCallouts: [],
+      },
+      {
+        title: 'Ejecutá un flujo de investigación completo',
+        explanation:
+          'Ahora combiná todo: Claude lee una idea de tu Notion, investiga el mercado, y escribe el reporte de vuelta en Notion. Este es el loop completo: leer datos → analizar → escribir resultados.',
+        codeBlock: {
+          code: '"Leé las ideas de la base de datos Ideas en Notion,\ntomá la primera que tenga estado Pendiente,\ninvestigá el mercado usando el command /research,\ny guardá el reporte en la página de Notion de esa idea"',
+          language: 'bash',
+        },
+        errorCallouts: [
+          {
+            trigger: 'Si Claude solo lee pero no escribe de vuelta',
+            error: 'Claude hace el análisis pero no actualiza Notion',
+            solution:
+              'Sé explícito: "después de hacer el análisis, usá el MCP de Notion para crear una nueva página con el reporte." MCP es bidireccional, pero Claude necesita que le digas cuándo escribir de vuelta.',
           },
         ],
       },
@@ -337,163 +547,332 @@ export const LEVEL_CONTENT: LevelContent[] = [
   {
     level: 5,
     title: 'GSD Framework',
-    subtitle: 'Estructura tu trabajo con Claude',
+    subtitle: 'La solución al "context rot". Un framework que divide proyectos complejos en fases independientes, cada una con su propio plan, ejecución y verificación.',
+    sourceUrl: 'https://code.claude.com/docs/en/best-practices#explore-first-then-plan-then-code',
     summary:
-      'Implementaste el framework GSD (Get Shit Done) en tu proyecto. Ahora tenes un flujo estructurado para planificar, ejecutar y verificar tareas con Claude Code.',
+      'Usaste GSD para organizar una investigación de mercado compleja en fases con verificación. Entendiste el problema de context rot y cómo GSD lo resuelve con archivos de estado.',
     steps: [
       {
-        title: 'Instala el framework GSD',
+        title: 'El problema: context rot',
         explanation:
-          'GSD es un framework de workflows que le da a Claude Code un proceso repetible: planificar, ejecutar, verificar. No es una dependencia npm — es una estructura de carpetas y archivos de instrucciones que Claude lee.',
-        codeBlock: {
-          code: 'claude\n# Luego escribi: "Instala el framework GSD en este proyecto. Crea la estructura de carpetas .claude/get-shit-done/ con los workflows basicos."',
-          language: 'bash',
-        },
+          'Claude tiene una ventana de contexto limitada. A partir de ~10,000 tokens (unas 7,500 palabras de conversación), Claude empieza a "olvidar" el principio — esto se llama context rot. Podés verlo en la barra de contexto en la parte inferior del terminal: cuando llega al 95%, Claude comprime todo en resúmenes y la precisión cae. GSD resuelve esto guardando el contexto en archivos en lugar de mantenerlo en memoria. Cada fase tiene su propio archivo de plan, ejecución y verificación — Claude nunca necesita tener todo en contexto al mismo tiempo.',
         errorCallouts: [
           {
-            trigger: 'Si Claude no sabe que es GSD',
-            error: 'Claude dice que no conoce el framework GSD',
+            trigger: '¿Cuándo necesito GSD?',
+            error: 'No sé si mi proyecto es suficientemente grande para GSD',
             solution:
-              'Describiselo explicitamente: "GSD es un framework de workflows para Claude Code que organiza el trabajo en fases: planificar, ejecutar, verificar. Crea la carpeta .claude/get-shit-done/ con archivos README.md que describan cada fase."',
+              'Usá GSD cuando tu proyecto requiere más de una sesión o cuando tenés más de 3 pasos interdependientes. Para tareas simples como "investigá esta startup", alcanza con el command /research. Para proyectos como "armá una estrategia de investigación para Q2 con 20 mercados", necesitás GSD.',
           },
         ],
       },
       {
-        title: 'Crea tu primer plan con GSD',
-        explanation:
-          'El comando /gsd:plan crea un archivo de plan estructurado que Claude puede ejecutar paso a paso. Dale un objetivo en lenguaje natural y Claude lo convierte en tareas concretas.',
+        title: 'Iniciá Claude Code',
+        explanation: 'Abrí una nueva sesión de Claude Code en la terminal.',
         codeBlock: {
-          code: 'claude\n# Luego escribi: "/gsd:plan Quiero agregar un sistema de recordatorios a mi bot personal"',
+          code: 'claude',
+          language: 'bash',
+        },
+        errorCallouts: [],
+      },
+      {
+        title: 'Instalá el framework GSD',
+        explanation:
+          'GSD no es una dependencia npm — es una estructura de archivos y prompts que Claude lee. El comando /gsd:new-project crea toda la estructura incluyendo la carpeta .planning/ con el roadmap, requirements y el archivo STATE que trackea el progreso entre sesiones.',
+        codeBlock: {
+          code: '"/gsd:new-project"',
           language: 'bash',
         },
         errorCallouts: [
           {
-            trigger: 'Si el comando no funciona',
-            error: '/gsd:plan command not recognized',
+            trigger: 'Si Claude no reconoce /gsd:new-project',
+            error: 'El comando no existe',
             solution:
-              'Asegurate de haber instalado GSD en el paso anterior. Verifica que la carpeta .claude/get-shit-done/ existe: ls .claude/get-shit-done/  Si no existe, repite el paso de instalacion.',
+              'GSD se instala como un skill de Claude Code. Escribí: "/plugin install gsd" o instalalo desde skillsmp.com. Una vez instalado, reiniciá Claude Code.',
           },
         ],
       },
       {
-        title: 'Ejecuta el plan',
-        explanation:
-          'Claude lee el plan generado y ejecuta cada tarea en orden, haciendo commits del progreso. Podes ver como avanza y detenerlo si algo no esta bien.',
+        title: 'Iniciá Claude Code',
+        explanation: 'Abrí una nueva sesión de Claude Code en la terminal.',
         codeBlock: {
-          code: 'claude\n# Luego escribi: "/gsd:execute"',
+          code: 'claude',
+          language: 'bash',
+        },
+        errorCallouts: [],
+      },
+      {
+        title: 'Creá un plan con fases',
+        explanation:
+          'Dale a GSD un objetivo de investigación grande. Va a hacer preguntas, dividir el trabajo en fases y crear el archivo de roadmap. Ejemplo: investigar el mercado de automatización para PyMEs en LATAM.',
+        codeBlock: {
+          code: '"/gsd:plan-phase Investigar el mercado de herramientas de\nautomatización para PyMEs en LATAM — quiero entender\ncompetidores, TAM, tendencias y oportunidades de entrada"',
           language: 'bash',
         },
         errorCallouts: [
           {
-            trigger: 'Si Claude saltea tareas o las hace fuera de orden',
-            error: 'El orden de ejecucion no corresponde al plan',
+            trigger: 'Si el plan parece demasiado detallado',
+            error: 'GSD generó demasiadas fases para lo que necesito',
             solution:
-              'El archivo de plan puede tener dependencias de tareas poco claras. Revisa el plan con Claude y pedile que replanifique: "Revisa el plan, algunas tareas tienen dependencias que no estan bien definidas. Replanifica con dependencias explicitas."',
+              'Pedile que simplifique: "Reducí a máximo 3 fases, priorizando las más importantes." GSD está diseñado para proyectos grandes — si tu proyecto es más simple, podés ajustar el alcance.',
           },
         ],
       },
       {
-        title: 'Verifica el resultado',
-        explanation:
-          'La verificacion comprueba que el plan fue ejecutado correctamente y que todos los criterios de aceptacion se cumplen. Si algo falla, te dice exactamente que falta.',
+        title: 'Iniciá Claude Code',
+        explanation: 'Abrí una nueva sesión de Claude Code en la terminal.',
         codeBlock: {
-          code: 'claude\n# Luego escribi: "/gsd:verify"',
+          code: 'claude',
+          language: 'bash',
+        },
+        errorCallouts: [],
+      },
+      {
+        title: 'Ejecutá y verificá',
+        explanation:
+          'GSD ejecuta cada fase y luego verifica que los criterios de aceptación se cumplieron antes de pasar a la siguiente. El archivo STATE en .planning/ se actualiza con el progreso — si interrumpís el trabajo, podés retomarlo en otra sesión y GSD sabe exactamente dónde quedó. Primero ejecutá la fase, luego verificá:',
+        codeBlock: {
+          code: '"/gsd:execute-phase"\n\n"/gsd:verify-work"',
           language: 'bash',
         },
         errorCallouts: [
           {
-            trigger: 'Si la verificacion falla',
+            trigger: 'Si la verificación falla',
             error: 'Verification fails con lista de items pendientes',
             solution:
-              'Lee el output de verificacion — te dice exactamente que esta faltando. Corrige los issues y corre verify de nuevo. La verificacion es iterativa: fix → verify → fix → verify hasta pasar.',
+              'Leé el output — te dice exactamente qué está faltando. Corregí los issues y corré verify de nuevo. La verificación es iterativa: fix → verify → fix → verify hasta pasar. Esto es lo que diferencia GSD de ejecutar todo sin control.',
+          },
+          {
+            trigger: 'Si interrumpís y retomás después',
+            error: 'Claude no recuerda dónde estaba el proyecto',
+            solution:
+              'Ejecutá /gsd:progress — GSD lee el archivo STATE y te dice exactamente en qué fase estás y qué falta. No necesitás re-explicar todo el contexto.',
           },
         ],
       },
     ],
   },
 
-  // ─── Level 6: Sub-agentes y Flujos Autonomos ─────────────────────────────
+  // ─── Level 6: Sub-agentes ─────────────────────────────────────────────────
   {
     level: 6,
-    title: 'Sub-agentes y Flujos Autonomos',
-    subtitle: 'Delega y automatiza',
+    title: 'Sub-agentes',
+    subtitle: 'Un equipo de agentes especializados que trabajan en paralelo. Cada uno con su propio contexto, herramientas y rol — como contratar especialistas en lugar de un generalista.',
+    sourceUrl: 'https://code.claude.com/docs/en/sub-agents#quickstart-create-your-first-subagent',
     summary:
-      'Configuraste sub-agentes y un flujo autonomo completo. Tu bot de gestion personal ahora puede ejecutar tareas complejas en multiples pasos sin intervencion manual. Completaste el tutorial — sos un usuario avanzado de Claude Code.',
+      'Configuraste un equipo de sub-agentes de research: uno por dimensión de análisis. Entendiste la diferencia entre secuencial (calidad) y paralelo (velocidad), y cómo --dangerously-skip-permissions habilita la autonomía real.',
     steps: [
       {
-        title: 'Entiende los sub-agentes',
+        title: 'Entendé cuándo usar sub-agentes',
         explanation:
-          'Sub-agents son instancias de Claude Code que el agente principal puede lanzar para manejar subtareas especificas. Cada sub-agente recibe su propio contexto y puede trabajar de forma independiente. Esto permite paralelizar trabajo que de otro modo seria secuencial.',
+          'Sub-agentes resuelven dos problemas distintos. Primero: calidad — un agente especializado en análisis de mercado va a ser mejor que un generalista. Segundo: velocidad — si tenés tareas independientes, podés correrlas en paralelo en múltiples terminales y terminar 3x más rápido. Hay dos modos: Secuencial (un terminal, sub-agentes en cadena): el researcher pasa el brief al analyst, el analyst pasa al writer. Mejor para calidad y colaboración. Paralelo (múltiples terminales): tres terminales investigando tres mercados al mismo tiempo. Mejor para velocidad cuando las tareas son independientes.',
         errorCallouts: [
           {
-            trigger: 'Cuando uso sub-agentes?',
-            error: 'No entiendo cuando tiene sentido usar sub-agentes vs una sola sesion',
+            trigger: '¿Cuándo NO usar sub-agentes?',
+            error: 'No sé si necesito sub-agentes o alcanza con una sesión',
             solution:
-              'Usa sub-agentes cuando una tarea tiene partes independientes que se pueden hacer en paralelo — por ejemplo, actualizar tests mientras se refactoriza codigo, o revisar calidad mientras se actualiza documentacion.',
+              'Para una investigación simple de un mercado, una sola sesión alcanza. Los sub-agentes valen la pena cuando tenés múltiples investigaciones independientes, o cuando querés que un agente se especialice (research) y otro se enfoque en otra cosa (escribir el reporte final).',
           },
         ],
       },
       {
-        title: 'Crea un workflow con sub-agentes',
+        title: 'Creá la carpeta de agentes',
         explanation:
-          'Claude puede crear y coordinar sub-agentes cuando le das un objetivo con partes claramente independientes. El agente principal actua como coordinador y los sub-agentes ejecutan cada parte.',
+          'Los sub-agentes se definen en archivos .md dentro de .claude/agents/. Cada archivo tiene una descripción (cuándo Claude usa este agente), las herramientas permitidas y el prompt especializado.',
+        setupBlock: {
+          terminalCode: 'mkdir -p .claude/agents\ntouch .claude/agents/competitor-researcher.md\ntouch .claude/agents/market-sizer.md',
+          manualInstructions: 'En VS Code, creá la carpeta ".claude/agents" dentro de tu proyecto. Luego creá los dos archivos dentro de esa carpeta y pegá el contenido de cada uno desde abajo.',
+          fileContents: [
+            {
+              filename: '.claude/agents/competitor-researcher.md',
+              language: 'markdown',
+              code: '---\ndescription: Investigador especializado en análisis competitivo. Usar cuando se necesita mapear el landscape de competidores de un mercado.\ntools: WebSearch, Read, Write\n---\n\nEres un analista de mercado especializado en investigación competitiva.\nCuando te asignen un mercado:\n1. Identificá al menos 5 competidores directos y 3 indirectos\n2. Para cada uno: funding, modelo de negocios, pricing, fortalezas y debilidades\n3. Guardá el análisis en /output/competitors-[mercado].md',
+            },
+            {
+              filename: '.claude/agents/market-sizer.md',
+              language: 'markdown',
+              code: '---\ndescription: Especialista en estimación de tamaño de mercado (TAM/SAM/SOM). Usar cuando se necesita cuantificar el tamaño de una oportunidad de mercado.\ntools: WebSearch, Read, Write\n---\n\nEres un analista cuantitativo especializado en market sizing.\nSiempre usá el método top-down con fuentes verificables.\nNunca inventes cifras — si no encontrás datos, decilo con el rango de incertidumbre.',
+            },
+          ],
+        },
+        errorCallouts: [
+          {
+            trigger: 'Si Claude no usa los agentes automáticamente',
+            error: 'Claude hace todo él en lugar de delegar a sub-agentes',
+            solution:
+              'Sé explícito en el prompt: "Usá el sub-agente competitor-researcher para analizar los competidores." Los sub-agentes también se pueden invocar cuando le decís a Claude que delegue una parte específica del trabajo.',
+          },
+        ],
+      },
+      {
+        title: 'Iniciá Claude Code',
+        explanation: 'Abrí una nueva sesión de Claude Code en la terminal.',
         codeBlock: {
-          code: 'claude\n# Luego escribi: "Crea un workflow que use sub-agentes para: 1) revisar la calidad del codigo, 2) actualizar los tests, y 3) mejorar la documentacion. Los tres pueden correr en paralelo."',
+          code: 'claude',
+          language: 'bash',
+        },
+        errorCallouts: [],
+      },
+      {
+        title: 'Ejecutá sub-agentes en secuencia',
+        explanation:
+          'Primero probá el modo secuencial: le pedís a Claude principal que coordine los sub-agentes, uno después del otro. El resultado de uno alimenta al siguiente.',
+        codeBlock: {
+          code: '"Investigá el mercado de fintech para freelancers en LATAM:\n1. Usá el sub-agente competitor-researcher para mapear competidores\n2. Usá el sub-agente market-sizer para estimar el TAM\n3. Con los resultados de ambos, generá un reporte ejecutivo en /output/"',
           language: 'bash',
         },
         errorCallouts: [
           {
-            trigger: 'Si Claude hace todo en secuencia en lugar de paralelo',
-            error: 'Claude no usa sub-agentes aunque se lo pedi',
+            trigger: 'Si los sub-agentes no acceden a archivos del otro',
+            error: 'El market-sizer no puede leer el output del competitor-researcher',
             solution:
-              'Se mas explicito en el prompt: "Usa la herramienta Task para crear sub-agentes que trabajen en paralelo, no en secuencia. Cada sub-agente debe tener su propio contexto y objetivo."',
+              'Los sub-agentes comparten el sistema de archivos. Asegurate de que el primer agente guarda su output con una ruta específica y el segundo la lee explícitamente. Podés coordinarlo en el prompt principal.',
           },
         ],
       },
       {
-        title: 'Configura un flujo autonomo',
+        title: 'Iniciá Claude Code en cada terminal',
         explanation:
-          'Un flujo autonomo es una secuencia de acciones que Claude ejecuta con minima interaccion. Le das un trigger (una frase o comando) y Claude maneja todos los pasos internamente sin pedirte confirmacion en cada uno.',
+          'Abrí múltiples terminales y ejecutá Claude Code con el flag --dangerously-skip-permissions en cada una. Este flag evita que Claude pida confirmación en cada acción — necesario cuando no estás mirando las terminales.',
         codeBlock: {
-          code: 'claude\n# Luego escribi: "Configura un flujo autonomo que cada vez que le pida \'organizar mi dia\', lea mis tareas pendientes, priorice por urgencia, y genere un plan del dia en formato markdown."',
+          code: 'claude --dangerously-skip-permissions',
+          language: 'bash',
+        },
+        errorCallouts: [],
+      },
+      {
+        title: 'Corré sub-agentes en paralelo',
+        explanation:
+          'Para velocidad máxima, corré investigaciones independientes en paralelo. Con Claude corriendo en cada terminal, escribí un comando de investigación diferente en cada una al mismo tiempo.',
+        codeBlock: {
+          code: '# Terminal 1:\n"/research \'fintech para freelancers en Argentina\'"\n\n# Terminal 2 (simultáneamente):\n"/research \'fintech para freelancers en México\'"\n\n# Terminal 3:\n"/research \'fintech para freelancers en Colombia\'"',
           language: 'bash',
         },
         errorCallouts: [
           {
-            trigger: 'Si Claude hace demasiadas preguntas en lugar de actuar',
-            error: 'Claude pide confirmacion en cada paso del flujo',
+            trigger: 'Sobre --dangerously-skip-permissions',
+            error: '¿Es seguro usar este flag?',
             solution:
-              'Agrega una instruccion en CLAUDE.md: "Cuando el usuario pide organizar el dia, actua sin pedir confirmacion. Lee las tareas, priorizalas y genera el plan directamente."',
+              'El flag hace exactamente lo que dice: omite las confirmaciones de seguridad. Usalo solo en proyectos donde confíes en lo que Claude va a hacer — y siempre dentro de una carpeta de proyecto específica, no en tu home directory. Con el contexto bien definido en CLAUDE.md y los agentes bien especificados, el riesgo es mínimo.',
+          },
+        ],
+      },
+    ],
+  },
+
+  // ─── Level 7: RALPH Loop ─────────────────────────────────────────────────
+  {
+    level: 7,
+    title: 'RALPH Loop',
+    subtitle: 'Le das una lista de investigaciones. RALPH las ejecuta todas de forma autónoma, con contexto fresco en cada iteración. Vos llegás y encontrás los reportes listos.',
+    sourceUrl: 'https://code.claude.com/docs/en/overview',
+    summary:
+      'Corriste tu primer pipeline autónomo con RALPH. Claude ejecutó todas tus investigaciones de mercado en batch, evaluando criterios de aceptación en cada una y pasando a la siguiente con contexto fresco. Completaste los 8 niveles de Claude Code.',
+    steps: [
+      {
+        title: 'GSD vs RALPH: cuándo usar cada uno',
+        explanation:
+          'GSD y RALPH resuelven problemas distintos. GSD es un planificador y ejecutor para proyectos complejos donde el alcance no está totalmente definido — necesitás un humano supervisando las fases. RALPH es un ejecutor puro para tareas bien definidas en batch — corre solo hasta terminar todo, sin intervención humana. Para "investigar 10 mercados con criterios claros", RALPH es la herramienta correcta. Para "armar la estrategia de investigación de Q2", necesitás GSD primero. RALPH también resuelve context rot automáticamente: cada tarea corre en una ventana de contexto fresca, sin arrastrar el historial de las anteriores.',
+        errorCallouts: [
+          {
+            trigger: '¿Cuándo NO usar RALPH?',
+            error: 'No sé si mis tareas son adecuadas para RALPH',
+            solution:
+              'RALPH funciona cuando las tareas son independientes, tienen criterios de aceptación claros y verificables, y no requieren decisiones creativas entre pasos. Si tus tareas dependen entre sí o necesitan tu input a mitad del proceso, usá GSD o sub-agentes secuenciales.',
           },
         ],
       },
       {
-        title: 'Ejecuta el flujo completo',
-        explanation:
-          'Proba el flujo autonomo con el trigger que configuraste. Mira como Claude ejecuta todos los pasos — leer tareas, priorizar, generar plan — sin interrumpirte en cada uno.',
+        title: 'Iniciá Claude Code',
+        explanation: 'Abrí una nueva sesión de Claude Code en la terminal.',
         codeBlock: {
-          code: 'claude\n# Luego escribi: "Organiza mi dia"',
+          code: 'claude',
+          language: 'bash',
+        },
+        errorCallouts: [],
+      },
+      {
+        title: 'Instalá RALPH',
+        explanation:
+          'RALPH se instala como un plugin de Claude Code. Ejecutá el comando de instalación.',
+        codeBlock: {
+          code: '/plugin install ralph',
           language: 'bash',
         },
         errorCallouts: [
           {
-            trigger: 'Si el resultado no es lo que esperabas',
-            error: 'El plan generado no tiene el formato o el nivel de detalle que queria',
+            trigger: 'Si el plugin no se reconoce',
+            error: '/plugin install ralph falla o no existe',
             solution:
-              'Refina las instrucciones en CLAUDE.md y vuelve a probar. Los flujos autonomos mejoran con instrucciones mas especificas. Agrega ejemplos del formato esperado directamente en CLAUDE.md.',
+              'Verificá que estés usando una versión reciente de Claude Code: claude --version. Si está desactualizado, actualizalo con: claude update. También podés instalar RALPH desde skillsmp.com siguiendo las instrucciones del repositorio.',
           },
         ],
       },
       {
-        title: 'Revisa lo que construiste',
+        title: 'Creá tu prd.json',
         explanation:
-          'Mira la carpeta de tu proyecto. Tenes un bot de gestion personal con: modo chat, planificacion con Plan Mode, memoria de proyecto en CLAUDE.md, comandos personalizados, skills, hooks de automatizacion, MCP servers para herramientas externas, flujos GSD estructurados, sub-agentes para trabajo paralelo y flujos autonomos. Todo corriendo en tu propia maquina. Estos son los mismos patrones que usan los desarrolladores profesionales con Claude Code.',
+          'prd.json es la lista de tareas que RALPH va a ejecutar. Cada tarea tiene: una descripción (qué hacer), criterios de aceptación (cómo Claude verifica que terminó) y un estado (pending → done). Los criterios deben ser objetivos y verificables — evitá cosas como "el reporte es bueno". Usá cosas como "el archivo existe en /output/" o "incluye la sección TAM".',
+        setupBlock: {
+          terminalCode: 'touch prd.json',
+          manualInstructions: 'En VS Code, creá el archivo "prd.json" en la carpeta principal del proyecto. Pegá el contenido de abajo y modificá las tareas con tus investigaciones.',
+          fileContents: [
+            {
+              filename: 'prd.json',
+              language: 'json',
+              code: '{\n  "tasks": [\n    {\n      "id": 1,\n      "description": "Investigar el mercado de herramientas de gestión para freelancers en LATAM",\n      "acceptance_criteria": [\n        "Reporte creado en /output/ con nombre que incluye la fecha",\n        "Incluye al menos 5 competidores directos",\n        "Incluye estimación de TAM con fuentes",\n        "Incluye sección de Gaps y Oportunidades"\n      ],\n      "status": "pending"\n    },\n    {\n      "id": 2,\n      "description": "Investigar el mercado de e-commerce para artesanos en Argentina",\n      "acceptance_criteria": [\n        "Reporte creado en /output/ con nombre que incluye la fecha",\n        "Incluye análisis de canales de distribución (Mercado Libre, Instagram, etc.)",\n        "Incluye benchmarks de comisiones y fees del mercado"\n      ],\n      "status": "pending"\n    },\n    {\n      "id": 3,\n      "description": "Investigar el mercado de software de facturación para PyMEs en México",\n      "acceptance_criteria": [\n        "Reporte creado en /output/ con nombre que incluye la fecha",\n        "Incluye análisis del contexto regulatorio (SAT, CFDI)",\n        "Incluye al menos 3 competidores con comparativa de precios"\n      ],\n      "status": "pending"\n    }\n  ]\n}',
+            },
+          ],
+        },
         errorCallouts: [
           {
-            trigger: 'No puedo creer que hice todo esto',
-            error: 'Siento que no entendi todo al 100%',
+            trigger: 'Si los criterios son difíciles de definir',
+            error: 'No sé cómo escribir criterios verificables',
             solution:
-              'Es real, y es normal no entender todo en el primer recorrido. Lo importante es que lo ejecutaste. La proxima vez que uses Claude Code, vas a reconocer estos patrones y usarlos con mas confianza. Eso es exactamente como se aprende.',
+              'Preguntate: ¿puede Claude responder sí o no a esto sin razonamiento subjetivo? "El reporte existe" → sí. "El reporte es completo" → no (¿qué es completo?). "El reporte incluye la sección Competidores" → sí. Cuanto más objetivo, más confiable es la ejecución autónoma.',
+          },
+        ],
+      },
+      {
+        title: 'Iniciá Claude Code',
+        explanation: 'Abrí una nueva sesión de Claude Code en la terminal.',
+        codeBlock: {
+          code: 'claude',
+          language: 'bash',
+        },
+        errorCallouts: [],
+      },
+      {
+        title: 'Ejecutá RALPH con límite de iteraciones',
+        explanation:
+          'Siempre corré RALPH con --max-iterations como safeguard. Sin este límite, si algo sale mal podría correr indefinidamente y consumir muchos tokens. Una buena regla: ~3x la cantidad de tareas. Con 3 tareas, usá max-iterations 10.',
+        codeBlock: {
+          code: '/ralph --max-iterations 10',
+          language: 'bash',
+        },
+        errorCallouts: [
+          {
+            trigger: 'Si RALPH termina antes de completar todas las tareas',
+            error: 'RALPH para con algunas tareas en "pending"',
+            solution:
+              'Revisá el prd.json — RALPH actualiza los estados en tiempo real. Si una tarea quedó en pending, verificá que los criterios sean verificables. Podés correr RALPH de nuevo y va a retomar desde las tareas pendientes.',
+          },
+          {
+            trigger: 'Si querés ver el progreso en tiempo real',
+            error: 'No sé si RALPH está trabajando o se colgó',
+            solution:
+              'Abrí otra terminal y ejecutá: watch cat prd.json — vas a ver los estados cambiar de "pending" a "done" en tiempo real. Los reportes también van apareciendo en /output/ a medida que se completan.',
+          },
+        ],
+      },
+      {
+        title: 'Revisá lo que construiste',
+        explanation:
+          'Mirá tu carpeta /output/. Tenés reportes de mercado completos, generados de forma completamente autónoma, con contexto fresco por cada uno. Completaste los 8 niveles de Claude Code. Pasaste de chatear con Claude hasta tener pipelines de investigación que corren solos mientras hacés otra cosa. Modo chat → Plan Mode → CLAUDE.md → Commands, Skills y Hooks → MCP Servers → GSD Framework → Sub-agentes → RALPH autónomo. Estos son los mismos patrones que usan los equipos de investigación y los developers profesionales con Claude Code.',
+        errorCallouts: [
+          {
+            trigger: 'No puedo creer que llegué hasta acá',
+            error: 'Siento que no entendí todo al 100%',
+            solution:
+              'Es completamente normal. Lo importante es que lo ejecutaste y que ahora reconocés los patrones. La próxima vez que enfrentes un problema con Claude Code, vas a saber qué nivel de herramienta necesitás. Eso es exactamente lo que separa a alguien que "usa Claude Code" de alguien que lo domina.',
           },
         ],
       },
@@ -501,6 +880,7 @@ export const LEVEL_CONTENT: LevelContent[] = [
   },
 ];
 
-export function getLevelContent(level: number): LevelContent | undefined {
-  return LEVEL_CONTENT.find(l => l.level === level);
+export function getLevelContent(level: number, lang: 'es' | 'en' = 'es'): LevelContent | undefined {
+  const content = lang === 'en' ? LEVEL_CONTENT_EN : LEVEL_CONTENT;
+  return content.find(l => l.level === level);
 }
