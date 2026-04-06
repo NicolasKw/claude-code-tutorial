@@ -29,7 +29,7 @@ export default function Home() {
       <div style={{ position: 'relative', zIndex: 10, width: '100%', maxWidth: '440px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
         {/* Logo */}
-        <Image src="/claude-code-mastery/zalesmachine isologo.png" alt="ZalesMachine" width={80} height={80} style={{ objectFit: 'contain', marginBottom: '24px' }} />
+        <Image src="/zalesmachine isologo.png" alt="ZalesMachine" width={80} height={80} style={{ objectFit: 'contain', marginBottom: '24px' }} />
 
         {/* Badge */}
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', padding: '5px 14px', borderRadius: '999px', fontSize: '11px', fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: '20px', background: 'rgba(147,51,234,0.08)', border: '1px solid rgba(147,51,234,0.2)', color: '#7C3AED' }}>

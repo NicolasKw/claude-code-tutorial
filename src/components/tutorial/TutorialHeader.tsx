@@ -22,7 +22,7 @@ export function TutorialHeader({ level, currentLevel, completedLevels = [] }: Tu
     <header style={{ position: 'sticky', top: 0, zIndex: 50, background: 'rgba(248,246,255,0.9)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', borderBottom: '1px solid rgba(147,51,234,0.1)', boxShadow: '0 1px 0 rgba(147,51,234,0.05)' }}>
       <div style={{ maxWidth: '680px', margin: '0 auto', padding: '0 20px', height: '56px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <Image
-          src="/claude-code-mastery/zalesmachine-logo.png"
+          src="/zalesmachine-logo.png"
           alt="ZalesMachine"
           height={26}
           width={196}
