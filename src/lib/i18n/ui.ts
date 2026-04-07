@@ -20,7 +20,7 @@ export const UI = {
     // Header
     prev: '← Anterior',
     next: 'Siguiente →',
-    levelLabel: 'Nivel',
+    levelLabel: 'Niveles Completados',
     goToLevel: 'Ir al Nivel',
     // StepCard
     markDone: 'Listo, avanzar',

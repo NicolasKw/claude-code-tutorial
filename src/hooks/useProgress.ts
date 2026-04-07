@@ -38,7 +38,10 @@ export function useProgress() {
     if (typeof window === 'undefined') return;
     localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
     const sessionId = getSessionId();
-    if (sessionId) {
+    const hasProgress =
+      progress.completedLevels.length > 0 ||
+      Object.keys(progress.completedSteps).length > 0;
+    if (sessionId && hasProgress) {
       saveProgress(sessionId, progress).catch(() => {});
     }
   }, [progress, hydrated]);

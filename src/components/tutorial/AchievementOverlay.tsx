@@ -26,7 +26,7 @@ export function AchievementOverlay({ show, level, summary, onNavigate }: Achieve
           {isFinalLevel ? '🏆' : '⚡'}
         </div>
         <h2 style={{ fontSize: '24px', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '8px', background: isFinalLevel ? 'linear-gradient(135deg, #9333EA, #3B82F6)' : 'linear-gradient(135deg, #16A34A, #3B82F6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-          {isFinalLevel ? t.finalLevel : `${t.levelUpPrefix} ${level + 1}${t.levelUpSuffix}`}
+          {isFinalLevel ? t.finalLevel : `${t.levelUpPrefix} ${level}${t.levelUpSuffix}`}
         </h2>
         {summary && (
           <>
@@ -38,7 +38,7 @@ export function AchievementOverlay({ show, level, summary, onNavigate }: Achieve
           onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.88'; }}
           onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; }}
         >
-          {isFinalLevel ? t.seeCertificate : `${t.nextLevelPrefix} ${level + 2}${t.nextLevelSuffix}`}
+          {isFinalLevel ? t.seeCertificate : `${t.nextLevelPrefix} ${level + 1}${t.nextLevelSuffix}`}
         </button>
       </div>
     </div>

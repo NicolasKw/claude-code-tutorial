@@ -39,7 +39,7 @@ export function TutorialHeader({ level, currentLevel, completedLevels = [] }: Tu
               {t.prev}
             </Link>
           )}
-          <span style={{ fontSize: '12px', color: 'rgba(26,15,46,0.35)', fontWeight: 500 }}>{t.levelLabel}</span>
+          <span style={{ fontSize: '12px', color: 'rgba(26,15,46,0.35)', fontWeight: 500, display: 'flex', flexDirection: 'column', alignItems: 'center', lineHeight: '1.2' }}><span>Niveles</span><span>Completados</span></span>
           <div style={{ display: 'flex', gap: '4px' }}>
             {Array.from({ length: TOTAL_LEVELS }).map((_, i) => {
               const isCompleted = completedLevels.includes(i);
