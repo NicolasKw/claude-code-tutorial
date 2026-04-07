@@ -30,7 +30,7 @@ export const LEVEL_CONTENT: LevelContent[] = [
             trigger: 'Si estás en Windows',
             error: 'curl no funciona o el script .sh no es compatible',
             solution:
-              'En Windows PowerShell ejecutá: irm https://claude.ai/install.ps1 | iex\n\nEn Windows CMD ejecutá: curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd',
+              'En Windows PowerShell ejecutá: irm https://claude.ai/install.ps1 | iex\n\nEn Windows CMD ejecutá: curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd\n\nWindows requiere Git for Windows. Instalalo primero si no lo tenés: descargalo desde git-scm.com/download/win',
           },
           {
             trigger: 'Si ves "curl: command not found"',

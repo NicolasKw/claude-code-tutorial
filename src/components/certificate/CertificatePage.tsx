@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Download, ExternalLink, Copy, Check } from 'lucide-react';
+import { Download, ExternalLink, Copy, Check, BookOpen } from 'lucide-react';
 import { TutorialHeader } from '@/components/tutorial/TutorialHeader';
 import { useLanguage } from '@/lib/i18n/context';
 import { UI } from '@/lib/i18n/ui';
@@ -24,6 +24,7 @@ export function CertificatePage({
   const { lang } = useLanguage();
   const t = UI[lang];
   const [downloading, setDownloading] = useState(false);
+  const [downloadingCheatsheet, setDownloadingCheatsheet] = useState(false);
   const [copied, setCopied] = useState(false);
 
   const activePostText = lang === 'en'
@@ -55,6 +56,24 @@ export function CertificatePage({
       // Error handling — could show toast but keeping simple for v1
     } finally {
       setTimeout(() => setDownloading(false), 500);
+    }
+  }
+
+  async function handleDownloadCheatsheet() {
+    setDownloadingCheatsheet(true);
+    try {
+      const res = await fetch(`/api/cheatsheet?lang=${lang}`);
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = lang === 'en' ? 'claude-code-cheatsheet.pdf' : 'guia-claude-code.pdf';
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch {
+      // silent fail
+    } finally {
+      setTimeout(() => setDownloadingCheatsheet(false), 500);
     }
   }
 
@@ -160,6 +179,21 @@ export function CertificatePage({
           >
             <ExternalLink size={15} />
             {t.linkedinShare}
+          </button>
+
+          <button
+            aria-label={t.cheatsheetAlt}
+            onClick={handleDownloadCheatsheet}
+            disabled={downloadingCheatsheet}
+            className="w-full py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-opacity hover:opacity-85 disabled:opacity-50"
+            style={{
+              background: 'rgba(167,139,250,0.08)',
+              border: '1px dashed rgba(167,139,250,0.6)',
+              color: 'rgba(167,139,250,1)',
+            }}
+          >
+            <BookOpen size={15} />
+            {downloadingCheatsheet ? t.downloading : t.cheatsheetBtn}
           </button>
         </div>
 

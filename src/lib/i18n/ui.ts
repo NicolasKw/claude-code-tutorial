@@ -65,6 +65,8 @@ export const UI = {
     shareAlt: 'Compartir en LinkedIn',
     copyAlt: 'Copiar texto del post',
     copyAltDone: 'Texto copiado',
+    cheatsheetBtn: 'Descargar guía de referencia',
+    cheatsheetAlt: 'Descargar guía de referencia rápida como PNG',
   },
   en: {
     // Landing
@@ -130,6 +132,8 @@ export const UI = {
     shareAlt: 'Share on LinkedIn',
     copyAlt: 'Copy post text',
     copyAltDone: 'Text copied',
+    cheatsheetBtn: 'Download quick reference guide',
+    cheatsheetAlt: 'Download quick reference guide as PNG',
   },
 } as const satisfies Record<Lang, object>;
 
