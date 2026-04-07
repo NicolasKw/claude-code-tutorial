@@ -452,7 +452,7 @@ function CheatsheetDoc({
   claudeLogoSrc,
   logoSrc,
 }: {
-  content: typeof CONTENT.es;
+  content: typeof CONTENT[keyof typeof CONTENT];
   claudeLogoSrc: string;
   logoSrc: string;
 }) {
