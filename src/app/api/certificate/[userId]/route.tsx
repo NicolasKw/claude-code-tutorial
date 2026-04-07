@@ -5,8 +5,8 @@ import { getUserForCertificate } from '@/lib/certificate';
 import { TOTAL_LEVELS } from '@/lib/types/tutorial';
 import type { TutorialProgress } from '@/lib/types/tutorial';
 
-// Level 0 (Chatbot) is orientation — starts from level 1
 const LEVEL_TITLES = [
+  'Chatbot',
   'Plan Mode',
   'CLAUDE.md',
   'Commands, Skills & Hooks',
@@ -37,15 +37,15 @@ export async function GET(
       year: 'numeric', month: 'long', day: 'numeric',
     });
 
-    const fontBold    = await readFile(join(process.cwd(), 'public/fonts/Inter-Bold.ttf'));
-    const fontRegular = await readFile(join(process.cwd(), 'public/fonts/Inter-Regular.ttf'));
-    const logoData    = await readFile(join(process.cwd(), 'public/zalesmachine-logo.png'));
-    const logoSrc     = `data:image/png;base64,${logoData.toString('base64')}`;
+    const fontBold      = await readFile(join(process.cwd(), 'public/fonts/Inter-Bold.ttf'));
+    const fontRegular   = await readFile(join(process.cwd(), 'public/fonts/Inter-Regular.ttf'));
+    const logoData      = await readFile(join(process.cwd(), 'public/zalesmachine-logo.png'));
+    const logoSrc       = `data:image/png;base64,${logoData.toString('base64')}`;
+    const claudeLogoData = await readFile(join(process.cwd(), 'public/claude-logo.png'));
+    const claudeLogoSrc  = `data:image/png;base64,${claudeLogoData.toString('base64')}`;
 
-    const skillCount     = Math.max(0, completedLevels - 1);
-    const completedSkills = LEVEL_TITLES.slice(0, skillCount);
-    const row1 = completedSkills.slice(0, 3).join('  ·  ');
-    const row2 = completedSkills.slice(3).join('  ·  ');
+    const row1 = LEVEL_TITLES.slice(0, 4).join('  ·  ');
+    const row2 = LEVEL_TITLES.slice(4).join('  ·  ');
 
     const dots = Array.from({ length: TOTAL_LEVELS }, (_, i) => i < completedLevels);
 
@@ -54,27 +54,27 @@ export async function GET(
         <div style={{
           width: '100%', height: '100%',
           display: 'flex', position: 'relative',
-          backgroundColor: '#04060C',
+          backgroundColor: '#0B0920',
           fontFamily: 'Inter', overflow: 'hidden',
         }}>
 
           {/* ── DEEP BACKGROUND ORBS ────────────────────────────────── */}
 
           {/* Far background — top right deep violet */}
-          <div style={{ position: 'absolute', top: -300, right: -300, width: 700, height: 700, borderRadius: '50%', backgroundColor: 'rgba(91,33,182,0.28)', display: 'flex' }} />
+          <div style={{ position: 'absolute', top: -300, right: -300, width: 700, height: 700, borderRadius: '50%', backgroundColor: 'rgba(91,33,182,0.38)', display: 'flex' }} />
           {/* Mid — bottom left deep blue */}
-          <div style={{ position: 'absolute', bottom: -200, left: -200, width: 560, height: 560, borderRadius: '50%', backgroundColor: 'rgba(29,78,216,0.2)', display: 'flex' }} />
+          <div style={{ position: 'absolute', bottom: -200, left: -200, width: 560, height: 560, borderRadius: '50%', backgroundColor: 'rgba(29,78,216,0.3)', display: 'flex' }} />
           {/* Subtle — top left */}
-          <div style={{ position: 'absolute', top: -80, left: -80, width: 300, height: 300, borderRadius: '50%', backgroundColor: 'rgba(109,40,217,0.12)', display: 'flex' }} />
+          <div style={{ position: 'absolute', top: -80, left: -80, width: 300, height: 300, borderRadius: '50%', backgroundColor: 'rgba(109,40,217,0.2)', display: 'flex' }} />
           {/* Subtle — bottom right */}
-          <div style={{ position: 'absolute', bottom: -100, right: -80, width: 320, height: 320, borderRadius: '50%', backgroundColor: 'rgba(37,99,235,0.1)', display: 'flex' }} />
+          <div style={{ position: 'absolute', bottom: -100, right: -80, width: 320, height: 320, borderRadius: '50%', backgroundColor: 'rgba(37,99,235,0.18)', display: 'flex' }} />
 
           {/* ── HERO GLOW — centered behind the name ────────────────── */}
           {/* This is the key "luxury tech" element: a studio-light halo */}
 
-          <div style={{ position: 'absolute', top: '50%', left: '50%', marginTop: -220, marginLeft: -380, width: 760, height: 440, borderRadius: '50%', backgroundColor: 'rgba(109,40,217,0.18)', display: 'flex' }} />
-          <div style={{ position: 'absolute', top: '50%', left: '50%', marginTop: -160, marginLeft: -280, width: 560, height: 320, borderRadius: '50%', backgroundColor: 'rgba(124,58,237,0.14)', display: 'flex' }} />
-          <div style={{ position: 'absolute', top: '50%', left: '50%', marginTop: -100, marginLeft: -180, width: 360, height: 200, borderRadius: '50%', backgroundColor: 'rgba(139,92,246,0.1)', display: 'flex' }} />
+          <div style={{ position: 'absolute', top: '50%', left: '50%', marginTop: -220, marginLeft: -380, width: 760, height: 440, borderRadius: '50%', backgroundColor: 'rgba(109,40,217,0.26)', display: 'flex' }} />
+          <div style={{ position: 'absolute', top: '50%', left: '50%', marginTop: -160, marginLeft: -280, width: 560, height: 320, borderRadius: '50%', backgroundColor: 'rgba(124,58,237,0.2)', display: 'flex' }} />
+          <div style={{ position: 'absolute', top: '50%', left: '50%', marginTop: -100, marginLeft: -180, width: 360, height: 200, borderRadius: '50%', backgroundColor: 'rgba(139,92,246,0.15)', display: 'flex' }} />
 
           {/* ── EDGE ACCENTS ────────────────────────────────────────── */}
 
@@ -133,10 +133,10 @@ export async function GET(
 
           {/* ── BOTTOM META ─────────────────────────────────────────── */}
 
-          <div style={{ position: 'absolute', bottom: 36, left: 70, fontSize: 10, fontWeight: 400, color: 'rgba(167,139,250,0.28)', letterSpacing: 2.5, display: 'flex' }}>
+          <div style={{ position: 'absolute', bottom: 36, left: 70, fontSize: 10, fontWeight: 400, color: 'rgba(167,139,250,0.55)', letterSpacing: 2.5, display: 'flex' }}>
             {`ID · ${userId.slice(0, 8).toUpperCase()}`}
           </div>
-          <div style={{ position: 'absolute', bottom: 36, right: 70, fontSize: 10, fontWeight: 400, color: 'rgba(167,139,250,0.28)', letterSpacing: 2.5, display: 'flex' }}>
+          <div style={{ position: 'absolute', bottom: 36, right: 70, fontSize: 10, fontWeight: 400, color: 'rgba(167,139,250,0.55)', letterSpacing: 2.5, display: 'flex' }}>
             CLAUDE CODE · 2026
           </div>
 
@@ -164,17 +164,23 @@ export async function GET(
 
             {/* Eyebrow */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 18 }}>
-              <div style={{ width: 28, height: 1, background: 'linear-gradient(90deg, transparent, rgba(196,181,253,0.7))', display: 'flex' }} />
-              <div style={{ fontSize: 10, fontWeight: 700, color: 'rgba(220,210,255,0.9)', letterSpacing: 4, display: 'flex' }}>
+              <div style={{ width: 28, height: 1, background: 'linear-gradient(90deg, transparent, rgba(210,195,255,0.85))', display: 'flex' }} />
+              <div style={{ fontSize: 10, fontWeight: 700, color: 'rgba(235,225,255,1.0)', letterSpacing: 4, display: 'flex' }}>
                 CERTIFICADO DE FINALIZACIÓN
               </div>
-              <div style={{ width: 28, height: 1, background: 'linear-gradient(90deg, rgba(196,181,253,0.7), transparent)', display: 'flex' }} />
+              <div style={{ width: 28, height: 1, background: 'linear-gradient(90deg, rgba(210,195,255,0.85), transparent)', display: 'flex' }} />
             </div>
 
-            {/* Logo */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={logoSrc} alt="ZalesMachine" width={148} height={36}
-              style={{ objectFit: 'contain', marginBottom: 24, opacity: 0.92 }} />
+            {/* Logos */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 24 }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={claudeLogoSrc} alt="Claude" width={28} height={28}
+                style={{ objectFit: 'contain', opacity: 0.95 }} />
+              <div style={{ width: 1, height: 22, background: 'rgba(167,139,250,0.35)', display: 'flex' }} />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={logoSrc} alt="ZalesMachine" width={148} height={36}
+                style={{ objectFit: 'contain', opacity: 0.95 }} />
+            </div>
 
             {/* Separator — violet fading to gold in center (one luxe touch) */}
             <div style={{ width: 500, height: 1, background: 'linear-gradient(90deg, transparent 0%, rgba(139,92,246,0.5) 25%, rgba(196,181,253,0.9) 45%, rgba(201,168,108,0.8) 50%, rgba(196,181,253,0.9) 55%, rgba(139,92,246,0.5) 75%, transparent 100%)', marginBottom: 22, display: 'flex' }} />
@@ -188,31 +194,31 @@ export async function GET(
             <div style={{ width: 500, height: 1, background: 'linear-gradient(90deg, transparent 0%, rgba(99,102,241,0.5) 25%, rgba(167,139,250,0.9) 45%, rgba(201,168,108,0.8) 50%, rgba(167,139,250,0.9) 55%, rgba(99,102,241,0.5) 75%, transparent 100%)', marginBottom: 18, display: 'flex' }} />
 
             {/* Course name */}
-            <div style={{ fontSize: 19, fontWeight: 700, color: '#C4B5FD', marginBottom: 18, letterSpacing: 2, display: 'flex' }}>
+            <div style={{ fontSize: 19, fontWeight: 700, color: '#DDD6FE', marginBottom: 18, letterSpacing: 2, display: 'flex' }}>
               CLAUDE CODE MASTERY
             </div>
 
             {/* Concepts label */}
-            <div style={{ fontSize: 9, fontWeight: 700, color: 'rgba(196,181,253,0.6)', letterSpacing: 3.5, marginBottom: 10, display: 'flex' }}>
+            <div style={{ fontSize: 9, fontWeight: 700, color: 'rgba(210,195,255,0.9)', letterSpacing: 3.5, marginBottom: 10, display: 'flex' }}>
               TEMAS CUBIERTOS
             </div>
 
             {/* Concepts row 1 */}
             {row1 ? (
-              <div style={{ fontSize: 12, fontWeight: 400, color: 'rgba(220,210,255,0.82)', letterSpacing: 0.2, marginBottom: row2 ? 4 : 0, display: 'flex' }}>
+              <div style={{ fontSize: 12, fontWeight: 400, color: 'rgba(235,228,255,0.95)', letterSpacing: 0.2, marginBottom: row2 ? 4 : 0, display: 'flex' }}>
                 {row1}
               </div>
             ) : null}
 
             {/* Concepts row 2 */}
             {row2 ? (
-              <div style={{ fontSize: 12, fontWeight: 400, color: 'rgba(220,210,255,0.82)', letterSpacing: 0.2, display: 'flex' }}>
+              <div style={{ fontSize: 12, fontWeight: 400, color: 'rgba(235,228,255,0.95)', letterSpacing: 0.2, display: 'flex' }}>
                 {row2}
               </div>
             ) : null}
 
             {/* Date */}
-            <div style={{ fontSize: 11, fontWeight: 400, color: 'rgba(196,181,253,0.7)', letterSpacing: 1.5, marginTop: 18, display: 'flex' }}>
+            <div style={{ fontSize: 11, fontWeight: 400, color: 'rgba(210,195,255,0.9)', letterSpacing: 1.5, marginTop: 18, display: 'flex' }}>
               {formattedDate}
             </div>
 

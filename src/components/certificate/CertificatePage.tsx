@@ -79,7 +79,7 @@ export function CertificatePage({
 
   return (
     <div style={{ minHeight: '100vh' }}>
-      <TutorialHeader level={7} currentLevel={7} />
+      <TutorialHeader level={7} currentLevel={8} />
       <div className="max-w-2xl mx-auto px-4 py-10">
 
         {/* Hero */}

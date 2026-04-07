@@ -70,7 +70,7 @@ export function TutorialHeader({ level, currentLevel, completedLevels = [] }: Tu
               );
             })}
           </div>
-          <span style={{ fontSize: '12px', color: 'rgba(26,15,46,0.35)', fontWeight: 500 }}>{Math.max(0, currentLevel - 1)}/{DISPLAY_LEVELS}</span>
+          <span style={{ fontSize: '12px', color: 'rgba(26,15,46,0.35)', fontWeight: 500 }}>{Math.min(Math.max(0, currentLevel - 1), DISPLAY_LEVELS)}/{DISPLAY_LEVELS}</span>
           {level < currentLevel && (
             <Link
               href={`/tutorial/${level + 1}`}

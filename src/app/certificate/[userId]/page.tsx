@@ -42,7 +42,7 @@ export default async function CertificateRoute(
   const certificateUrl = `${baseUrl}/certificate/${userId}`;
   const tutorialUrl = `${baseUrl}/`;
 
-  const postText = `Completé el tutorial Claude Code Mastery de ZalesMachine y construí un agente de investigación de startups desde cero. Si querés aprender cómo usar Claude Code para proyectos reales, te dejo el link: ${tutorialUrl} — ${userData.name}`;
+  const postText = `Completé el tutorial Claude Code Mastery de ZalesMachine y construí un agente de investigación de startups desde cero. Si querés aprender cómo usar Claude Code para proyectos reales, te dejo el link: https://university.zalesmachine.com/claude-code-mastery`;
 
   return (
     <CertificatePage

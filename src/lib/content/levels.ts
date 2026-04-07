@@ -650,7 +650,7 @@ export const LEVEL_CONTENT: LevelContent[] = [
       {
         title: 'Iniciá el framework GSD',
         explanation:
-          'Ejecutá /gsd:new-project. GSD va a preguntar si querés mapear el codebase — respondé que sí. Luego de mapear, te va a pedir que hagas /clear y ejecutes /gsd:new-project nuevamente. En esa segunda ejecución te va a preguntar "¿Qué querés construir?" — describí una extensión concreta de tu app, por ejemplo: "quiero agregar historial de búsquedas — guardar cada reporte generado en una base de datos y mostrarlo en un dashboard". GSD va a crear la estructura de fases para eso.',
+          'Ejecutá /gsd:new-project. GSD va a preguntar si querés mapear el codebase — respondé que sí. Luego de mapear, te va a pedir que hagas /clear y ejecutes /gsd:new-project nuevamente. En esa segunda ejecución te va a preguntar "¿Qué querés construir?" — describí una extensión concreta de tu app, por ejemplo: "quiero agregar historial de búsquedas — guardar cada reporte generado en una base de datos y mostrarlo en un dashboard". GSD va a crear un roadmap con múltiples fases para eso — cada fase es una etapa lógica del desarrollo.',
         codeBlock: {
           code: '/gsd:new-project',
           language: 'bash',
@@ -671,9 +671,9 @@ export const LEVEL_CONTENT: LevelContent[] = [
         ],
       },
       {
-        title: 'Planeá la primera fase',
+        title: 'Planeá la fase actual',
         explanation:
-          'Una vez que GSD creó la estructura del proyecto, usá /gsd:plan-phase para planificar la primera fase de desarrollo. GSD va a hacer preguntas, definir tareas concretas y crear el archivo PLAN.md con los criterios de aceptación.',
+          'GSD creó un roadmap con varias fases — cada una se planifica, ejecuta y verifica por separado. Usá /gsd:plan-phase para planificar la fase actual. GSD va a hacer preguntas, definir tareas concretas y crear el archivo PLAN.md con los criterios de aceptación. Cuando termine, hacé /clear antes de continuar.',
         codeBlock: {
           code: '/gsd:plan-phase',
           language: 'bash',
@@ -688,11 +688,11 @@ export const LEVEL_CONTENT: LevelContent[] = [
         ],
       },
       {
-        title: 'Iniciá Claude Code',
+        title: 'Limpiá el contexto',
         explanation:
-          'Si todavía tenés la sesión del paso anterior activa, podés limpiar el contexto con `/clear` y ejecutar directamente desde ahí. Si saliste, volvé a iniciar:',
+          'Después de cada comando GSD, limpiá el contexto con /clear antes de ejecutar el siguiente. Esto evita que el contexto acumulado interfiera con la siguiente fase.',
         codeBlock: {
-          code: 'claude',
+          code: '/clear',
           language: 'bash',
         },
         errorCallouts: [],
@@ -700,7 +700,7 @@ export const LEVEL_CONTENT: LevelContent[] = [
       {
         title: 'Ejecutá la fase',
         explanation:
-          'GSD ejecuta todas las tareas del plan en orden. El archivo STATE en .planning/ se actualiza con el progreso — si interrumpís el trabajo, podés retomarlo en otra sesión y GSD sabe exactamente dónde quedó.',
+          'GSD ejecuta todas las tareas del plan en orden. Al terminar, corre la verificación automáticamente (tsc, tests, build) y muestra "PHASE N COMPLETE" con los resultados. Al final del output te dice exactamente qué hacer para continuar: hacé /clear y ejecutá el comando que te indica.',
         codeBlock: {
           code: '/gsd:execute-phase',
           language: 'bash',
@@ -715,19 +715,36 @@ export const LEVEL_CONTENT: LevelContent[] = [
         ],
       },
       {
-        title: 'Verificá el trabajo',
+        title: 'Avanzá a la siguiente fase',
         explanation:
-          'GSD verifica que los criterios de aceptación del plan se cumplieron antes de dar la fase por terminada.',
+          'GSD te mostró al final del output el próximo comando — algo como "/clear then: /gsd-plan-phase 2". Hacé /clear para limpiar el contexto y ejecutá ese comando. Repetís el ciclo plan → execute para cada fase del roadmap hasta que GSD muestre "Milestone complete".',
         codeBlock: {
-          code: '/gsd:verify-work',
+          code: '/clear',
           language: 'bash',
         },
         errorCallouts: [
           {
-            trigger: 'Si la verificación falla',
-            error: 'Verification fails con lista de items pendientes',
+            trigger: '¿Cuántas fases tengo?',
+            error: 'No sé cuánto falta',
             solution:
-              'Leé el output — te dice exactamente qué está faltando. Corregí los issues y corré verify de nuevo. La verificación es iterativa: fix → verify → fix → verify hasta pasar. Esto es lo que diferencia GSD de ejecutar todo sin control.',
+              'Ejecutá /gsd:progress — GSD te muestra todas las fases del roadmap, cuáles están completas y cuál es la actual.',
+          },
+        ],
+      },
+      {
+        title: 'Cerrá el milestone',
+        explanation:
+          'Cuando todas las fases están ejecutadas, GSD muestra "Milestone v1.0 complete" y te sugiere dos pasos: primero /gsd-verify-work [N] para hacer un UAT conversacional end-to-end, y después /gsd-complete-milestone para archivar el milestone y preparar el siguiente ciclo.',
+        codeBlock: {
+          code: '/gsd-verify-work 2',
+          language: 'bash',
+        },
+        errorCallouts: [
+          {
+            trigger: 'También disponible: /gsd-secure-phase',
+            error: '¿Qué hace?',
+            solution:
+              'Audita amenazas de seguridad antes de hacer ship. Vale la pena correrlo antes de /gsd-complete-milestone si tu app maneja datos de usuarios.',
           },
         ],
       },
@@ -823,6 +840,23 @@ export const LEVEL_CONTENT: LevelContent[] = [
         errorCallouts: [],
       },
       {
+        title: 'Actualizá el command /research para orquestar sub-agentes',
+        explanation:
+          'El command `/research` que creaste antes ejecuta todo directamente — no sabe nada de los sub-agentes. Para que los invoque al correr en paralelo, abrí `.claude/commands/research.md` y reemplazá el contenido con lo siguiente:',
+        codeBlock: {
+          code: 'Investigá el mercado para: $ARGUMENTS\n\nOrquestá los siguientes sub-agentes:\n1. competitor-researcher: mapear competidores directos e indirectos del mercado\n2. market-sizer: estimar el TAM/SAM/SOM con fuentes verificables\n\nCuando ambos terminen, consolidá los resultados en un reporte ejecutivo en /output/research-[mercado].md con secciones: Competidores, Tamaño de Mercado y Oportunidades.',
+          language: 'markdown',
+        },
+        errorCallouts: [
+          {
+            trigger: 'Si Claude sigue haciendo todo él sin delegar',
+            error: 'Los sub-agentes no se invocan',
+            solution:
+              'Reiniciá Claude Code — los commands y agentes se cargan al inicio de la sesión. Si el problema persiste, verificá que los archivos en .claude/agents/ existen y tienen el campo `description` en el frontmatter.',
+          },
+        ],
+      },
+      {
         title: 'Corré sub-agentes en paralelo',
         explanation:
           'Para velocidad máxima, corré investigaciones independientes en paralelo. Con Claude corriendo en cada terminal, escribí un comando de investigación diferente en cada una al mismo tiempo.',
@@ -847,7 +881,7 @@ export const LEVEL_CONTENT: LevelContent[] = [
     level: 7,
     title: 'RALPH Loop',
     subtitle: 'Le das una lista de investigaciones. RALPH las ejecuta todas de forma autónoma, con contexto fresco en cada iteración. Vos llegás y encontrás los reportes listos.',
-    sourceUrl: 'https://code.claude.com/docs/en/overview',
+    sourceUrl: 'https://awesomeclaude.ai/ralph-wiggum',
     summary:
       'Corriste tu primer pipeline autónomo con RALPH. Claude ejecutó todas tus investigaciones de mercado en batch, evaluando criterios de aceptación en cada una y pasando a la siguiente con contexto fresco. Completaste los 8 niveles de Claude Code.',
     steps: [
@@ -879,13 +913,13 @@ export const LEVEL_CONTENT: LevelContent[] = [
         explanation:
           'RALPH se instala como un plugin de Claude Code. Ejecutá el comando de instalación.',
         codeBlock: {
-          code: '/plugin install ralph',
+          code: '/plugin install ralph-loop@claude-plugins-official',
           language: 'bash',
         },
         errorCallouts: [
           {
             trigger: 'Si el plugin no se reconoce',
-            error: '/plugin install ralph falla o no existe',
+            error: '/plugin install ralph-loop@claude-plugins-official falla o no existe',
             solution:
               'Verificá que estés usando una versión reciente de Claude Code: claude --version. Si está desactualizado, actualizalo con: claude update. También podés instalar RALPH desde skillsmp.com siguiendo las instrucciones del repositorio.',
           },

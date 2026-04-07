@@ -9,7 +9,7 @@ export default async function TutorialLevelPage({ params }: TutorialLevelPagePro
   const { level } = await params;
   const levelNum = parseInt(level, 10);
 
-  if (isNaN(levelNum) || levelNum < 0 || levelNum > 6) {
+  if (isNaN(levelNum) || levelNum < 0 || levelNum > 7) {
     notFound();
   }
 
