@@ -487,7 +487,7 @@ function CheatsheetDoc({
           {rows.map((row, rowIdx) => (
             <View key={rowIdx} style={S.gridRow}>
               {row.map((level, colIdx) => (
-                <View key={colIdx} style={[S.card, colIdx === 1 ? S.cardRight : undefined]}>
+                <View key={colIdx} style={colIdx === 1 ? [S.card, S.cardRight] : S.card}>
                   {/* Level header */}
                   <View style={S.levelHeader}>
                     <View style={S.levelPill}>
