@@ -554,7 +554,7 @@ export async function GET(req: Request) {
 
     const filename = lang === 'en' ? 'claude-code-cheatsheet.pdf' : 'guia-claude-code.pdf';
 
-    return new Response(buffer, {
+    return new Response(new Uint8Array(buffer), {
       headers: {
         'Content-Type': 'application/pdf',
         'Content-Disposition': `inline; filename="${filename}"`,
