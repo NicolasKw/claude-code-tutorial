@@ -119,6 +119,10 @@ export function RegistrationForm() {
       >
         {pending ? t.submitting : t.submitBtn}
       </button>
+
+      <p style={{ textAlign: 'center', fontSize: '12px', color: 'rgba(26,15,46,0.35)', marginTop: '12px', lineHeight: 1.5 }}>
+        {t.plansNote}
+      </p>
     </form>
   );
 }

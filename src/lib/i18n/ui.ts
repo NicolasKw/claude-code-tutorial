@@ -17,6 +17,7 @@ export const UI = {
     emailPlaceholder: 'tu@email.com',
     submitBtn: 'Comenzar Tutorial →',
     submitting: 'Registrando...',
+    plansNote: 'Claude Code está disponible en los planes Pro, Max y Team de claude.ai',
     // Header
     prev: '← Anterior',
     next: 'Siguiente →',
@@ -84,6 +85,7 @@ export const UI = {
     emailPlaceholder: 'you@email.com',
     submitBtn: 'Start Tutorial →',
     submitting: 'Registering...',
+    plansNote: 'Claude Code is available on claude.ai Pro, Max and Team plans',
     // Header
     prev: '← Previous',
     next: 'Next →',
